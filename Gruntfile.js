@@ -8,9 +8,9 @@ module.exports = function (grunt) {
       // src: ['<%= client.base %>/']
     },
     proxyServer: {
-      accessPoint: '/api',
+      accessPoint: ['/api', '/oauth'],
       host: 'localhost',
-      port: 3000,
+      port: 9000,
     },
 
     concat: {
@@ -64,49 +64,14 @@ module.exports = function (grunt) {
         options: {
           hostname: "*",
           base: "www",
-          // logger: 'dev',
-          debug: true,
           port: "<%= client.port %>",
-          middleware: function (connect, options, middleware) {
-            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
-            middleware.unshift(proxy);
-            return middleware
-            // return [
-            //   // Include the proxy first 
-            //   proxy,
-            //   // Serve static files. 
-            //   // connect.static(options.base),
-            //   // // Make empty directories browsable. 
-            //   // connect.directory(options.base)
-            // ];
-          },
         },
-        proxies: [
-          {
-            context: '<%= proxyServer.accessPoint %>',
-            host: '<%= proxyServer.host %>',
-            port: '<%= proxyServer.port %>',
-            https: false,
-            changeOrigin: false,
-            xforward: false,
-          }
-        ]
       },
     },
     ngtemplates: {
       options: {
         // This should be the name of your apps angular module
         module: 'caregiversComApp',
-        // htmlmin: {
-        //   collapseBooleanAttributes: true,
-        //   collapseWhitespace: true,
-        //   removeAttributeQuotes: true,
-        //   removeEmptyAttributes: true,
-        //   removeRedundantAttributes: true,
-        //   removeScriptTypeAttributes: true,
-        //   removeStyleLinkTypeAttributes: true
-        // },
-        // usemin: 'www/js/app.js'
       },
       main: {
         cwd: 'client',
@@ -157,10 +122,6 @@ module.exports = function (grunt) {
       dev: {
         files: [ 'Gruntfile.js', 'client/app/**/*.js', 'client/app/**/*.html' ],
         tasks: ['concat:dist', 'ngtemplates:main'],
-        // tasks: [ 'html2js:main', 'concat:js', 'clean' ],
-        // options: {
-        //   atBegin: true
-        // }
       },
     }
   });
@@ -179,7 +140,7 @@ module.exports = function (grunt) {
     'clean',
     'copy:bower',
     'build:dev',
-    'configureProxies:server',
+    // 'configureProxies:server',
     'connect:server',
     'watch:dev',
   ]);
@@ -189,10 +150,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-injector');
-  grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-angular-templates');
-  grunt.loadNpmTasks('grunt-connect-proxy');
+  // grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-connect');
 };

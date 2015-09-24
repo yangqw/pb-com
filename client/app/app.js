@@ -15,6 +15,9 @@ angular.module('caregiversComApp', [
 
     $locationProvider.html5Mode(true);
   })
+  .config(function(STORMPATH_CONFIG){
+    STORMPATH_CONFIG.ENDPOINT_PREFIX = 'http://localhost:9000';
+  })
   .run(function($stormpath){
     $stormpath.uiRouter({
         loginState: 'login',
