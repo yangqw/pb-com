@@ -3,8 +3,14 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     client: {
-      base: "client/app"
+      base: "client/app",
+      port: 9333,
       // src: ['<%= client.base %>/']
+    },
+    proxyServer: {
+      accessPoint: '/api',
+      host: 'localhost',
+      port: 3000,
     },
 
     concat: {
@@ -58,18 +64,34 @@ module.exports = function (grunt) {
         options: {
           hostname: "*",
           base: "www",
-          port: 9333,
-        }
-      }
-    },
-    // html2js
-    html2js: {
-      options: {
+          // logger: 'dev',
+          debug: true,
+          port: "<%= client.port %>",
+          middleware: function (connect, options, middleware) {
+            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+            middleware.unshift(proxy);
+            return middleware
+            // return [
+            //   // Include the proxy first 
+            //   proxy,
+            //   // Serve static files. 
+            //   // connect.static(options.base),
+            //   // // Make empty directories browsable. 
+            //   // connect.directory(options.base)
+            // ];
+          },
+        },
+        proxies: [
+          {
+            context: '<%= proxyServer.accessPoint %>',
+            host: '<%= proxyServer.host %>',
+            port: '<%= proxyServer.port %>',
+            https: false,
+            changeOrigin: false,
+            xforward: false,
+          }
+        ]
       },
-      main: {
-        src: ['client/app/**/*.html'],
-        dest: 'www/js/templates.js'
-      }
     },
     ngtemplates: {
       options: {
@@ -157,18 +179,20 @@ module.exports = function (grunt) {
     'clean',
     'copy:bower',
     'build:dev',
+    'configureProxies:server',
     'connect:server',
-    'watch:dev'
+    'watch:dev',
   ]);
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-injector');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 };

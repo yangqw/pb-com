@@ -7,7 +7,7 @@ angular.module('caregiversComApp', [
   'ui.router',
   'ui.bootstrap',
   'stormpath',
-  'stormpath.templates'
+  'stormpath.templates',
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
