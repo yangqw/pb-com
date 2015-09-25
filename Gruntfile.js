@@ -10,7 +10,7 @@ module.exports = function (grunt) {
     proxyServer: {
       accessPoint: ['/api', '/oauth'],
       host: 'localhost',
-      port: 9000,
+      port: 9100,
     },
 
     concat: {
