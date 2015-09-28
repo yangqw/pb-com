@@ -13,10 +13,7 @@ angular.module('caregiversComApp', [
     $urlRouterProvider
       .otherwise('/');
 
-    $locationProvider.html5Mode(true);
-  })
-  .config(function(STORMPATH_CONFIG){
-    STORMPATH_CONFIG.ENDPOINT_PREFIX = 'http://localhost:9000';
+    // $locationProvider.html5Mode(true);
   })
   .run(function($stormpath){
     $stormpath.uiRouter({
