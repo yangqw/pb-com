@@ -5,7 +5,6 @@ module.exports = function (grunt) {
     client: {
       base: "client/app",
       port: 9333,
-      // src: ['<%= client.base %>/']
     },
     proxyServer: {
       accessPoint: ['/api', '/oauth'],
@@ -16,7 +15,6 @@ module.exports = function (grunt) {
     concat: {
       options: {
         separator: ';',
-        // banner: "'use strict';\n",
       },
       dist: {
         src: ['client/{app,components}/**/*.js', '!client/app/**/*.spec.js'],
@@ -37,6 +35,13 @@ module.exports = function (grunt) {
         cwd: 'client/assets/stylesheets/',
         dest: 'www/assets/stylesheets',
         src: ['**/*.css']
+      },
+      script: {
+        expand: true,
+        flatten: true,
+        cwd: 'client',
+        dest: 'www/js',
+        src: ['{app,components}/**/*.js' , '!app/**/*.spec.js']
       },
       bower: {
         expand: true,
@@ -64,7 +69,9 @@ module.exports = function (grunt) {
         options: {
           hostname: "*",
           base: "www",
+          open: true,
           port: "<%= client.port %>",
+          livereload: true,
         },
       },
     },
@@ -86,7 +93,6 @@ module.exports = function (grunt) {
       scripts: {
         options: {
           transform: function(filePath) {
-            console.log(filePath);
             filePath = filePath.replace('/www/', '');
             return '<script src="' + filePath + '"></script>';
           },
@@ -96,6 +102,8 @@ module.exports = function (grunt) {
         files: {
           'www/index.html': [
                [
+                 'www/js/env.js',
+                 'www/js/app.js',
                  'www/js/*.js'
                ]
             ]
@@ -119,6 +127,9 @@ module.exports = function (grunt) {
       }
     },
     watch: {
+      options: {
+        livereload: true,
+      },
       dev: {
         files: [ 'Gruntfile.js', 'client/app/**/*.js', 'client/app/**/*.html' ],
         tasks: ['concat:dist', 'ngtemplates:main'],
@@ -130,6 +141,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build:dev', [
     'copy:images',
     'copy:css',
+    // 'copy:script',
     'concat:dist',
     'ngtemplates:main',
     'injector:scripts',
