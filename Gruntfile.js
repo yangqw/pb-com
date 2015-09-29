@@ -43,6 +43,24 @@ module.exports = function (grunt) {
         dest: 'www/js',
         src: ['{app,components}/**/*.js' , '!app/**/*.spec.js']
       },
+      devEnv: {
+        expand: true,
+        cwd: 'env',
+        dest: 'www/js/',
+        rename: function(desc, file) {
+          return desc + "env.js"
+        },
+        src: ['dev.js']
+      },
+      prodEnv: {
+        expand: true,
+        cwd: 'env',
+        dest: 'www/js/env.js',
+        rename: function(desc, file) {
+          return desc + "env.js"
+        },
+        src: ['prod.js']
+      },
       bower: {
         expand: true,
         cwd: 'client/',
@@ -131,8 +149,14 @@ module.exports = function (grunt) {
         livereload: true,
       },
       dev: {
-        files: [ 'Gruntfile.js', 'client/app/**/*.js', 'client/app/**/*.html' ],
-        tasks: ['concat:dist', 'ngtemplates:main'],
+        files: ['client/app/**/*.js', 'client/app/**/*.html', 'env/*.js'],
+        tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
+      },
+      configFiles: {
+        files: [ 'Gruntfile.js'],
+        options: {
+          reload: true
+        }
       },
     }
   });
@@ -141,13 +165,14 @@ module.exports = function (grunt) {
   grunt.registerTask('build:dev', [
     'copy:images',
     'copy:css',
-    // 'copy:script',
+    'copy:devEnv',
     'concat:dist',
     'ngtemplates:main',
     'injector:scripts',
     'injector:css',
     'wiredep:target',
   ])
+
   grunt.registerTask('server', [
     'clean',
     'copy:bower',
@@ -155,6 +180,7 @@ module.exports = function (grunt) {
     // 'configureProxies:server',
     'connect:server',
     'watch:dev',
+    'watch:configFiles',
   ]);
 
   grunt.loadNpmTasks('grunt-contrib-watch');
