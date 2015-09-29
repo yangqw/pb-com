@@ -13,7 +13,7 @@ angular.module('caregiversComApp', [
     $urlRouterProvider
       .otherwise('/');
 
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
   })
   .run(function($stormpath){
     $stormpath.uiRouter({
