@@ -2,9 +2,16 @@
 
 <header class="hero-unit" id="banner">
   <div if-user-state-known class="container">
+    <p class="lead" style="margin: 0;">
+      <img src="assets/images/Main/u5.png">
+      <img src="assets/images/Main/u9.png">
+    </p>
+    <p class="lead" style="margin: 0; height: 20px;">
+      <img src="assets/images/Main/u7.png" style="vertical-align: top">
+      <img src="assets/images/Main/u9.png" style="visibility: hidden">
+    </p>
     <div if-not-user>
-      <h1>'Allo, Welcome to CareGivers!</h1>
-      <p class="lead">Your full trust cares with CareGivers</p>
+      <!-- <h1>'Allo, Welcome to CareGivers!</h1> -->
     </div>
     <div if-user>
       <h1>'Allo, {{user.fullName}}</h1>
@@ -12,14 +19,21 @@
         If you require profile access, please contact us.
       </p>
     </div>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>
 </header>
 
-<div  if-user-state-known class="container">
+<div if-user-state-known class="container">
   <div class="row">
     <div if-user class="col-lg-12">
-      <h1 class="page-header">Contacts</h1>
+      <h1 class="page-header">Your contact info</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6">
+        <li><a href="#" tooltip="{{currentContact.email}}">{{currentContact.email}}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div if-user class="col-lg-12">
+      <h1 class="page-header">All contacts</h1>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings.content">
         <li><a href="#" tooltip="{{thing.email}}">{{thing.email}}</a></li>
       </ul>
