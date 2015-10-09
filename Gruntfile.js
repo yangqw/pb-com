@@ -8,8 +8,8 @@ module.exports = function (grunt) {
     },
     proxyServer: {
       accessPoint: ['/api', '/oauth'],
-      host: 'localhost',
-      port: 9100,
+      host: 'api.caregivers.com/prod',
+      port: 80,
     },
 
     concat: {
@@ -149,7 +149,7 @@ module.exports = function (grunt) {
         livereload: true,
       },
       dev: {
-        files: ['client/app/**/*.js', 'client/app/**/*.html', 'env/*.js'],
+        files: ['client/app/**/*.js', 'client/app/**/*.html', 'env/*.js', 'client/assets/stylesheets/*.css'],
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
       },
       configFiles: {

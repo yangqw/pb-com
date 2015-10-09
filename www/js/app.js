@@ -8,21 +8,48 @@ angular.module('caregiversComApp', [
   'ui.bootstrap',
   'stormpath',
   'stormpath.templates',
+  'stripe',
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
-  })
-  .config(function(STORMPATH_CONFIG){
-    STORMPATH_CONFIG.ENDPOINT_PREFIX = 'http://localhost:9000';
+
+    if(Stripe && Stripe.setPublishableKey){
+      Stripe.setPublishableKey('pk_test_d1aKYweI07SGiH1OUk1Jr10t');
+    }
+
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.withCredentials = false;
   })
   .run(function($stormpath){
     $stormpath.uiRouter({
         loginState: 'login',
         defaultPostLoginState: 'main'
     });
+  });
+;'use strict';
+//Base controller, one purpose is going to set access_token to http headers
+angular.module('caregiversComApp')
+  .controller('ApplicationCtl', function ($scope, $http, $cookies) {
+    //console.log("ApplicationCtl");
+    if ($cookies.get('access_token')) {
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('access_token');
+        $http.defaults.headers.common.withCredentials = false;
+    }
+  });
+;'user strict'
+
+angular.module('caregiversComApp')
+  .config(function(STORMPATH_CONFIG){
+    //console.log("********AppConfig********");
+    if (CareGiverEnv) {// Overwrite STORMPATH_CONFIG keys if found definition at GareGiverEnv
+      STORMPATH_CONFIG.ENDPOINT_PREFIX = CareGiverEnv.server.host;
+      angular.forEach(CareGiverEnv.server.accesspoint, function(value, key) {
+        STORMPATH_CONFIG[key] = value;
+      })
+    }
   });
 ;'use strict';
 
@@ -44,8 +71,44 @@ angular.module('caregiversComApp')
 ;'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($scope) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user) {
     $scope.message = 'Hello';
+    $scope.$on('$authenticated', function(event, httpResponse) {
+      if (httpResponse && httpResponse.access_token){
+        $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;
+        $http.defaults.headers.common.withCredentials = false;
+        $cookies.put('access_token', httpResponse.access_token);
+      }
+
+      if($user && $user.currentUser){
+        if (!$user.currentUser.contactId){
+          $http.post(CareGiverEnv.server.host + '/v1/contacts/register', $user.currentUser)
+          .success(function(contact){
+            //Here bind contact to currentUser
+            $user.currentUser.contactId = contact.id;
+            $http.post(CareGiverEnv.server.host + '/v1/users/update', $user.currentUser)
+            .success(function(user){
+              console.log(user);
+            })
+          });
+        }
+
+        var groups = $user.currentUser.groups;
+        var isFamilyGroup = false;
+        $.each(groups, function(key, value){
+          if (value.href == "https://api.stormpath.com/v1/groups/BEPUSki86n0koXCSa1Yu5"){
+            isFamilyGroup = true;
+            return false;
+          }
+          return true;
+        });
+        if (!isFamilyGroup){
+          console.log("Go to bind group Family");
+        }
+      }
+
+    });
+
   });
 ;'use strict';
 
@@ -60,13 +123,23 @@ angular.module('caregiversComApp')
   });;'use strict';
 
 angular.module('caregiversComApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, $rootScope, $user) {
+    //console.log('MainCrtl');
     $scope.awesomeThings = [];
+    if ($user && $user.currentUser){
+      $http.get(CareGiverEnv.server.host + '/v1/contacts', {withCredentials: true}
+      ).success(function(awesomeThings) {
+        $scope.awesomeThings = awesomeThings;
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
-
+        $.each(awesomeThings.content, function(key, value){
+          if (value.id == $user.currentUser.contactId){
+            $scope.currentContact = value;
+            return false;
+          }
+          return true;
+        });
+      });
+    }
   });
 ;'use strict';
 
@@ -118,8 +191,24 @@ angular.module('caregiversComApp')
   });;'use strict';
 
 angular.module('caregiversComApp')
-  .controller('ProfileCtrl', function ($scope) {
+  .controller('ProfileCtrl', function ($scope, $http) {
     $scope.message = 'Hello';
+    $scope.saveCustomer = function(status, response){
+      //debugger;
+      var $form = $('#payment-form');
+      if (response.error) {
+        // Show the errors on the form
+        $form.find('.payment-errors').text(response.error.message);
+      } else {
+        // response contains id and card, which contains additional card details
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        // and submit
+
+        $form.find('.payment-errors').text("POST to killbill for payment method with StripeToken:" + token);
+      }
+    };
   });
 ;'use strict';
 

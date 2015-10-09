@@ -10,7 +10,7 @@ angular.module('caregiversComApp', [
   'stormpath.templates',
   'stripe',
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');
 
@@ -19,6 +19,9 @@ angular.module('caregiversComApp', [
     if(Stripe && Stripe.setPublishableKey){
       Stripe.setPublishableKey('pk_test_d1aKYweI07SGiH1OUk1Jr10t');
     }
+
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.withCredentials = false;
   })
   .run(function($stormpath){
     $stormpath.uiRouter({

@@ -2,19 +2,14 @@
 
 <header class="hero-unit" id="banner">
   <div if-user-state-known class="container">
-    <p class="lead" style="margin: 0;">
-      <img src="assets/images/Main/u5.png">
-      <img src="assets/images/Main/u9.png">
-    </p>
-    <p class="lead" style="margin: 0; height: 20px;">
-      <img src="assets/images/Main/u7.png" style="vertical-align: top">
-      <img src="assets/images/Main/u9.png" style="visibility: hidden">
-    </p>
+    <div style="background-image: url('http://wwwstatic.caregivers.com/wp-content/uploads/2015/10/01140603/home-hero-1140x535.jpg'); height: 400px;">
+      <h1 style="padding-top: 50px;">Welcome, family member!</h1>
+    </div>
     <div if-not-user>
       <!-- <h1>'Allo, Welcome to CareGivers!</h1> -->
     </div>
     <div if-user>
-      <h1>'Allo, {{user.fullName}}</h1>
+      <h1>Hello, {{user.fullName}}</h1>
       <p if-user-not-in-group="ROLE_ADMINS_CAREGIVERS" class="lead">
         If you require profile access, please contact us.
       </p>
@@ -43,8 +38,6 @@
 
 <footer class="footer">
   <div class="container">
-      <p>© Copyright 2015, provided by Stormpath with AngularJs, supported by Shinetech |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+      <p>© Copyright 2015 Caregivers.com </p>
   </div>
 </footer>

@@ -22,7 +22,7 @@ angular.module('caregiversComApp').run(['$templateCache', function($templateCach
     "<div class=\"container\">\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"col-xs-12\">\n" +
-    "      <h3>Login</h3>\n" +
+    "      <h3>Login To CareGivers</h3>\n" +
     "      <hr>\n" +
     "    </div>\n" +
     "  </div>\n" +
@@ -36,26 +36,35 @@ angular.module('caregiversComApp').run(['$templateCache', function($templateCach
     "\n" +
     "<header class=\"hero-unit\" id=\"banner\">\n" +
     "  <div if-user-state-known class=\"container\">\n" +
+    "    <div style=\"background-image: url('http://wwwstatic.caregivers.com/wp-content/uploads/2015/10/01140603/home-hero-1140x535.jpg'); height: 400px;\">\n" +
+    "      <h1 style=\"padding-top: 50px;\">Welcome, family member!</h1>\n" +
+    "    </div>\n" +
     "    <div if-not-user>\n" +
-    "      <h1>'Allo, Welcome to CareGivers!</h1>\n" +
-    "      <p class=\"lead\">Your full trust cares with CareGivers</p>\n" +
+    "      <!-- <h1>'Allo, Welcome to CareGivers!</h1> -->\n" +
     "    </div>\n" +
     "    <div if-user>\n" +
-    "      <h1>'Allo, {{user.fullName}}</h1>\n" +
+    "      <h1>Hello, {{user.fullName}}</h1>\n" +
     "      <p if-user-not-in-group=\"ROLE_ADMINS_CAREGIVERS\" class=\"lead\">\n" +
     "        If you require profile access, please contact us.\n" +
     "      </p>\n" +
     "    </div>\n" +
-    "    <img src=\"assets/images/yeoman.png\" alt=\"I'm Yeoman\">\n" +
     "  </div>\n" +
     "</header>\n" +
     "\n" +
-    "<div  if-user-state-known class=\"container\">\n" +
+    "<div if-user-state-known class=\"container\">\n" +
     "  <div class=\"row\">\n" +
     "    <div if-user class=\"col-lg-12\">\n" +
-    "      <h1 class=\"page-header\">Coming features:</h1>\n" +
-    "      <ul class=\"nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6\" ng-repeat=\"thing in awesomeThings\">\n" +
-    "        <li><a href=\"#\" tooltip=\"{{thing.info}}\">{{thing.name}}</a></li>\n" +
+    "      <h1 class=\"page-header\">Your contact info</h1>\n" +
+    "      <ul class=\"nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6\">\n" +
+    "        <li><a href=\"#\" tooltip=\"{{currentContact.email}}\">{{currentContact.email}}</a></li>\n" +
+    "      </ul>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <div class=\"row\">\n" +
+    "    <div if-user class=\"col-lg-12\">\n" +
+    "      <h1 class=\"page-header\">All contacts</h1>\n" +
+    "      <ul class=\"nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6\" ng-repeat=\"thing in awesomeThings.content\">\n" +
+    "        <li><a href=\"#\" tooltip=\"{{thing.email}}\">{{thing.email}}</a></li>\n" +
     "      </ul>\n" +
     "    </div>\n" +
     "  </div>\n" +
@@ -63,9 +72,7 @@ angular.module('caregiversComApp').run(['$templateCache', function($templateCach
     "\n" +
     "<footer class=\"footer\">\n" +
     "  <div class=\"container\">\n" +
-    "      <p>© Copyright 2015, provided by Stormpath with AngularJs, supported by Shinetech |\n" +
-    "        <a href=\"https://twitter.com/tyhenkel\">@tyhenkel</a> |\n" +
-    "         <a href=\"https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open\">Issues</a></p>\n" +
+    "      <p>© Copyright 2015 Caregivers.com </p>\n" +
     "  </div>\n" +
     "</footer>\n"
   );
@@ -112,6 +119,35 @@ angular.module('caregiversComApp').run(['$templateCache', function($templateCach
     "    </div>\n" +
     "\n" +
     "  </div>\n" +
+    "\n" +
+    "  <form stripe:form=\"saveCustomer\" id=\"payment-form\">\n" +
+    "  <span class=\"payment-errors\"></span>\n" +
+    "\n" +
+    "  <div class=\"form-row\">\n" +
+    "  <label>\n" +
+    "  <span>Card Number</span>\n" +
+    "  <input type=\"text\" size=\"20\" data-stripe=\"number\"/>\n" +
+    "  </label>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"form-row\">\n" +
+    "  <label>\n" +
+    "  <span>CVC</span>\n" +
+    "  <input type=\"text\" size=\"4\" data-stripe=\"cvc\"/>\n" +
+    "  </label>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"form-row\">\n" +
+    "  <label>\n" +
+    "  <span>Expiration (MM/YYYY)</span>\n" +
+    "  <input type=\"text\" size=\"2\" data-stripe=\"exp-month\"/>\n" +
+    "  </label>\n" +
+    "  <span> / </span>\n" +
+    "  <input type=\"text\" size=\"4\" data-stripe=\"exp-year\"/>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <button type=\"submit\">Submit Payment</button>\n" +
+    "  </form>\n" +
     "\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"col-xs-12\">\n" +
@@ -163,12 +199,6 @@ angular.module('caregiversComApp').run(['$templateCache', function($templateCach
     "        <label for=\"spPassword\" class=\"col-xs-12 col-sm-4 control-label\">Password</label>\n" +
     "        <div class=\"col-xs-12 col-sm-4\">\n" +
     "          <input type=\"password\" class=\"form-control\" id=\"spPassword\" ng-model=\"formModel.password\" placeholder=\"Password\" ng-disabled=\"creating\">\n" +
-    "        </div>\n" +
-    "      </div>\n" +
-    "      <div class=\"form-group\">\n" +
-    "        <label for=\"favColor\" class=\"col-xs-12 col-sm-4 control-label\">Favorite Color</label>\n" +
-    "        <div class=\"col-xs-12 col-sm-4\">\n" +
-    "          <input type=\"text\" class=\"form-control\" id=\"favColor\" ng-model=\"formModel.customData.favColor\" ng-disabled=\"creating\">\n" +
     "        </div>\n" +
     "      </div>\n" +
     "      <div class=\"form-group\">\n" +
@@ -224,7 +254,7 @@ angular.module('caregiversComApp').run(['$templateCache', function($templateCach
     "        <span class=\"icon-bar\"></span>\n" +
     "        <span class=\"icon-bar\"></span>\n" +
     "      </button>\n" +
-    "      <a href=\"/\" class=\"navbar-brand\">caregivers-com</a>\n" +
+    "      <a href=\"/\" class=\"navbar-branded\"><img src=\"assets/images/caregivers-logo-header-40px.jpg\"/> </a>\n" +
     "    </div>\n" +
     "    <div collapse=\"isCollapsed\" class=\"navbar-collapse collapse\" id=\"navbar-main\">\n" +
     "      <ul class=\"nav navbar-nav\">\n" +

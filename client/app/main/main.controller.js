@@ -5,7 +5,7 @@ angular.module('caregiversComApp')
     //console.log('MainCrtl');
     $scope.awesomeThings = [];
     if ($user && $user.currentUser){
-      $http.get(CareGiverEnv.server.host + '/api/contacts', {withCredentials: true}
+      $http.get(CareGiverEnv.server.host + '/v1/contacts', {withCredentials: true}
       ).success(function(awesomeThings) {
         $scope.awesomeThings = awesomeThings;
 

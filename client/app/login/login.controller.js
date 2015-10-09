@@ -6,17 +6,17 @@ angular.module('caregiversComApp')
     $scope.$on('$authenticated', function(event, httpResponse) {
       if (httpResponse && httpResponse.access_token){
         $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;
-        $http.defaults.headers.common.withCredentials = true;
+        $http.defaults.headers.common.withCredentials = false;
         $cookies.put('access_token', httpResponse.access_token);
       }
 
       if($user && $user.currentUser){
         if (!$user.currentUser.contactId){
-          $http.post(CareGiverEnv.server.host + '/api/contacts/register', $user.currentUser)
+          $http.post(CareGiverEnv.server.host + '/v1/contacts/register', $user.currentUser)
           .success(function(contact){
             //Here bind contact to currentUser
             $user.currentUser.contactId = contact.id;
-            $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser)
+            $http.post(CareGiverEnv.server.host + '/v1/users/update', $user.currentUser)
             .success(function(user){
               console.log(user);
             })
