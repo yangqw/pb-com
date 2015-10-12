@@ -2,7 +2,7 @@
 
 angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user) {
-    //$scope.message = 'Hello';
+    $scope.message = 'Hello';
     $scope.$on('$authenticated', function(event, httpResponse) {
       if (httpResponse && httpResponse.access_token){
         $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;
@@ -13,29 +13,41 @@ angular.module('caregiversComApp')
       if (!$user || !$user.currentUser) return;
 
       //Check group belongs
-      var groups = $user.currentUser.groups;
-      var isFamilyGroup = false;
-      $.each(groups, function(key, value){
-        if (value.href == "https://api.stormpath.com/v1/groups/BEPUSki86n0koXCSa1Yu5"){
-          isFamilyGroup = true;
-          return false;
-        }
-        return true;
-      });
-      if (!isFamilyGroup){console.log("Go to bind group Family");}
+      // var groups = $user.currentUser.groups;
+      // var isFamilyGroup = false;
+      // $.each(groups, function(key, value){
+      //   if (value.href == "https://api.stormpath.com/v1/groups/BEPUSki86n0koXCSa1Yu5"){
+      //     isFamilyGroup = true;
+      //     return false;
+      //   }
+      //   return true;
+      // });
+      // if (!isFamilyGroup){console.log("Go to bind group Family");}
 
       //Check contact profile, create one if NA throuht API server based on logged user info
       if (!$user.currentUser.contactId){
-        $http.post(CareGiverEnv.server.host + '/contacts/register', $user.currentUser)
+        var contactData = {
+          "firstName" : $user.currentUser.surname,
+          "lastName" : $user.currentUser.givenName,
+          "email": $user.currentUser.email
+        };
+        $http.post(CareGiverEnv.server.host + '/contacts', contactData)
         .success(function(contact){
           //Here bind contact to currentUser
-          $user.currentUser.contactId = contact.id;
-          $http.post(CareGiverEnv.server.host + '/users/update', $user.currentUser)
+          $user.currentUser.contactId = contact.content._id;
+          $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser)
           .success(function(user){
             console.log("Update ContactID and store in current user.contactId" + $user.currentUser.contactId);
             PostToKillBill();
           })
         });
+      }
+      else{
+        $http.get(CareGiverEnv.server.host + '/contacts/' + $user.currentUser.contactId)
+        .success(function(contactThing) {
+          if (contactThing && contactThing.content) $scope.currentContact = contactThing.contetn;
+          else $scope.currentContact = {};
+        })
       }
 
       var PostToKillBill = function() {

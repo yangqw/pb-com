@@ -5,20 +5,22 @@ angular.module('caregiversComApp')
     //console.log('MainCrtl');
     $scope.awesomeThings = [];
     $scope.currentContact = {};
-    if ($user && $user.currentUser){
-      $http.get(CareGiverEnv.server.host + '/contacts')
+    if ($user && $user.currentUser && $user.currentUser.contactId){
+      $http.get(CareGiverEnv.server.host + '/contacts/' + $user.currentUser.contactId)
       .success(function(awesomeThings) {
-        $scope.awesomeThings = awesomeThings;
-
-        if (awesomeThings.content){
-          $.each(awesomeThings.content, function(key, value){
-            if (value.id == $user.currentUser.contactId){
-              $scope.currentContact = value;
-              return false;
-            }
-            return true;
-          });
-        }
+        if (awesomeThings && awesomeThings.content)
+          $scope.currentContact = awesomeThings.content;
+        // $scope.awesomeThings = awesomeThings;
+        //
+        // if (awesomeThings.content){
+        //   $.each(awesomeThings.content, function(key, value){
+        //     if (value.id == $user.currentUser.contactId){
+        //       $scope.currentContact = value;
+        //       return false;
+        //     }
+        //     return true;
+        //   });
+        // }
 
       });
     }
