@@ -30,15 +30,14 @@ angular.module('caregiversComApp')
 
     var mapStripToKillBill = function() {
       if ($user.currentUser.accountId && $user.currentUser.stripeToken) {
-        var postData = {
+        var postData = 
           {"pluginName": "killbill-stripe",
             "pluginInfo":{
               "properties":[{
                 "key":"token",
                 "value": $user.currentUser.stripeToken}]
             }
-          }
-        };
+          };
         $http.post(CareGiverEnv.server.host + '/billing/accounts/' + $user.currentUser.accountId + "/paymentMethods?isDefault=true", postData
                   ).success(function(response) {
                     console.log("successfully map strip to killbill paymentmethod");
