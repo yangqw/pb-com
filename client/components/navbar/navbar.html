@@ -14,7 +14,7 @@
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
           <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>
-        <li ng-class="{active: isActive('/profile')}">
+        <li if-user ng-class="{active: isActive('/profile')}">
           <a ui-sref="profile">Profile</a>
         </li>
         <li if-not-user ng-class="{active: isActive('/register')}">

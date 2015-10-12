@@ -65,10 +65,10 @@ angular.module('caregiversComApp')
               // + '&accountWithBalance=false&accountWithBalanceAndCBA=false&audit=NONE'
             ).success(function(account) {
               //Here bind account to currentUser
-              $user.currentUser.accountId = account.accountId;
-              $http.post(CareGiverEnv.server.host + '/users/update', $user.currentUser
+              $user.currentUser.kbAccountId = account.accountId;
+              $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
               ).success(function(user) {
-                console.log("Update AccountID and store in current user.accountId:" + $user.currentUser.accountId);
+                console.log("Update AccountID and store in current user.accountId:" + $user.currentUser.kbAccountId);
               });
             });
           }).error(function(error){
