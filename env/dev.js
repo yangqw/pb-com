@@ -1,11 +1,13 @@
 window.CareGiverEnv = {
   "server": {
     "accesspoint": {
-      "USER_COLLECTION_URI" : '/v1/users/register',
-      "AUTHENTICATION_ENDPOINT" : '/v1/users/oauth/token',
-      "DESTROY_SESSION_ENDPOINT" : '/v1/users/logout',
+      "USER_COLLECTION_URI" : '/users/register',
+      "AUTHENTICATION_ENDPOINT" : '/users/oauth/token',
+      "CURRENT_USER_URI" : '/users/current',
+      "DESTROY_SESSION_ENDPOINT" : '/users/logout',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
-    "host": "https://api.caregivers.com/prod",//"http://192.168.50.102:9100",
+    "host": "http://localhost:9100/api",
+    "host_kb": "http://killbill.io:8080/1.0/kb"//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
   }
 }
