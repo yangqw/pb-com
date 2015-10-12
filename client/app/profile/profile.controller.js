@@ -3,6 +3,24 @@
 angular.module('caregiversComApp')
   .controller('ProfileCtrl', function ($scope, $http, $user) {
     if (!$user || !$user.currentUser) return;
+    $scope.mapStripToKillBill = function() {
+      if ($user.currentUser.kbAccountId && $user.currentUser.stripeToken) {
+        var postData = {
+          "pluginName": "killbill-stripe",
+            "pluginInfo":{
+              "properties":[{
+                "key":"token",
+                "value": $user.currentUser.stripeToken}]
+            }
+        };
+        $http.post(CareGiverEnv.server.host + '/billing/accounts/' + $user.currentUser.kbAccountId + "/paymentMethods?isDefault=true", postData
+                  ).success(function(response) {
+                    console.log("successfully map strip to killbill paymentmethod");
+                    console.log(response);
+                  });
+      }
+    };
+
     $scope.saveCustomer = function(status, response){
       //debugger;
       var $form = $('#payment-form');
@@ -23,26 +41,9 @@ angular.module('caregiversComApp')
         $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
                   ).success(function(user) {
                     console.log("Update Strip and store in current user.stripeToken:" + $user.currentUser.stripeToken);
-                    mapStripToKillBill();
+                    $scope.mapStripToKillBill();
                   });
       }
     };
 
-    var mapStripToKillBill = function() {
-      if ($user.currentUser.kbAccountId && $user.currentUser.stripeToken) {
-        var postData = {
-          "pluginName": "killbill-stripe",
-            "pluginInfo":{
-              "properties":[{
-                "key":"token",
-                "value": $user.currentUser.stripeToken}]
-            }
-        };
-        $http.post(CareGiverEnv.server.host + '/billing/accounts/' + $user.currentUser.kbAccountId + "/paymentMethods?isDefault=true", postData
-                  ).success(function(response) {
-                    console.log("successfully map strip to killbill paymentmethod");
-                    console.log(response);
-                  });
-      }
-    }
   });
