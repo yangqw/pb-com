@@ -33,41 +33,39 @@ angular.module('caregiversComApp')
           $http.post(CareGiverEnv.server.host + '/users/update', $user.currentUser)
           .success(function(user){
             console.log("Update ContactID and store in current user.contactId" + $user.currentUser.contactId);
+            PostToKillBill();
           })
         });
       }
 
-      //Check account profile, create one if NA through KB server based on contactId as externalKey
-      if (!$user.currentUser.accountId){
-        var accountData = {
-          "accountId": "",
-          "name": $user.currentUser.fullName,
-          "email": $user.currentUser.email,
-          "externalKey": $user.currentUser.contactId,
-          "currency": "USD"
-        };
-        $http.post(CareGiverEnv.server.host_kb + '/accounts', accountData, {
-          headers: {
-            "X-Killbill-CreatedBy": "CaregiversComApp",
-            "X-Killbill-Reason": "Register an account for family contact",
-            "X-Killbill-Comment": "Works while family user login and no related account found."
-          }
-        }).success(function() {
-          //Get accountId from KB
-          $http.get(CareGiverEnv.server.host_kb + 'accounts?externalKey=' + $user.currentUser.contactId
-            + '&accountWithBalance=false&accountWithBalanceAndCBA=false&audit=NONE'
-          ).success(function(account) {
-            //Here bind account to currentUser
-            $user.currentUser.accountId = account.accountId;
-            $http.post(CareGiverEnv.server.host + '/users/update', $user.currentUser
-            ).success(function(user) {
-              console.log("Update AccountID and store in current user.accountId:" + $user.currentUser.accountId);
+      var PostToKillBill = function() {
+        if ($user.currentUser.contactId){
+          var accountData = {
+            "name": $user.currentUser.fullName,
+            "email": $user.currentUser.email,
+            "externalKey": $user.currentUser.contactId,
+            "currency": "USD"
+          };
+          $http.post(CareGiverEnv.server.host_kb + '/billing/accounts', accountData, {
+          }).success(function() {
+            //Get accountId from KB
+            $http.get(CareGiverEnv.server.host_kb + '/billing/accounts?externalKey=' + $user.currentUser.contactId
+              // + '&accountWithBalance=false&accountWithBalanceAndCBA=false&audit=NONE'
+            ).success(function(account) {
+              //Here bind account to currentUser
+              $user.currentUser.accountId = account.accountId;
+              $http.post(CareGiverEnv.server.host + '/users/update', $user.currentUser
+              ).success(function(user) {
+                console.log("Update AccountID and store in current user.accountId:" + $user.currentUser.accountId);
+              });
             });
+          }).error(function(error){
+            console.log("Error while post " + CareGiverEnv.server.host_kb + '/accounts');
           });
-        }).error(function(error){
-          console.log("Error while post " + CareGiverEnv.server.host_kb + '/accounts');
-        });
-      }
+        }
+      };
+
+      //Check account profile, create one if NA through KB server based on contactId as externalKey
 
     });
 
