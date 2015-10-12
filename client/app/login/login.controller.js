@@ -33,7 +33,7 @@ angular.module('caregiversComApp')
     $scope.$on('$authenticated', function(event, httpResponse) {
       if (httpResponse && httpResponse.access_token){
         $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;
-        $http.defaults.headers.common.withCredentials = false;
+        $http.defaults.headers.common.withCredentials = true;
         $cookies.put('access_token', httpResponse.access_token);
       }
       if (!$user || !$user.currentUser) return;

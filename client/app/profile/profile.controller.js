@@ -13,7 +13,7 @@ angular.module('caregiversComApp')
                 "value": $user.currentUser.stripeToken}]
             }
         };
-        $http.post(CareGiverEnv.server.host + '/billing/accounts/' + $user.currentUser.kbAccountId + "/paymentMethods?isDefault=true", postData
+        $http.post(CareGiverEnv.server.host_kb + '/billing/accounts/' + $user.currentUser.kbAccountId + "/paymentmethods?isDefault=true", postData
                   ).success(function(response) {
                     console.log("successfully map strip to killbill paymentmethod");
                     console.log(response);
