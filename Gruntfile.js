@@ -1,7 +1,18 @@
 module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-aws-s3');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    aws_s3: {
+      production: {
+      options: {
+        bucket: 'families.caregivers.com',
+      },
+        files: [
+          {expand: true, cwd: 'www', src: ['**'], dest: '/'}
+        ]
+      }
+    },
     client: {
       base: "client/app",
       port: 9333,
@@ -55,7 +66,7 @@ module.exports = function (grunt) {
       prodEnv: {
         expand: true,
         cwd: 'env',
-        dest: 'www/js/env.js',
+        dest: 'www/js/',
         rename: function(desc, file) {
           return desc + "env.js"
         },
@@ -162,6 +173,21 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', ['server']);
+  grunt.registerTask('build:prod', [
+    'copy:images',
+    'copy:css',
+    'copy:prodEnv',
+    'concat:dist',
+    'ngtemplates:main',
+    'injector:scripts',
+    'injector:css',
+    'wiredep:target',
+  ])
+
+  grunt.registerTask('deploy:prod', function () {
+    grunt.task.run(['build:prod', 'aws_s3']);
+  });
+
   grunt.registerTask('build:dev', [
     'copy:images',
     'copy:css',
