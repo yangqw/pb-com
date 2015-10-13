@@ -16,7 +16,7 @@ angular.module('caregiversComApp')
         $http.post(CareGiverEnv.server.host_kb + '/billing/accounts/' + $user.currentUser.kbAccountId + "/paymentmethods?isDefault=true", postData
                   ).success(function(response) {
                     console.log("successfully map strip to killbill paymentmethod");
-                    console.log(response);
+                    //console.log(response);
                   });
       }
     };
