@@ -17,7 +17,7 @@ angular.module('caregiversComApp')
           $scope.GetFromKillBill().then(function() {
             $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
                        ).success(function(user) {
-                         console.log("Update AccountID and tag at current user.kbAccount :" + account.accountId);
+                         //console.log("Update AccountID and tag at current user.kbAccount :" + account.accountId);
                          $state.go('profile');
                        });
           });
