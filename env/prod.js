@@ -8,7 +8,7 @@ window.CareGiverEnv = {
       "DESTROY_SESSION_ENDPOINT" : '/api/users/logout',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
-    "host": "http://api.caregivers.com/prod",
+    "host": "https://api-proxy.caregivers.com",
     "host_kb": "https://api.caregivers.com/prod"//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
   }
 }
