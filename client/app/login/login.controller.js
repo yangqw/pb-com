@@ -1,7 +1,34 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($q, $scope, $http, $cookies, $user, $state) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth) {
+
+    $scope.fbLogin = function () {
+      /**
+       * Calling FB.login with required permissions specified
+       * https://developers.facebook.com/docs/reference/javascript/FB.login/v2.0
+       */
+      ezfb.login(function (res) {
+        /**
+         * no manual $scope.$apply, I got that handled
+         */
+        if (res.authResponse) {
+          var formData = {
+            providerId: 'facebook',         // Get access token from FB sdk login
+            accessToken: res.authResponse.accessToken
+          }
+            $auth.authenticate(formData)
+              .then(function(){
+                console.log('login success');
+                $state.go('home');
+              })
+              .catch(function(httpResponse){
+                $scope.errorMessage = response.data.message;
+              });
+        }
+      }, {scope: 'email,public_profile'});
+    };
+
     $scope.message = 'Hello';
     $scope.PostToKillBill = function() {
       if ($user.currentUser.contactId){
