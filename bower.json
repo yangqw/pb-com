@@ -13,7 +13,7 @@
     "font-awesome": ">=4.1.0",
     "json3": "~3.3.1",
     "lodash": "~2.4.1",
-    "stormpath-sdk-angularjs": "~0.6.0",
+    "stormpath-sdk-angularjs": "~0.7.1",
     "stripe-angular": "~1.0.2"
   },
   "devDependencies": {
