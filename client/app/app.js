@@ -9,8 +9,9 @@ angular.module('caregiversComApp', [
   'stormpath',
   'stormpath.templates',
   'stripe',
+  'ezfb'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, ezfbProvider) {
     $urlRouterProvider
       .otherwise('/');
 
@@ -22,6 +23,10 @@ angular.module('caregiversComApp', [
 
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
+
+    ezfbProvider.setInitParams({
+      appId: '1633212660281900'
+    });
   })
   .run(function($stormpath){
     $stormpath.uiRouter({
