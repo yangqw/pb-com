@@ -116,4 +116,7 @@ angular.module('caregiversComApp')
 
     });
 
+    $scope.$on('$authenticationFailure', function(event, response){
+      //$scope.errorMsg = response.data && response.data.message || 'XHR Error';
+    })
   });

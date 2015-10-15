@@ -4,7 +4,7 @@ angular.module('caregiversComApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/'
+      'link': '/#/home'
     }];
 
     $scope.isCollapsed = true;

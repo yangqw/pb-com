@@ -1,8 +1,18 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('ProfileCtrl', function ($scope, $http, $user) {
+  .controller('ProfileCtrl', function ($scope, $http, $user, $window) {
     if (!$user || !$user.currentUser) return;
+
+    if ($user.currentUser.stripeToken){
+      //Try to get payment info from api-proxy
+      // $http.get("https://api.stripe.com/v1/tokens/" + $user.currentUser.stripeToken
+      //   + "?key=sk_test_bOXEIQ1gYlrXQrT4tcIKqMZK" + "&payment_user_agent=stripe.js%2Fd7aec20"
+      // ).success(function(response){
+      //   $user.currentUser.payment = response;
+      // });
+    }
+
     $scope.mapStripToKillBill = function() {
       if ($user.currentUser.kbAccountId && $user.currentUser.stripeToken) {
         var postData = {
@@ -22,7 +32,7 @@ angular.module('caregiversComApp')
     };
 
     $scope.saveCustomer = function(status, response){
-      //debugger;
+      debugger;
       var $form = $('#payment-form');
       if (response.error) {
         // Show the errors on the form
