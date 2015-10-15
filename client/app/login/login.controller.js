@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q) {
 
     $scope.fbLogin = function () {
       /**
@@ -144,6 +144,6 @@ angular.module('caregiversComApp')
     });
 
     $scope.$on('$authenticationFailure', function(event, response){
-      //$scope.errorMsg = response.data && response.data.message || 'XHR Error';
+      $scope.errorMsg = response.data && response.data.message || 'XHR Error';
     })
   });
