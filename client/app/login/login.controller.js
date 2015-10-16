@@ -21,10 +21,10 @@ angular.module('caregiversComApp')
             $auth.authenticate(formData)
               .then(function(){
                 console.log('login success');
-                $state.go('home');
+                $state.go('profile');
               })
               .catch(function(httpResponse){
-                $scope.errorMessage = response.data.message;
+                $scope.errorMessage = httpResponse.data.message;
               });
         }
       }, {scope: 'email,public_profile'});
