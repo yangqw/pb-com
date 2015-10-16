@@ -41,6 +41,12 @@ module.exports = function (grunt) {
         src: ['*', '**/*'],
         dest: 'www/assets/images'
       },
+      js: {
+        expand: true,
+        cwd: 'client/assets/js/',
+        src: ['*.js'],
+        dest: 'www/assets/js'
+      },
       css: {
         expand: true,
         cwd: 'client/assets/stylesheets/',
@@ -175,6 +181,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['server']);
   grunt.registerTask('build:prod', [
     'copy:images',
+    'copy:js',
     'copy:css',
     'copy:prodEnv',
     'concat:dist',
@@ -190,6 +197,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build:dev', [
     'copy:images',
+    'copy:js',
     'copy:css',
     'copy:devEnv',
     'concat:dist',
