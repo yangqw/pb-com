@@ -2,6 +2,7 @@
 
 angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q) {
+    $scope.message = 'Hello, LoginCtrl';
 
     $scope.fbLogin = function () {
       /**
@@ -29,42 +30,34 @@ angular.module('caregiversComApp')
       }, {scope: 'email,public_profile'});
     };
 
-    $scope.message = 'Hello';
-    $scope.PostToKillBill = function() {
-      if ($user.currentUser.contactId){
-        var accountData = {
-          "name": $user.currentUser.fullName,
-          "email": $user.currentUser.email,
-          "externalKey": $user.currentUser.contactId,
-          "currency": "USD"
-        };
-        $http.post(CareGiverEnv.server.host_kb + '/billing/accounts', accountData, {
-        }).success(function() {
-          //Get accountId from KB
-          $scope.GetFromKillBill().then(function() {
-            $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
-                       ).success(function(user) {
-                         //console.log("Update AccountID and tag at current user.kbAccount :" + account.accountId);
-                         $state.go('profile');
-                       });
+    $scope.postToKillbill = function() {
+      if (!$user.currentUser.email || !$user.currentUser.contactId) return;
+
+      var register_account_url = CareGiverEnv.server.host_kb + '/billing/accounts';
+      var accountData = {
+        "name": $user.currentUser.fullName,
+        "email": $user.currentUser.email,
+        "externalKey": $user.currentUser.contactId,
+        "currency": "USD"
+      };
+      $http.post(register_account_url, accountData
+      ).success(function() {
+        $scope.getFromKillbill(
+        ).then(function() {
+          var update_user_url = CareGiverEnv.server.host + '/api/users/update';
+          $http.post(update_user_url, $user.currentUser
+          ).success(function(user) {
+            console.log("Update AccountID and tag at current user.kbAccount :" + $user.currentUser.kbAccountId);
+            $state.go('profile');
           });
-          // $http.get(CareGiverEnv.server.host_kb + '/billing/accounts?externalKey=' + $user.currentUser.contactId
-          //          ).success(function(account) {
-          //            //Here bind account to currentUser
-          //            $user.currentUser.kbAccount = account.accountId != null;
-          //            $user.currentUser.kbAccountId = account.accountId;
-          //            $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
-          //                      ).success(function(user) {
-          //                        console.log("Update AccountID and tag at current user.kbAccount :" + account.accountId);
-          //                        $state.go('profile');
-          //                      });
-          //          });
-        }).error(function(error){
-          console.log("Error while post " + CareGiverEnv.server.host_kb + '/billing/accounts');
+
         });
-      }
+
+      }).error(function(error) {
+        console.log("Error while post " + register_account_url);
+      });
     };
-    $scope.GetFromKillBill = function() {
+    $scope.getFromKillbill = function() {
       var op = $q.defer();
       if (!$user || !$user.currentUser || !$user.currentUser.contactId) return op.promise;
 
@@ -75,13 +68,14 @@ angular.module('caregiversComApp')
           $user.currentUser.kbAccountId = '';
         }
         else{
+          console.log("Get AccountID from killbill :" + response.accountId);
           $user.currentUser.kbAccount = true;
           $user.currentUser.kbAccountId = response.accountId;
         }
 
         op.resolve();
       }).error(function(error){
-        console.log("Error while GetFromKillBill " + CareGiverEnv.server.host_kb + '/billing/accounts');
+        console.log("Error while getFromKillbill " + url);
         op.reject();
       });
 
@@ -122,14 +116,14 @@ angular.module('caregiversComApp')
           $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser)
           .success(function(user){
             console.log("Update ContactID and store in current user.contactId" + $user.currentUser.contactId);
-            $scope.PostToKillBill();
+            $scope.postToKillbill();
           })
         });
       }
       else{
         //Check KB account profile
-        if (!$user.currentUser.kbAccount) $scope.PostToKillBill(); //create account based on contactId as externalKey
-        else $scope.GetFromKillBill(); //Get kbAccountId against contactId as externalKey
+        if (!$user.currentUser.kbAccount) $scope.postToKillbill(); //create account based on contactId as externalKey
+        else $scope.getFromKillbill(); //Get kbAccountId against contactId as externalKey
 
         if (!$user.currentUser.stripeToken) $state.go('profile');
         else{
