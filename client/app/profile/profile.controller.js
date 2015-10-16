@@ -38,6 +38,7 @@ angular.module('caregiversComApp')
       if (response.error || !response.id) {// Show the errors on the form
         $scope.error = response.error.message;
       } else {
+        $scope.error = '';
         // response contains id and card, which contains additional card details
         if ($user && $user.currentUser) $user.currentUser.payment = response;
         var token = response.id;
