@@ -63,9 +63,11 @@ angular.module('caregiversComApp')
 
       var url = CareGiverEnv.server.host_kb + '/billing/accounts?externalKey=' + $user.currentUser.contactId;
       $http.get(url).success(function(response){
-        if (!response && !response.accountId){
+        if (!response || !response.accountId){
+          console.log("Error while getting AccountID from killbill :" + response.message);
           $user.currentUser.kbAccount = false;
           $user.currentUser.kbAccountId = '';
+          op.reject();
         }
         else{
           console.log("Get AccountID from killbill :" + response.accountId);
