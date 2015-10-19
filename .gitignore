@@ -2,6 +2,7 @@ node_modules
 public
 .tmp
 .idea
+.swp
 www
 client/bower_components
 www/bower_components
