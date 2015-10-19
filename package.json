@@ -6,6 +6,7 @@
     "body-parser": "~1.5.0",
     "composable-middleware": "^0.3.0",
     "compression": "~1.0.1",
+    "connect-modrewrite": "^0.8.2",
     "connect-mongo": "^0.8.1",
     "cookie-parser": "~1.0.1",
     "ejs": "~0.8.4",
@@ -20,9 +21,11 @@
   },
   "devDependencies": {
     "connect-livereload": "~0.4.0",
+    "connect-modrewrite": "^0.8.2",
     "grunt": "~0.4.4",
     "grunt-angular-templates": "^0.5.4",
     "grunt-autoprefixer": "~0.7.2",
+    "grunt-aws-s3": "0.14.0",
     "grunt-build-control": "~0.4.0",
     "grunt-concurrent": "~0.5.0",
     "grunt-connect-proxy": "^0.2.0",
@@ -53,8 +56,8 @@
     "jit-grunt": "^0.5.0",
     "jshint-stylish": "~0.1.5",
     "open": "~0.0.4",
-    "time-grunt": "~0.3.1",
-    "grunt-aws-s3": "0.14.0"
+    "serve-static": "^1.10.0",
+    "time-grunt": "~0.3.1"
   },
   "engines": {
     "node": ">=0.10.0"

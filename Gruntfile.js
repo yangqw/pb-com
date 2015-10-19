@@ -1,5 +1,8 @@
 module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-aws-s3');
+  var path = require('path');
+  var modRewrite = require('connect-modrewrite');
+  var serveStatic = require('serve-static')
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -107,6 +110,15 @@ module.exports = function (grunt) {
           open: true,
           port: "<%= client.port %>",
           livereload: true,
+          middleware: function(connect, options) {
+            var middlewares;
+            middlewares = [];
+            middlewares.push(modRewrite(['^[^\\.]*$ /index.html [L]']));
+            options.base.forEach(function(base) {
+              return middlewares.push(serveStatic(base));
+            });
+            return middlewares;
+          }
         },
       },
     },
