@@ -17,7 +17,7 @@ module.exports = function (grunt) {
       }
     },
     client: {
-      base: "client/app",
+      base: "client/families/app",
       port: 9333,
     },
     proxyServer: {
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         separator: ';',
       },
       dist: {
-        src: ['client/{app,components}/**/*.js', '!client/app/**/*.spec.js'],
+        src: ['client/{families/app,components}/**/*.js', '!client/app/**/*.spec.js'],
         dest: 'www/js/app.js'
       }
     },
@@ -40,28 +40,34 @@ module.exports = function (grunt) {
     copy: {
       images: {
         expand: true,
-        cwd: 'client/assets/images/',
+        cwd: 'client/families/assets/images/',
         src: ['*', '**/*'],
         dest: 'www/assets/images'
       },
       js: {
         expand: true,
-        cwd: 'client/assets/js/',
+        cwd: 'client/families/assets/js/',
         src: ['*.js'],
         dest: 'www/assets/js'
       },
       css: {
         expand: true,
-        cwd: 'client/assets/stylesheets/',
+        cwd: 'client/families/assets/stylesheets/',
         dest: 'www/assets/stylesheets',
         src: ['**/*.css']
+      },
+      index: {
+        expand: true,
+        cwd: 'client/',
+        dest: 'www/',
+        src: ['index.html']
       },
       script: {
         expand: true,
         flatten: true,
         cwd: 'client',
         dest: 'www/js',
-        src: ['{app,components}/**/*.js' , '!app/**/*.spec.js']
+        src: ['{families/app,components}/**/*.js' , '!app/**/*.spec.js']
       },
       devEnv: {
         expand: true,
@@ -129,7 +135,7 @@ module.exports = function (grunt) {
       },
       main: {
         cwd: 'client',
-        src: ['{app,components}/**/*.html'],
+        src: ['{families/app,components}/**/*.html'],
         dest: 'www/js/templates.js'
       },
     },
@@ -178,7 +184,7 @@ module.exports = function (grunt) {
         livereload: true,
       },
       dev: {
-        files: ['client/app/**/*.js', 'client/app/**/*.html', 'env/*.js', 'client/assets/stylesheets/*.css'],
+        files: ['client/families/app/**/*.js', 'client/families/app/**/*.html', 'env/*.js', 'client/families/assets/stylesheets/*.css'],
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
       },
       configFiles: {
@@ -211,6 +217,7 @@ module.exports = function (grunt) {
     'copy:images',
     'copy:js',
     'copy:css',
+    'copy:index',
     'copy:devEnv',
     'concat:dist',
     'ngtemplates:main',
