@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         separator: ';',
       },
       dist: {
-        src: ['client/{families/app,components}/**/*.js', '!client/app/**/*.spec.js'],
+        src: ['client/families/app/**/*.js', 'client/components/**/*.js', '!client/app/**/*.spec.js'],
         dest: 'www/js/app.js'
       }
     },
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
         flatten: true,
         cwd: 'client',
         dest: 'www/js',
-        src: ['{families/app,components}/**/*.js' , '!app/**/*.spec.js']
+        src: ['families/app/**/*.js', 'components/**/*.js' , '!app/**/*.spec.js']
       },
       devEnv: {
         expand: true,
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
       },
       main: {
         cwd: 'client',
-        src: ['{families/app,components}/**/*.html'],
+        src: ['families/app/**/*.html','components/**/*.html'],
         dest: 'www/js/templates.js'
       },
     },
