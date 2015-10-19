@@ -125,16 +125,21 @@ angular.module('caregiversComApp')
       else{
         //Check KB account profile
         if (!$user.currentUser.kbAccount) $scope.postToKillbill(); //create account based on contactId as externalKey
-        else $scope.getFromKillbill(); //Get kbAccountId against contactId as externalKey
-
-        if (!$user.currentUser.stripeToken) $state.go('profile');
-        else{
-          $http.get(CareGiverEnv.server.host + '/contacts/' + $user.currentUser.contactId)
-          .success(function(contactThing) {
-            if (contactThing && contactThing.content) $scope.currentContact = contactThing.content;
-            else $scope.currentContact = {};
-          })
+        else {  //Get kbAccountId against contactId as externalKey
+          $scope.getFromKillbill(
+          ).then(function(){
+            if (!$user.currentUser.stripeToken) $state.go('profile');
+          });
         }
+
+        // if (!$user.currentUser.stripeToken) $state.go('profile');
+        // else{
+        //   $http.get(CareGiverEnv.server.host + '/contacts/' + $user.currentUser.contactId)
+        //   .success(function(contactThing) {
+        //     if (contactThing && contactThing.content) $scope.currentContact = contactThing.content;
+        //     else $scope.currentContact = {};
+        //   });
+        // }
       }
 
     });
