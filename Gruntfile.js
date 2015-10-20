@@ -2,9 +2,25 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-aws-s3');
   var path = require('path');
   var modRewrite = require('connect-modrewrite');
-  var serveStatic = require('serve-static')
-  var site = grunt.option('site') || 'families';
+  var serveStatic = require('serve-static');
+  var validSites = [
+    {name: 'families', port: 9333},
+    {name: 'partners', port: 9334}
+  ]; 
+  var clientPort = 9333;
+  var site = 'families';
+
+  for (var s in validSites) {
+    if(validSites[s].name === grunt.option('site')) {
+      site = validSites[s].name;
+      clientPort = validSites[s].port;
+    }
+  }
+  
   var siteFolder = 'client/' + site;
+  var destinationFolder = 'www/' + site;
+  var destinationIndex = destinationFolder + '/index.html';
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -20,7 +36,7 @@ module.exports = function (grunt) {
     },
     client: {
       base: siteFolder + "/app",
-      port: 9333,
+      port: clientPort,
     },
     proxyServer: {
       accessPoint: ['/api', '/oauth'],
@@ -34,7 +50,7 @@ module.exports = function (grunt) {
       },
       dist: {
         src: [siteFolder + '/app/**/*.js', 'client/components/**/*.js', '!' + siteFolder + '/app/**/*.spec.js'],
-        dest: 'www/js/app.js'
+        dest: destinationFolder + '/js/app.js'
       }
     },
 
@@ -44,37 +60,37 @@ module.exports = function (grunt) {
         expand: true,
         cwd: siteFolder + '/assets/images/',
         src: ['*', '**/*'],
-        dest: 'www/assets/images'
+        dest: destinationFolder + '/assets/images'
       },
       js: {
         expand: true,
         cwd: siteFolder + '/assets/js/',
         src: ['*.js'],
-        dest: 'www/assets/js'
+        dest: destinationFolder + '/assets/js'
       },
       css: {
         expand: true,
         cwd: siteFolder + '/assets/stylesheets/',
-        dest: 'www/assets/stylesheets',
+        dest: destinationFolder + '/assets/stylesheets',
         src: ['**/*.css']
       },
       index: {
         expand: true,
         cwd: 'client/',
-        dest: 'www/',
+        dest: destinationFolder,
         src: ['index.html']
       },
       script: {
         expand: true,
         flatten: true,
         cwd: 'client',
-        dest: 'www/js',
+        dest: destinationFolder + '/js',
         src: [site + '/app/**/*.js', 'components/**/*.js' , '!' + site + '/app/**/*.spec.js']
       },
       devEnv: {
         expand: true,
         cwd: 'env',
-        dest: 'www/js/',
+        dest: destinationFolder + '/js/',
         rename: function(desc, file) {
           return desc + "env.js"
         },
@@ -83,7 +99,7 @@ module.exports = function (grunt) {
       prodEnv: {
         expand: true,
         cwd: 'env',
-        dest: 'www/js/',
+        dest: destinationFolder + '/js/',
         rename: function(desc, file) {
           return desc + "env.js"
         },
@@ -93,17 +109,17 @@ module.exports = function (grunt) {
         expand: true,
         cwd: 'client/',
         src: 'bower_components/**/*',
-        dest: 'www'
+        dest: destinationFolder
       },
     },
 
     // clent www
-    clean: ['www/js/*', 'www/css/*', 'www/vendor/*', 'www/assets/images/*'],
+    clean: [destinationFolder + '/js/*', destinationFolder + '/css/*', destinationFolder + '/vendor/*', destinationFolder + '/assets/images/*'],
 
     // Automatically inject Bower components into the app
     wiredep: {
       target: {
-        src: 'www/index.html',
+        src: destinationFolder + '/index.html',
         ignorePath: '../client/',
         exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/']
       }
@@ -114,7 +130,7 @@ module.exports = function (grunt) {
       server: {
         options: {
           hostname: "*",
-          base: "www",
+          base: destinationFolder,
           open: true,
           port: "<%= client.port %>",
           livereload: true,
@@ -138,7 +154,7 @@ module.exports = function (grunt) {
       main: {
         cwd: 'client',
         src: [site + '/app/**/*.html','components/**/*.html'],
-        dest: 'www/js/templates.js'
+        dest: destinationFolder + '/js/templates.js'
       },
     },
     injector: {
@@ -151,15 +167,16 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/www/', '');
             return '<script src="' + filePath + '"></script>';
           },
+          template: 'client/index.html',
           starttag: '<!-- injector:js -->',
           endtag: '<!-- endinjector -->'
         },
         files: {
-          'www/index.html': [
+          destinationIndex: [
                [
-                 'www/js/env.js',
-                 'www/js/app.js',
-                 'www/js/*.js'
+                 destinationFolder + '/js/env.js',
+                 destinationFolder + '/js/app.js',
+                 destinationFolder + '/js/*.js'
                ]
             ]
         }
@@ -171,12 +188,13 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/www/', '');
             return '<link rel="stylesheet" href="' + filePath + '">';
           },
+          template: 'client/index.html',
           starttag: '<!-- injector:css -->',
           endtag: '<!-- endinjector -->'
         },
         files: {
-          'www/index.html': [
-            'www/assets/stylesheets/**/*.css'
+          destinationIndex: [
+            destinationFolder + '/assets/stylesheets/**/*.css'
           ]
         }
       }

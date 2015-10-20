@@ -3,6 +3,7 @@ public
 .tmp
 .idea
 .swp
+*.swp
 www
 client/bower_components
 www/bower_components
