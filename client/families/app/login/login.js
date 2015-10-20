@@ -5,7 +5,7 @@ angular.module('caregiversComApp')
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'app/login/login.html',
+        templateUrl: 'families/app/login/login.html',
         controller: 'LoginCtrl'
       });
   });

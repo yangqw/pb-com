@@ -5,7 +5,7 @@ angular.module('caregiversComApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'app/main/main.html',
+        templateUrl: 'families/app/main/main.html',
         controller: 'MainCtrl',
         sp:{
           waitForUser: true

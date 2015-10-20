@@ -5,7 +5,7 @@ angular.module('caregiversComApp')
     $stateProvider
       .state('passwordResetRequest', {
         url: '/password/requestReset',
-        templateUrl: 'app/passwordResetRequest/passwordResetRequest.html',
+        templateUrl: 'families/app/passwordResetRequest/passwordResetRequest.html',
         controller: 'PasswordResetRequestCtrl'
       });
   });

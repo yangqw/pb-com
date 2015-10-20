@@ -5,7 +5,7 @@ angular.module('caregiversComApp')
     $stateProvider
       .state('profile', {
         url: '/profile',
-        templateUrl: 'app/profile/profile.html',
+        templateUrl: 'families/app/profile/profile.html',
         controller: 'ProfileCtrl',
         sp:{
           authenticate: true,
