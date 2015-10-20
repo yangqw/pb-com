@@ -173,12 +173,10 @@ module.exports = function (grunt) {
         },
         files: {
           destinationIndex: [
-               [
-                 destinationFolder + '/js/env.js',
-                 destinationFolder + '/js/app.js',
-                 destinationFolder + '/js/*.js'
-               ]
-            ]
+            destinationFolder + '/js/env.js',
+            destinationFolder + '/js/app.js',
+            destinationFolder + '/js/*.js'
+          ]
         }
       },
 
