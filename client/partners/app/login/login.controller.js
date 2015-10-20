@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope) {
     $scope.message = 'Hello, LoginCtrl';
 
     $scope.fbLogin = function () {
@@ -20,8 +20,8 @@ angular.module('caregiversComApp')
           }
             $auth.authenticate(formData)
               .then(function(){
-                console.log('login success');
-                $state.go('profile');
+                console.log('Fb login success, master account has been connected.');
+                //$state.go('profile');
               })
               .catch(function(httpResponse){
                 $scope.errorMessage = httpResponse.data.message;
@@ -84,6 +84,11 @@ angular.module('caregiversComApp')
       return op.promise;
     };
 
+    $rootScope.$on('$sessionEnd', function(event, response) {debugger
+      $http.defaults.headers.common.Authorization = null;
+      $cookies.remove('access_token');
+      $user.currentUser = false;
+    });
     $scope.$on('$authenticated', function(event, httpResponse) {
       if (httpResponse && httpResponse.access_token){
         $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;
@@ -93,16 +98,22 @@ angular.module('caregiversComApp')
       if (!$user || !$user.currentUser) return;
 
       //Check group belongs
-      // var groups = $user.currentUser.groups;
-      // var isFamilyGroup = false;
-      // $.each(groups, function(key, value){
-      //   if (value.href == "https://api.stormpath.com/v1/groups/BEPUSki86n0koXCSa1Yu5"){
-      //     isFamilyGroup = true;
-      //     return false;
-      //   }
-      //   return true;
-      // });
-      // if (!isFamilyGroup){console.log("Go to bind group Family");}
+      var isGroupMember = false;
+      angular.forEach($user.currentUser.groups, function(group, key) {
+        if (group.href == CareGiverEnv.spGroupHref){
+          isGroupMember = true;
+          return false;
+        }
+        return true;
+      });
+      if (!isGroupMember){
+        console.log("Go to bind group Family");
+        $user.currentUser.groupAddTo = CareGiverEnv.spGroupHref;
+        $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser)
+        .success(function(user){
+          console.log("Add current user to group " + $user.currentUser.groupAddTo);
+        })
+      }
 
       //Check contact profile, create one if NA throuht API server based on logged user info
       if (!$user.currentUser.contactId){
@@ -117,7 +128,7 @@ angular.module('caregiversComApp')
           $user.currentUser.contactId = contact.content._id;
           $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser)
           .success(function(user){
-            console.log("Update ContactID and store in current user.contactId" + $user.currentUser.contactId);
+            console.log("Update ContactID and store in current user.contactId " + $user.currentUser.contactId);
             $scope.postToKillbill();
           })
         });
@@ -143,8 +154,7 @@ angular.module('caregiversComApp')
       }
 
     });
-
-    $scope.$on('$authenticationFailure', function(event, response){
+    $scope.$on('$authenticationFailure', function(event, response) {
       $scope.errorMsg = response.data && response.data.message || 'XHR Error';
-    })
+    });
   });
