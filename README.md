@@ -10,3 +10,25 @@ aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 </pre>
 
+
+
+## how to start server
+* the families server can be started with those commands
+
+```bash
+grunt 
+grunt --site=families # same
+```
+
+and host will be served at **http://localhost:9333**
+
+* this partners server can be started with following comand
+
+```bash
+grunt --site=partners
+```
+and host will be served at **http://localhost:9334**
+
+
+
+
