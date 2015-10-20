@@ -1,0 +1,29 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div if-user-state-known class="container">
+    <div style="background-image: url('https://wwwstatic.caregivers.com/wp-content/uploads/2015/10/01140603/home-hero-1140x535.jpg'); height: 400px;">
+      <h1 style="padding-top: 50px;">Welcome, family member!</h1>
+    </div>
+    <div if-user>
+      <h1>Hello, {{user.fullName}}</h1>
+    </div>
+  </div>
+</header>
+
+<div if-user-state-known class="container">
+  <div class="row">
+    <div if-user class="col-lg-12">
+      <h1 class="page-header">Your contact info</h1>
+      <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6">
+        <li><a href="#" tooltip="{{currentContact.email}}">{{currentContact.firstName}} {{currentContact.email}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+      <p>© Copyright 2015 Caregivers.com </p>
+  </div>
+</footer>
