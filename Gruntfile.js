@@ -3,13 +3,15 @@ module.exports = function (grunt) {
   var path = require('path');
   var modRewrite = require('connect-modrewrite');
   var serveStatic = require('serve-static')
+  var site = grunt.option('site') || 'families';
+  var siteFolder = 'client/' + site;
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     aws_s3: {
       production: {
       options: {
-        bucket: 'families.caregivers.com',
+        bucket: site + '.caregivers.com',
       },
         files: [
           {expand: true, cwd: 'www', src: ['**'], dest: '/'}
@@ -17,7 +19,7 @@ module.exports = function (grunt) {
       }
     },
     client: {
-      base: "client/families/app",
+      base: siteFolder + "/app",
       port: 9333,
     },
     proxyServer: {
@@ -31,7 +33,7 @@ module.exports = function (grunt) {
         separator: ';',
       },
       dist: {
-        src: ['client/families/app/**/*.js', 'client/components/**/*.js', '!client/families/app/**/*.spec.js'],
+        src: [siteFolder + '/app/**/*.js', 'client/components/**/*.js', '!' + siteFolder + '/app/**/*.spec.js'],
         dest: 'www/js/app.js'
       }
     },
@@ -40,19 +42,19 @@ module.exports = function (grunt) {
     copy: {
       images: {
         expand: true,
-        cwd: 'client/families/assets/images/',
+        cwd: siteFolder + '/assets/images/',
         src: ['*', '**/*'],
         dest: 'www/assets/images'
       },
       js: {
         expand: true,
-        cwd: 'client/families/assets/js/',
+        cwd: siteFolder + '/assets/js/',
         src: ['*.js'],
         dest: 'www/assets/js'
       },
       css: {
         expand: true,
-        cwd: 'client/families/assets/stylesheets/',
+        cwd: siteFolder + '/assets/stylesheets/',
         dest: 'www/assets/stylesheets',
         src: ['**/*.css']
       },
@@ -67,7 +69,7 @@ module.exports = function (grunt) {
         flatten: true,
         cwd: 'client',
         dest: 'www/js',
-        src: ['families/app/**/*.js', 'components/**/*.js' , '!families/app/**/*.spec.js']
+        src: [site + '/app/**/*.js', 'components/**/*.js' , '!' + site + '/app/**/*.spec.js']
       },
       devEnv: {
         expand: true,
@@ -135,7 +137,7 @@ module.exports = function (grunt) {
       },
       main: {
         cwd: 'client',
-        src: ['families/app/**/*.html','components/**/*.html'],
+        src: [site + '/app/**/*.html','components/**/*.html'],
         dest: 'www/js/templates.js'
       },
     },
@@ -184,7 +186,7 @@ module.exports = function (grunt) {
         livereload: true,
       },
       dev: {
-        files: ['client/families/app/**/*.js', 'client/families/app/**/*.html', 'env/*.js', 'client/families/assets/stylesheets/*.css'],
+        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', siteFolder + '/assets/stylesheets/*.css'],
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
       },
       configFiles: {
