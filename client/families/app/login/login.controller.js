@@ -16,7 +16,8 @@ angular.module('caregiversComApp')
         if (res.authResponse) {
           var formData = {
             providerId: 'facebook',         // Get access token from FB sdk login
-            accessToken: res.authResponse.accessToken
+            accessToken: res.authResponse.accessToken,
+            domain: CareGiverEnv.spGroupName
           }
             $auth.authenticate(formData)
               .then(function(){
@@ -84,7 +85,7 @@ angular.module('caregiversComApp')
       return op.promise;
     };
 
-    $rootScope.$on('$sessionEnd', function(event, response) {debugger
+    $rootScope.$on('$sessionEnd', function(event, response) {
       $http.defaults.headers.common.Authorization = null;
       $cookies.remove('access_token');
       $user.currentUser = false;
@@ -96,24 +97,6 @@ angular.module('caregiversComApp')
         $cookies.put('access_token', httpResponse.access_token);
       }
       if (!$user || !$user.currentUser) return;
-
-      //Check group belongs
-      var isGroupMember = false;
-      angular.forEach($user.currentUser.groups, function(group, key) {
-        if (group.href == CareGiverEnv.spGroupHref){
-          isGroupMember = true;
-          return false;
-        }
-        return true;
-      });
-      if (!isGroupMember){
-        console.log("Go to bind group Family");
-        $user.currentUser.groupAddTo = CareGiverEnv.spGroupHref;
-        $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser)
-        .success(function(user){
-          console.log("Add current user to group " + $user.currentUser.groupAddTo);
-        })
-      }
 
       //Check contact profile, create one if NA throuht API server based on logged user info
       if (!$user.currentUser.contactId){
