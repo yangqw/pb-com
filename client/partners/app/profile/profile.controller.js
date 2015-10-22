@@ -2,36 +2,22 @@
 
 angular.module('caregiversComApp')
   .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window) {
+    $scope.message = 'Hello ProfileCtrl';
+    $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
+      number:'',
+      name: '',
+      domain: CareGiverEnv.spGroupName
+    };
+
     if (!$user || !$user.currentUser) {
       $state.go('login');
       return;
     }
-    
+
     if ($user.currentUser.stripeToken){
       //Try to get payment info from api-proxy
-      // $http.get("https://api.stripe.com/v1/tokens/" + $user.currentUser.stripeToken
-      //   + "?key=sk_test_bOXEIQ1gYlrXQrT4tcIKqMZK" + "&payment_user_agent=stripe.js%2Fd7aec20"
-      // ).success(function(response){
-      //   $user.currentUser.payment = response;
-      // });
     }
-
-    $scope.mapStripToKillBill = function() {
-      if ($user.currentUser.kbAccountId && $user.currentUser.stripeToken) {
-        var postData = {
-          "pluginName": "killbill-stripe",
-            "pluginInfo":{
-              "properties":[{
-                "key":"token",
-                "value": $user.currentUser.stripeToken}]
-            }
-        };
-        $http.post(CareGiverEnv.server.host_kb + '/billing/accounts/' + $user.currentUser.kbAccountId + "/paymentmethods?isDefault=true", postData
-                  ).success(function(response) {
-                    console.log("successfully map strip to killbill paymentmethod");
-                    //console.log(response);
-                  });
-      }
+    $scope.submit = function(){
     };
 
     $scope.saveCustomer = function(status, response){

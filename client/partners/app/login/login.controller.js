@@ -4,59 +4,61 @@ angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope) {
     $scope.message = 'Hello, LoginCtrl';
 
-    $scope.postToKillbill = function() {
+    $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;
 
       var register_tenant_url = CareGiverEnv.server.host_kb + '/billing/tenants';
-      var accountData = {
-        "name": $user.currentUser.fullName,
-        "email": $user.currentUser.email,
-        "externalKey": $user.currentUser.partnerId,
-        "currency": "USD"
+      var tenantData = {
+        "apiKey": $user.currentUser.email,
+        "apiSecret": $user.currentUser.partnerId,
+        "externalKey": $user.currentUser.partnerId
       };
-      $http.post(register_tenant_url, accountData
+      $http.post(register_tenant_url, tenantData
       ).success(function() {
-        $scope.getFromKillbill(
-        ).then(function() {
-          var update_user_url = CareGiverEnv.server.host + '/api/users/update';
-          $http.post(update_user_url, $user.currentUser
-          ).success(function(user) {
-            console.log("Update TenantId and tag at current user.kbTenant :" + $user.currentUser.kbTenantId);
-            $state.go('profile');
-          });
-
+        $user.currentUser.kbTenant = true;
+        var update_user_url = CareGiverEnv.server.host + '/api/users/update';
+        $http.post(update_user_url, $user.currentUser
+        ).success(function(user) {
+          console.log("Tag at current user.kbTenant:" + $user.currentUser.kbTenant);
+          if (!$user.currentUser.stripeAccountId) $scope.createStripeAccount();
         });
-
       }).error(function(error) {
         console.log("Error while post " + register_tenant_url);
       });
     };
-    $scope.getFromKillbill = function() {
-      var op = $q.defer();
-      if (!$user || !$user.currentUser || !$user.currentUser.partnerId) return op.promise;
+    $scope.createStripeAccount = function() {
+      var url = CareGiverEnv.server.host_kb + '/billing/stripe-accounts';
+      var body = "managed=true&country=US";
+      $http.post(url, body).success(function(response){
+        $user.currentUser.stripeAccountId = response.id;
 
-      var url = CareGiverEnv.server.host_kb + '/billing/tenants?externalKey=' + $user.currentUser.partnerId;
-      $http.get(url).success(function(response){
-        if (!response || !response.tenantId){
-          console.log("Error while getting TenantId from killbill :" + response.message);
-          $user.currentUser.kbTenant = false;
-          $user.currentUser.kbTenantId = '';
-          op.reject();
-        }
-        else{
-          console.log("Get TenantId from killbill :" + response.tenantId);
-          $user.currentUser.kbTenant = true;
-          $user.currentUser.kbTenantId = response.tenantId;
-        }
-
-        op.resolve();
+        var update_user_url = CareGiverEnv.server.host + '/api/users/update';
+        $http.post(update_user_url, $user.currentUser
+        ).success(function(user) {
+          console.log("Create stripe account for current user.stripeAccountId:" + $user.currentUser.stripeAccountId);
+          if (!$user.currentUser.stripeToken) $scope.configStripe();
+        });
       }).error(function(error){
-        console.log("Error while getFromKillbill " + url);
-        op.reject();
+        console.log(error);
       });
+    }
+    $scope.configStripe = function() {
+      if (!$user.currentUser.partnerId || !$user.currentUser.stripeAccountId) return;
 
-      return op.promise;
-    };
+      var url = CareGiverEnv.server.host_kb + '/billing/tenants/config-stripe';
+      var headers = {headers: {
+        'X-Killbill-ApiKey': $user.currentUser.email,
+        'X-Killbill-ApiSecret': $user.currentUser.partnerId,
+        'X-Killbill-CreatedBy': 'CG Partners Site',
+        'Stripe-Destination': $user.currentUser.stripeAccountId
+      }};
+      $http.post(url, $scope.formModel, headers
+      ).success(function(response){
+        console.log("successfully config strip to partner tenant");
+      }).error(function(error){
+        console.log("Error while post " + url + ":" + error);
+      });
+    }
 
     $rootScope.$on('$sessionEnd', function(event, response) {
       $http.defaults.headers.common.Authorization = null;
@@ -76,13 +78,9 @@ angular.module('caregiversComApp')
       }
       else{
         //Check KB Tenant profile
-        if (!$user.currentUser.kbTenant) $scope.postToKillbill(); //create Tenant based on partnerId as externalKey
-        else {  //Get kbTenantId against partnerId as externalKey
-          $scope.getFromKillbill(
-          ).then(function(){
-            if (!$user.currentUser.stripeToken) $state.go('profile');
-          });
-        }
+        if (!$user.currentUser.kbTenant) $scope.createTenant(); //create Tenant based on partnerId as externalKey
+        else if (!$user.currentUser.stripeAccountId) $scope.createStripeAccount(); //create Strip Account for this partner
+        else if (!$user.currentUser.stripeToken) $scope.configStripe();
       }
 
     });
