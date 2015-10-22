@@ -15,6 +15,6 @@ angular.module('caregiversComApp')
       }
 
       // Set strompath group belongs for current subdomain
-      if (!CareGiverEnv.spGroupHref) CareGiverEnv.spGroupHref = 'https://api.stormpath.com/v1/groups/6zqjislz8iew7kpu5qepUe';
+      if (!CareGiverEnv.spGroupName) CareGiverEnv.spGroupName = 'PARTNERS';
     }
   });
