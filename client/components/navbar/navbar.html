@@ -18,7 +18,7 @@
           <a ui-sref="profile">Profile</a>
         </li>
         <li if-not-user ng-class="{active: isActive('/register')}">
-          <a ui-sref="register">Register</a>
+          <a ui-sref="register" ng-show="isRegisterOpen">Register</a>
         </li>
         <li if-not-user ng-class="{active: isActive('/login')}">
           <a ui-sref="login">Login</a>
