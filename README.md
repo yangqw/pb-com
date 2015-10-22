@@ -29,6 +29,11 @@ grunt --site=partners
 ```
 and host will be served at **http://localhost:9334**
 
-
+## how to deploy
+You need install awscli, which can be installed via homebrew.
+```bash
+grunt build:prod --site=families
+. ./.dep_prod_families.sh
+```
 
 
