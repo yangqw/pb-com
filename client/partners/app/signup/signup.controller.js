@@ -35,7 +35,7 @@ angular.module('caregiversComApp')
           $scope.formModel.givenName = response.data.firstName;
           $scope.formModel.surname = response.data.lastName;
           $scope.formModel.email = response.data.email;
-          $scope.formModel.partnerId = response.data.id;
+          $scope.formModel.partnerId = response.data.token;
         })
         .catch(function(){
           $scope.showVerificationError = true;
