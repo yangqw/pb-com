@@ -11,7 +11,7 @@ window.CareGiverEnv = {
       "CHANGE_PASSWORD_ENDPOINT" : '/api/users/reset_password',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
-    "host": "http://localhost:9100",
+    "host": "http://localhost:9100",//"https://api-proxy.caregivers.com",
     "host_kb": " https://c9d6tl7l15.execute-api.us-east-1.amazonaws.com/staging",//"https://depag8m42h.execute-api.us-east-1.amazonaws.com/dev",
   }
 }
