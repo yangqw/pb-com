@@ -3,7 +3,11 @@ public
 .tmp
 .idea
 .swp
+*.orig
 *.swp
+*.sh~HEAD
+*.sh~HEAD_0
+*.sh~HEAD_1
 www
 client/bower_components
 www/bower_components
