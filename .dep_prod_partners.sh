@@ -2,4 +2,4 @@
 
 # Test
 #aws s3 sync ./www s3://new-sync1
-aws s3 sync ./www/partners s3://partners.caregivers.com
+aws s3 sync ./www/partners s3://partners.caregivers.com --acl public-read
