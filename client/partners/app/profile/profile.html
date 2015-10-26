@@ -6,85 +6,51 @@
       <h3>My Payment</h3>
       <hr>
     </div>
+  </div>
 
+  <div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tokenize Bank Account</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" class="form-horizontal" ng-submit=submit()>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">Account Holder's Name</label>
+                        <div class="col-lg-6">
+                            <input type="text" ng-model="formModel.name" id="ba-name" class="form-control" autocomplete="off" placeholder="John Doe" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">Routing Number</label>
+                        <div class="col-lg-6">
+                            <input type="text" ng-model="formModel.routing_number" id="ba-routing" class="form-control" autocomplete="off" placeholder="110000000" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">Account Number</label>
+                        <div class="col-lg-6">
+                            <input type="text" ng-model="formModel.account_number" id="ba-number" class="form-control" autocomplete="off" placeholder="•••• •••• •••• ••••" />
+                        </div>
+                    </div>
+                    <!-- <a id="ba-submit" class="btn btn-large btn-primary pull-right">Tokenize</a> -->
+
+                    <div class="form-group">
+                      <div class="col-sm-offset-9 col-sm-4">
+                        <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
   </div>
 
   <div class="row">
     <div class="col-xs-12">
-      <!-- <form class="form-horizontal" stripe:form="saveCustomer" id="payment-form">
-        <span class="payment-errors"></span>
-
-          <div class="form-group">
-            <label for="CardNumber" class="col-xs-12 col-sm-4 control-label">Card Number</label>
-            <div class="col-xs-12 col-sm-4">
-              <input class="form-control" size="20" data-stripe="number"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="CVC" class="col-xs-12 col-sm-4 control-label">CVC</label>
-            <div class="col-xs-12 col-sm-4">
-              <input class="form-control"  size="4" data-stripe="cvc"/>
-            </div>
-        </div>
-        <div class="form-group">
-          <label for="Expiration" class="col-xs-12 col-sm-4 control-label">Expiration (MM/YYYY)</label>
-          <div class="col-xs-12 col-sm-4">
-            <input class="form-control"  type="text" size="2" data-stripe="exp-month"/>
-            <span> / </span>
-            <input class="form-control"  type="text" size="4" data-stripe="exp-year"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-4 col-sm-4">
-            <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
-            <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit Payment Info</button>
-          </div>
-        </div>
-      </form> -->
-
-      <form class="form-horizontal" ng-submit=submit()>
-        <div class="ccjs-card">
-          <label class="ccjs-number">
-            Card Number
-            <input name="card-number" class="ccjs-number" ng-model="formModel.number" placeholder="•••• •••• •••• ••••">
-          </label>
-
-          <label class="ccjs-name">
-            Name on Card
-            <input name="name" class="ccjs-name" ng-model="formModel.name">
-          </label>
-
-          <select name="card-type" class="ccjs-hidden-card-type">
-            <option value="amex" class="ccjs-amex">American Express</option>
-            <option value="discover" class="ccjs-discover">Discover</option>
-            <option value="mastercard" class="ccjs-mastercard">MasterCard</option>
-            <option value="visa" class="ccjs-visa">Visa</option>
-            <option value="diners-club" class="ccjs-diners-club">Diners Club</option>
-            <option value="jcb" class="ccjs-jcb">JCB</option>
-            <!--<option value="laser" class="laser">Laser</option>-->
-            <!--<option value="maestro" class="maestro">Maestro</option>-->
-            <!--<option value="unionpay" class="unionpay">UnionPay</option>-->
-            <!--<option value="visa-electron" class="visa-electron">Visa Electron</option>-->
-            <!--<option value="dankort" class="dankort">Dankort</option>-->
-          </select>
-        </div>
-        <!-- <script src="assets/js/creditcardjs-v0.10.12.min.js"></script> -->
-
-        <div class="form-group">
-          <div class="col-sm-offset-4 col-sm-4">
-            <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
-            <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit Bank Account Info</button>
-          </div>
-        </div>
-      </form>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <pre ng-bind="user.payment | json"></pre>
-        </div>
-      </div>
+      <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
+      <pre ng-bind="user.payment | json"></pre>
     </div>
   </div>
 </div>

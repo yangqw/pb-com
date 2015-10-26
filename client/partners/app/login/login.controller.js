@@ -21,6 +21,8 @@ angular.module('caregiversComApp')
         ).success(function(user) {
           console.log("Tag at current user.kbTenant:" + $user.currentUser.kbTenant);
           if (!$user.currentUser.stripeAccountId) $scope.createStripeAccount();
+          else if (!$user.currentUser.kbStripe) $scope.configStripe();
+          else if (!$user.currentUser.stripeToken) $state.go('profile');
         });
       }).error(function(error) {
         console.log("Error while post " + register_tenant_url);
@@ -36,7 +38,8 @@ angular.module('caregiversComApp')
         $http.post(update_user_url, $user.currentUser
         ).success(function(user) {
           console.log("Create stripe account for current user.stripeAccountId:" + $user.currentUser.stripeAccountId);
-          if (!$user.currentUser.stripeToken) $scope.configStripe();
+          if (!$user.currentUser.kbStripe) $scope.configStripe();
+          else if (!$user.currentUser.stripeToken) $state.go('profile');
         });
       }).error(function(error){
         console.log(error);
@@ -54,7 +57,13 @@ angular.module('caregiversComApp')
       }};
       $http.post(url, $scope.formModel, headers
       ).success(function(response){
-        console.log("successfully config strip to partner tenant");
+        $user.currentUser.kbStripe = true;
+        var update_user_url = CareGiverEnv.server.host + '/api/users/update';
+        $http.post(update_user_url, $user.currentUser
+        ).success(function(user) {
+          console.log("Successfully config strip to partner tenant, and tag at current user.kbStripe:" + $user.currentUser.kbStripe);
+          if (!$user.currentUser.stripeToken) $state.go('profile');
+        });
       }).error(function(error){
         console.log("Error while post " + url + ":" + error);
       });
@@ -74,13 +83,14 @@ angular.module('caregiversComApp')
       if (!$user || !$user.currentUser) return;
 
       if (!$user.currentUser.partnerId){
-        //Impossible for a partner who doesn't have a partnerId.
+        console.log("Impossible for a partner who does not have a partnerId");
       }
       else{
-        //Check KB Tenant profile
+        //Check KB Tenant && Stripe profile
         if (!$user.currentUser.kbTenant) $scope.createTenant(); //create Tenant based on partnerId as externalKey
         else if (!$user.currentUser.stripeAccountId) $scope.createStripeAccount(); //create Strip Account for this partner
-        else if (!$user.currentUser.stripeToken) $scope.configStripe();
+        else if (!$user.currentUser.kbStripe) $scope.configStripe();
+        else if (!$user.currentUser.stripeToken) $state.go('profile');
       }
 
     });
