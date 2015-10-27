@@ -49,6 +49,8 @@ angular.module('caregiversComApp')
           $http.post(update_user_url, $user.currentUser
           ).success(function(user) {
             console.log("Update AccountID and tag at current user.kbAccount :" + $user.currentUser.kbAccountId);
+            // remove notify message for initializa account
+            $user.currentUser.step = null;
             $state.go('profile');
           });
 
@@ -58,6 +60,7 @@ angular.module('caregiversComApp')
         console.log("Error while post " + register_account_url);
       });
     };
+
     $scope.getFromKillbill = function() {
       var op = $q.defer();
       if (!$user || !$user.currentUser || !$user.currentUser.contactId) return op.promise;
@@ -97,7 +100,7 @@ angular.module('caregiversComApp')
         $cookies.put('access_token', httpResponse.access_token);
       }
       if (!$user || !$user.currentUser) return;
-
+      $user.currentUser.step = "Initialize Account... ";
       //Check contact profile, create one if NA throuht API server based on logged user info
       if (!$user.currentUser.contactId){
         var contactData = {
@@ -122,6 +125,7 @@ angular.module('caregiversComApp')
         else {  //Get kbAccountId against contactId as externalKey
           $scope.getFromKillbill(
           ).then(function(){
+            $user.currentUser.step = null;
             if (!$user.currentUser.stripeToken) $state.go('profile');
           });
         }

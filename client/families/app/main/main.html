@@ -4,6 +4,9 @@
   <div if-user-state-known class="container">
     <div style="background-image: url('https://wwwstatic.caregivers.com/wp-content/uploads/2015/10/01140603/home-hero-1140x535.jpg'); height: 400px;">
       <h1 style="padding-top: 50px;">Welcome, family member!</h1>
+      <div if-user>
+        <h2>{{user.step}}</h2>
+      </div>
     </div>
     <div if-user>
       <h1>Hello, {{user.fullName}}</h1>
