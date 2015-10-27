@@ -5,6 +5,7 @@ angular.module('caregiversComApp')
     $scope.message = 'Hello ProfileCtrl';
     $scope.acceptedMsg = '';
     $scope.error = '';
+    $scope.creating = false;
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       name: '', account_number:'', routing_number: '',
       country: 'US', currency: 'USD',
@@ -44,10 +45,13 @@ angular.module('caregiversComApp')
 
     $scope.submit = function(){
       if (!Stripe || !Stripe.bankAccount || !Stripe.bankAccount.createToken) return;
+      
+      $scope.creating = true;
+      $scope.error = null;
 
       $scope.acceptedMsg = 'Try to strip your bank account...';
       Stripe.bankAccount.createToken($scope.formModel, function(status, response){
-        if (response.error || !response.id){debugger
+        if (response.error || !response.id){
           $scope.error = response.error.message;
           $scope.acceptedMsg = '';
         } else {
@@ -63,7 +67,7 @@ angular.module('caregiversComApp')
             $scope.mapStripBankAccount();
           });
         }
-      $scope.$apply();
+        $scope.$apply();
       });
     };
 
