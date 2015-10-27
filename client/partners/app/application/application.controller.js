@@ -7,4 +7,5 @@ angular.module('caregiversComApp')
         $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('access_token');
         $http.defaults.headers.common.withCredentials = true;
     }
+    $scope.debugMode = false;
   });

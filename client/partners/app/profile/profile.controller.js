@@ -3,6 +3,8 @@
 angular.module('caregiversComApp')
   .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window) {
     $scope.message = 'Hello ProfileCtrl';
+    $scope.acceptedMsg = '';
+    $scope.error = '';
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       name: '', account_number:'', routing_number: '',
       country: 'US', currency: 'USD',
@@ -20,6 +22,7 @@ angular.module('caregiversComApp')
 
     $scope.mapStripBankAccount = function() {
       if (!$user.currentUser.stripeAccountId || !$user.currentUser.stripeToken) return
+      $scope.acceptedMsg = 'Try to map your strip bank account...';
 
       var url = CareGiverEnv.server.host_kb + '/billing/stripe-accounts/'
         + $user.currentUser.stripeAccountId + '/external-accounts';
@@ -27,9 +30,14 @@ angular.module('caregiversComApp')
       var postData = "external_account=" + $user.currentUser.stripeToken;
       $http.post(url, postData
       ).success(function(response) {
-        console.log("Successfully map bank account to strip account");
+        $user.currentUser.payment = response;
+        $scope.acceptedMsg = 'Successfully map bank account to your strip tenant.';
+        $('.alert').alert('close');
+        console.log($scope.acceptedMsg);
       }).error(function(error){
-        console.log("Error while post " + url + ":" + error);
+        $scope.acceptedMsg = '';
+        $scope.error = "Error while post " + url + " : " + error;
+        console.log($scope.error);
       });
 
     };
@@ -37,23 +45,25 @@ angular.module('caregiversComApp')
     $scope.submit = function(){
       if (!Stripe || !Stripe.bankAccount || !Stripe.bankAccount.createToken) return;
 
+      $scope.acceptedMsg = 'Try to strip your bank account...';
       Stripe.bankAccount.createToken($scope.formModel, function(status, response){
-        if (response.error || !response.id){
+        if (response.error || !response.id){debugger
           $scope.error = response.error.message;
+          $scope.acceptedMsg = '';
         } else {
           $scope.error = '';
-
+          $scope.acceptedMsg = 'Successfully get your stripe bank account token...';
           if ($user && $user.currentUser) $user.currentUser.payment = response;
-          var token = response.id;
 
           // and submit to stripe account for payment method update with StripeToken;
-          $user.currentUser.stripeToken = token;
+          $user.currentUser.stripeToken = response.id;
           $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
           ).success(function(user) {
             console.log("Updated current user with stripeToken:" + $user.currentUser.stripeToken);
             $scope.mapStripBankAccount();
           });
         }
+      $scope.$apply();
       });
     };
 
