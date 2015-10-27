@@ -14,7 +14,7 @@ angular.module('caregiversComApp')
       //Try to get payment info from api-proxy
     }
 
-    $scope.mapStripToKillBill = function() {debugger
+    $scope.mapStripToKillBill = function() {
       if (!$user.currentUser.kbAccountId || !$user.currentUser.stripeToken) return;
       $scope.acceptedMsg = 'Try to map your strip credit card...';
 
