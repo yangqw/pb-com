@@ -96,6 +96,15 @@ module.exports = function (grunt) {
         },
         src: ['dev.js']
       },
+      stagingEnv: {
+        expand: true,
+        cwd: 'env',
+        dest: destinationFolder + '/js/',
+        rename: function(desc, file) {
+          return desc + "env.js"
+        },
+        src: ['staging.js']
+      },
       prodEnv: {
         expand: true,
         cwd: 'env',
@@ -221,6 +230,18 @@ module.exports = function (grunt) {
     'copy:js',
     'copy:css',
     'copy:prodEnv',
+    'concat:dist',
+    'ngtemplates:main',
+    'injector:scripts',
+    'injector:css',
+    'wiredep:target',
+  ]);
+
+  grunt.registerTask('build:staging', [
+    'copy:images',
+    'copy:js',
+    'copy:css',
+    'copy:stagingEnv',
     'concat:dist',
     'ngtemplates:main',
     'injector:scripts',
