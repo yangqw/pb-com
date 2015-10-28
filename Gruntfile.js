@@ -159,6 +159,7 @@ module.exports = function (grunt) {
     },
     injector: {
       options: {
+        destFile: destinationIndex,
       },
       // Inject application script files into index.html (doesn't include bower)
       scripts: {
@@ -172,7 +173,7 @@ module.exports = function (grunt) {
           endtag: '<!-- endinjector -->'
         },
         files: {
-          destinationIndex: [
+          src: [
             destinationFolder + '/js/env.js',
             destinationFolder + '/js/app.js',
             destinationFolder + '/js/*.js'
@@ -191,7 +192,7 @@ module.exports = function (grunt) {
           endtag: '<!-- endinjector -->'
         },
         files: {
-          destinationIndex: [
+          src: [
             destinationFolder + '/assets/stylesheets/**/*.css'
           ]
         }
