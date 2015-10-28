@@ -9,6 +9,7 @@ angular.module('caregiversComApp')
 
     $scope.isCollapsed = true;
     $scope.isRegisterOpen = CareGiverEnv.spGroupName == 'FAMILIES';
+    $scope.profileTitle = CareGiverEnv.spGroupName == 'FAMILIES' ? 'Billing': 'Billing';
 
     $scope.isActive = function(route) {
       return route === $location.path();
