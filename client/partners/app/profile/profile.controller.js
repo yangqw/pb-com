@@ -6,6 +6,12 @@ angular.module('caregiversComApp')
     $scope.acceptedMsg = '';
     $scope.error = '';
     $scope.creating = false;
+    $scope.toS = false; // terms of service
+
+    $scope.isSubmitable = function(){
+      return !($scope.toS && !$scope.creating)
+    };
+
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       name: '', account_number:'', routing_number: '',
       country: 'US', currency: 'USD',
@@ -19,6 +25,11 @@ angular.module('caregiversComApp')
 
     if ($user.currentUser.stripeToken){
       //Try to get payment info from api-proxy
+    }
+
+    $scope.acceptTos = function() {
+      $scope.toS = true;
+      $('#term-modal').modal('hide');
     }
 
     $scope.mapStripBankAccount = function() {

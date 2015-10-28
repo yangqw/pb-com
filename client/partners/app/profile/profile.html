@@ -35,13 +35,38 @@
                         </div>
                     </div>
                     <!-- <a id="ba-submit" class="btn btn-large btn-primary pull-right">Tokenize</a> -->
-
+                    <div class="form-group">
+                      <div class="col-lg-offset-5 col-lg-6">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" ng-model="toS"> Accept <a data-toggle="modal" data-target="#term-modal">Terms of Service</a>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                     <div class="form-group">
                       <div class="col-sm-offset-9 col-sm-4">
-                        <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="isSubmitable();">Submit</button>
                       </div>
                     </div>
                 </form>
+                <div class="modal fade" id="term-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="termModalLabel">Terms of Service</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p class="terminal">Payment processing services for partner on CareGivers are provided by Stripe and are subject to the <a href="https://stripe.com/connect/account-terms" target="_blank">Stripe Connected Account Agreement</a>, which includes the <a href="https://stripe.com/terms" target="_blank">Stripe Terms of Service</a> (collectively, the “Stripe Services Agreement”). By agreeing to these terms or continuing to operate as a partner on CareGivers, you agree to be bound by the Stripe Services Agreement, as the same may be modified by Stripe from time to time. As a condition of CareGivers enabling payment processing services through Stripe, you agree to provide CareGivers accurate and complete information about you and your business, and you authorize CareGivers to share it and transaction information related to your use of the payment processing services provided by Stripe.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="acceptTos();">Accept</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
