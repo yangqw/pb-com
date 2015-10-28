@@ -165,7 +165,7 @@ module.exports = function (grunt) {
       scripts: {
         options: {
           transform: function(filePath) {
-            filePath = filePath.replace('/www/', '');
+            filePath = filePath.replace('/'+destinationFolder, '');
             return '<script src="' + filePath + '"></script>';
           },
           template: 'client/index.html',
@@ -184,7 +184,7 @@ module.exports = function (grunt) {
       css: {
         options: {
           transform: function(filePath) {
-            filePath = filePath.replace('/www/', '');
+            filePath = filePath.replace('/'+destinationFolder, '');
             return '<link rel="stylesheet" href="' + filePath + '">';
           },
           template: 'client/index.html',
