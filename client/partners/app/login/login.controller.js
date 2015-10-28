@@ -6,6 +6,10 @@ angular.module('caregiversComApp')
     $scope.errorMsg = '';
     $scope.verifyMsg = '';
     $scope.accepted = false;
+    $scope.location = null;
+    $.get("http://ipinfo.io/json", function(response){
+      $scope.location = response;
+    });
 
     if (!$user) return;
 
@@ -97,6 +101,64 @@ angular.module('caregiversComApp')
       });
     }
 
+    $scope.acceptTos = function() {
+      $('#term-modal').modal('hide');
+      $scope.toS = true;
+      $scope.acceptStripeToS().then(function(){
+        $scope.updateSpUser().then(function(){
+
+          $scope.acceptedMsg = 'Sucessfully login, let\'s go to have fun...';
+          $timeout(function(){ $state.go('main'); }, 3000);
+        });
+      });
+    }
+    $scope.acceptStripeToS = function(){
+      var op = $q.defer();
+      if (!$user.currentUser.stripeAccountId
+        || $user.currentUser.stripeToS === true)
+        {op.resolve();return op.promise;}
+
+      $scope.error = null;
+      $scope.acceptedMsg = 'Accepting strip terms of services...';
+      var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
+        + $user.currentUser.stripeAccountId;
+      var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
+        + "&&tos_acceptance[ip]=" + $scope.location.ip;
+      $http.post(url, postData).success(function(response){
+        $user.currentUser.stripeToS = true;
+        $scope.acceptedMsg = 'Successfully accepted strip terms of services.';
+
+        op.resolve();
+      }).error(function(error){
+        $scope.posting = false;
+        $scope.acceptedMsg = null;
+        $scope.error = "Error while post " + url + " : " + error;
+        op.reject();
+      });
+
+      return op.promise;
+    };
+    $scope.updateSpUser = function(){
+      var op = $q.defer();
+      if (!$user || !$user.currentUser)
+        {op.resolve();return op.promise;}
+
+      $scope.error = null;
+      var url = CareGiverEnv.server.host + '/api/users/update';
+      var postData = $user.currentUser;
+      $http.post(url, postData).success(function(response){
+        console.log("Updated current user with stripeToS(" + $user.currentUser.stripeToS + ")");
+
+        op.resolve();
+      }).error(function(error){
+        $scope.posting = false;
+        $scope.acceptedMsg = null;
+        $scope.error = "Error while post " + url + " : " + error;
+        op.reject();
+      });
+
+      return op.promise;
+    };
     $scope.verifyingBankAccount = function(){
       $scope.processing = false;
       $scope.verified = true;
@@ -106,6 +168,9 @@ angular.module('caregiversComApp')
         $scope.processing = false;
         $scope.acceptedMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
         $timeout(function(){ $state.go('profile')}, 3000);
+      }
+      else if ($user.currentUser.stripeToS === undefined){
+        $("#term-modal").modal({'backdrop': 'static', 'keyboard': false});
       }
       else{
         $scope.acceptedMsg = 'Sucessfully login, let\'s go to have fun...';

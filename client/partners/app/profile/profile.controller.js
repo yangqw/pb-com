@@ -30,7 +30,7 @@ angular.module('caregiversComApp')
       return;
     }
 
-    if ($user.currentUser.stripeToken){debugger;
+    if ($user.currentUser.stripeToken){
       //Try to get payment info from api-proxy
       $scope.toS = $user.currentUser.stripeToS === true;
     }
