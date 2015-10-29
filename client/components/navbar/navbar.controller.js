@@ -36,7 +36,7 @@ angular.module('caregiversComApp')
       $scope.verifyMsg = null;
       $scope.processMsg = 'Accepting strip terms of services...';
       var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
-        + $user.currentUser.stripeAccountId;debugger;
+        + $user.currentUser.stripeAccountId;
       var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
         + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
       $http.post(url, postData).success(function(response){
