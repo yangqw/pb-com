@@ -2,20 +2,17 @@
 
 angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout) {
-    $scope.message = 'Hello, LoginCtrl';
-    $scope.errorMsg = '';
-    $scope.verifyMsg = '';
-    $scope.accepted = false;
-    $scope.location = null;
-    $.get("http://ipinfo.io/json", function(response){
-      $scope.location = response;
-    });
+    $scope.errorMsg = null;
+    $scope.verifyMsg = null;
+    $scope.processMsg = null; // message of sync process
+    $scope.posting = false; // Is waitting for sync posting response
+    $scope.accepted = false; //Authorization was accepted or not
 
     if (!$user) return;
 
     if(!$user.currentUser)
       $user.get().then(function(user){
-        $scope.errorMsg = '';
+        $scope.errorMsg = null;
         $scope.accepted = true;
         $scope.verifyingBankAccount();
       }).catch(function(error){});
@@ -23,7 +20,7 @@ angular.module('caregiversComApp')
     $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;
 
-      $scope.processing = true;
+      $scope.posting = true;
       $scope.processMsg = "Seems this is your first login, let\'s create a tenant first, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants';
       var tenantData = {
@@ -44,13 +41,13 @@ angular.module('caregiversComApp')
           else $scope.verifyingBankAccount();
         });
       }).error(function(error) {
-        $scope.processing = false;
+        $scope.posting = false;
+        $scope.processMsg = null;
         $scope.verifyMsg = ("Error while post " + url + " : ") + (error && error.causeMessage || error.message || 'XHR Error');
-        console.log($scope.verifyMsg);
       });
     };
     $scope.createStripeAccount = function() {
-      $scope.processing = true;
+      $scope.posting = true;
       $scope.processMsg = "Setting up a stripe account for you, a moment please...";
 
       var url = CareGiverEnv.server.host_kb + '/billing/stripe-accounts';
@@ -67,15 +64,15 @@ angular.module('caregiversComApp')
           else $scope.verifyingBankAccount();
         });
       }).error(function(error){
-        $scope.processing = false;
-        $scope.verifyMsg = "Error while post " + url + ":" + error;
-        console.log($scope.verifyMsg);
+        $scope.posting = false;
+        $scope.processMsg = null;
+        $scope.verifyMsg = "Error while post " + url + ":" + (error && error.causeMessage || error.message || 'XHR Error');
       });
     }
     $scope.configStripe = function() {
       if (!$user.currentUser.partnerId || !$user.currentUser.stripeAccountId) return;
 
-      $scope.processing = true;
+      $scope.posting = true;
       $scope.processMsg = "Config your stripe account to tenant, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants/config-stripe';
       var headers = {headers: {
@@ -95,55 +92,55 @@ angular.module('caregiversComApp')
           $scope.verifyingBankAccount();
         });
       }).error(function(error){
-        $scope.processing = false;
-        $scope.verifyMsg = "Error while post " + url + ":" + error;
-        console.log($scope.verifyMsg);
-      });
-    }
-
-    $scope.acceptTos = function() {
-      $('#term-modal').modal('hide');
-      $scope.toS = true;
-      $scope.acceptStripeToS().then(function(){
-        $scope.updateSpUser().then(function(){
-
-          $scope.acceptedMsg = 'Sucessfully login, let\'s go to have fun...';
-          $timeout(function(){ $state.go('main'); }, 3000);
-        });
-      });
-    }
-    $scope.acceptStripeToS = function(){
-      var op = $q.defer();
-      if (!$user.currentUser.stripeAccountId
-        || $user.currentUser.stripeToS === true)
-        {op.resolve();return op.promise;}
-
-      $scope.error = null;
-      $scope.acceptedMsg = 'Accepting strip terms of services...';
-      var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
-        + $user.currentUser.stripeAccountId;
-      var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
-        + "&&tos_acceptance[ip]=" + $scope.location.ip;
-      $http.post(url, postData).success(function(response){
-        $user.currentUser.stripeToS = true;
-        $scope.acceptedMsg = 'Successfully accepted strip terms of services.';
-
-        op.resolve();
-      }).error(function(error){
         $scope.posting = false;
-        $scope.acceptedMsg = null;
-        $scope.error = "Error while post " + url + " : " + error;
-        op.reject();
+        $scope.processMsg = null;
+        $scope.verifyMsg = "Error while post " + url + ":" + (error && error.causeMessage || error.message || 'XHR Error');
       });
+    }
 
-      return op.promise;
-    };
+    // $scope.acceptTos = function() {
+    //   $('#term-modal').modal('hide');
+    //   $scope.toS = true;
+    //   $scope.acceptStripeToS().then(function(){
+    //     $scope.updateSpUser().then(function(){
+    //
+    //       $scope.processMsg = 'Sucessfully login, let\'s go to have fun...';
+    //       $timeout(function(){ $state.go('main'); }, 3000);
+    //     });
+    //   });
+    // }
+    // $scope.acceptStripeToS = function(){
+    //   var op = $q.defer();
+    //   if (!$user.currentUser.stripeAccountId
+    //     || $user.currentUser.stripeToS === true)
+    //     {op.resolve();return op.promise;}
+    //
+    //   $scope.verifyMsg = null;
+    //   $scope.processMsg = 'Accepting strip terms of services...';
+    //   var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
+    //     + $user.currentUser.stripeAccountId;
+    //   var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
+    //     + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
+    //   $http.post(url, postData).success(function(response){
+    //     $user.currentUser.stripeToS = true;
+    //     $scope.processMsg = 'Successfully accepted strip terms of services.';
+    //
+    //     op.resolve();
+    //   }).error(function(error){
+    //     $scope.posting = false;
+    //     $scope.processMsg = null;
+    //     $scope.verifyMsg = "Error while post " + url + " : " + (error && error.error && error.error.message || 'XHR Error');
+    //     op.reject();
+    //   });
+    //
+    //   return op.promise;
+    // };
     $scope.updateSpUser = function(){
       var op = $q.defer();
       if (!$user || !$user.currentUser)
         {op.resolve();return op.promise;}
 
-      $scope.error = null;
+      $scope.verifyMsg = null;
       var url = CareGiverEnv.server.host + '/api/users/update';
       var postData = $user.currentUser;
       $http.post(url, postData).success(function(response){
@@ -152,28 +149,27 @@ angular.module('caregiversComApp')
         op.resolve();
       }).error(function(error){
         $scope.posting = false;
-        $scope.acceptedMsg = null;
-        $scope.error = "Error while post " + url + " : " + error;
+        $scope.processMsg = null;
+        $scope.verifyMsg = "Error while post " + url + " : " + error;
         op.reject();
       });
 
       return op.promise;
     };
     $scope.verifyingBankAccount = function(){
-      $scope.processing = false;
-      $scope.verified = true;
+      $scope.posting = false;
       $scope.processMsg = '';
 
       if (!$user.currentUser.stripeToken) {
-        $scope.processing = false;
-        $scope.acceptedMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
+        $scope.posting = false;
+        $scope.processMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
         $timeout(function(){ $state.go('profile')}, 3000);
       }
-      else if ($user.currentUser.stripeToS === undefined){
-        $("#term-modal").modal({'backdrop': 'static', 'keyboard': false});
-      }
+      // else if ($user.currentUser.stripeToS === undefined){
+      //   $("#term-modal").modal({'backdrop': 'static', 'keyboard': false});
+      // }
       else{
-        $scope.acceptedMsg = 'Sucessfully login, let\'s go to have fun...';
+        $scope.processMsg = 'Sucessfully login, let\'s go to have fun...';
         $timeout(function(){ $state.go('main'); }, 3000);
       }
     };

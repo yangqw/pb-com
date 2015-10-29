@@ -39,7 +39,7 @@
                       <div class="col-lg-offset-5 col-lg-6">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" ng-model="toS"> Accept <a data-toggle="modal" data-target="#term-modal">Terms of Service</a>
+                            <input type="checkbox" ng-model="toS"> Accept <a data-toggle="modal" data-target="#tos-modal">Terms of Service</a>
                           </label>
                         </div>
                       </div>
@@ -50,7 +50,7 @@
                       </div>
                     </div>
                 </form>
-                <div class="modal fade" id="term-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
+                <div class="modal fade" id="tos-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -75,11 +75,11 @@
   <div class="row">
     <div class="col-xs-12">
       <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
-      <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="acceptedMsg">
+      <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="processMsg">
         <button type=button class=close data-dismiss=alert aria-label=Close>
           <span aria-hidden=true>&times;</span>
         </button>
-        <p ng-bind="acceptedMsg"></p>
+        <p ng-bind="processMsg"></p>
       </div>
       <pre ng-show="debugMode" ng-bind="user.payment | json"></pre>
     </div>

@@ -1,28 +1,23 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $q, $timeout) {
+  .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $q, $rootScope, $timeout) {
     $scope.error = null;
-    $scope.acceptedMsg = null; // message of sync process
+    $scope.processMsg = null; // message of sync process
     $scope.posting = false; // Is waitting for sync posting response
     $scope.toS = false; // Agree toS(terms of service) or not
-    $scope.location = null;
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       name: '', account_number:'', routing_number: '',
       country: 'US', currency: 'USD',
       domain: CareGiverEnv.spGroupName
     };
 
-    $.get("http://ipinfo.io/json", function(response){
-      $scope.location = response;
-    });
-
     $scope.isSubmitable = function(){
       return !($scope.toS && !$scope.posting)
     };
     $scope.acceptTos = function() {
       $scope.toS = true;
-      $('#term-modal').modal('hide');
+      $('#tos-modal').modal('hide');
     }
 
     if (!$user || !$user.currentUser) {
@@ -42,18 +37,18 @@ angular.module('caregiversComApp')
         {op.resolve();return op.promise;}
 
       $scope.error = null;
-      $scope.acceptedMsg = 'Try to map your strip bank account...';
+      $scope.processMsg = 'Try to map your strip bank account...';
       var url = CareGiverEnv.server.host_kb + '/billing/stripe-accounts/'
         + $user.currentUser.stripeAccountId + '/external-accounts';
       var postData = "external_account=" + $user.currentUser.stripeToken;
       $http.post(url, postData).success(function(response) {
         $user.currentUser.payment = response;
-        $scope.acceptedMsg = 'Successfully map bank account to your strip tenant.';
+        $scope.processMsg = 'Successfully map bank account to your strip tenant.';
 
         op.resolve();
       }).error(function(error){
         $scope.posting = false;
-        $scope.acceptedMsg = null;
+        $scope.processMsg = null;
         $scope.error = "Error while post " + url + " : " + error;
         op.reject();
       });
@@ -75,7 +70,7 @@ angular.module('caregiversComApp')
         op.resolve();
       }).error(function(error){
         $scope.posting = false;
-        $scope.acceptedMsg = null;
+        $scope.processMsg = null;
         $scope.error = "Error while post " + url + " : " + error;
         op.reject();
       });
@@ -90,18 +85,18 @@ angular.module('caregiversComApp')
         {op.resolve();return op.promise;}
 
       $scope.error = null;
-      $scope.acceptedMsg = 'Try to strip your bank account...';
+      $scope.processMsg = 'Try to strip your bank account...';
       Stripe.bankAccount.createToken($scope.formModel, function(status, response){
         if (response.error || !response.id){
           $scope.posting = false;
-          $scope.acceptedMsg = null;
+          $scope.processMsg = null;
           $scope.error = response.error.message;
           $user.currentUser.payment = null;
           $user.currentUser.stripeToken = null;
 
           op.reject();
         } else {
-          $scope.acceptedMsg = 'Successfully get your stripe bank account token...';
+          $scope.processMsg = 'Successfully get your stripe bank account token...';
           $user.currentUser.payment = response;
           $user.currentUser.stripeToken = response.id;
 
@@ -119,19 +114,19 @@ angular.module('caregiversComApp')
         {op.resolve();return op.promise;}
 
       $scope.error = null;
-      $scope.acceptedMsg = 'Accepting strip terms of services...';
+      $scope.processMsg = 'Accepting strip terms of services...';
       var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
         + $user.currentUser.stripeAccountId;
       var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
-        + "&&tos_acceptance[ip]=" + $scope.location.ip;
+        + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
       $http.post(url, postData).success(function(response){
         $user.currentUser.stripeToS = true;
-        $scope.acceptedMsg = 'Successfully accepted strip terms of services.';
+        $scope.processMsg = 'Successfully accepted strip terms of services.';
 
         op.resolve();
       }).error(function(error){
         $scope.posting = false;
-        $scope.acceptedMsg = null;
+        $scope.processMsg = null;
         $scope.error = "Error while post " + url + " : " + error;
         op.reject();
       });
