@@ -48,6 +48,8 @@ angular.module('caregiversComApp')
         $scope.posting = false;
         $scope.processMsg = null;
         $scope.verifyMsg = "Error while post " + url + " : " + (error && error.error && error.error.message || 'XHR Error');
+
+        Raygun.send(new Error($scope.verifyMsg));
         op.reject();
       });
 

@@ -12,8 +12,18 @@ angular.module('caregiversComApp')
     $user.get().then(function(user){
       $scope.errorMsg = null;
       $scope.accepted = true;
+      Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $scope.verifyingBankAccount();
     }).catch(function(error){});
+
+    if(!$user.currentUser)
+      $user.get().then(function(user){
+        $scope.errorMsg = null;
+        $scope.accepted = true;
+        Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
+        $scope.verifyingBankAccount();
+      }).catch(function(error){});
+>>>>>>> 67cc2a3efb1ba378d4fe00bcd83ddf201efc50cd
 
     $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;

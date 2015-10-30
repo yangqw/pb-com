@@ -12,6 +12,9 @@ angular.module('caregiversComApp', [
   'ezfb'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, ezfbProvider) {
+
+    Raygun.init('h0ixr2ghLc+Cg82KiDhQ0g==');
+
     $urlRouterProvider
       .otherwise('/');
 
@@ -35,4 +38,14 @@ angular.module('caregiversComApp', [
         //forbiddenState: 'forbidden',
         loginState: 'login'
     });
+  })
+  .factory('$exceptionHandler', function () {
+    return function (exception) {
+      if (window.location.port == 9334){
+        throw exception;
+      }
+      else {
+        Raygun.send(exception);
+      }
+    }
   });

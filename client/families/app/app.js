@@ -15,6 +15,8 @@ angular.module('caregiversComApp', [
     $urlRouterProvider
       .otherwise('/');
 
+    Raygun.init('Q6vaxRitsZoLRvxQ7pKsKw==');
+
     $locationProvider.html5Mode(true);
 
     if(Stripe && Stripe.setPublishableKey){
@@ -33,4 +35,14 @@ angular.module('caregiversComApp', [
         loginState: 'login',
         defaultPostLoginState: 'main'
     });
+  })
+  .factory('$exceptionHandler', function () {
+    return function (exception) {
+      if (window.location.port == 9333){
+        throw exception;
+      }
+      else {
+        Raygun.send(exception);
+      }
+    }
   });
