@@ -8,7 +8,8 @@ angular.module('caregiversComApp')
         templateUrl: 'partners/app/profile/profile.html',
         controller: 'ProfileCtrl',
         sp:{
-          authenticate: true,
+          authenticate: true
+          // waitForUser: true
           // authorize: {
           //   group: 'ROLE_ADMINS_CAREGIVERS'
           // }

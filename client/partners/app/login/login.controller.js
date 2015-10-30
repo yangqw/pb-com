@@ -9,13 +9,11 @@ angular.module('caregiversComApp')
     $scope.accepted = false; //Authorization was accepted or not
 
     if (!$user) return;
-
-    if(!$user.currentUser)
-      $user.get().then(function(user){
-        $scope.errorMsg = null;
-        $scope.accepted = true;
-        $scope.verifyingBankAccount();
-      }).catch(function(error){});
+    $user.get().then(function(user){
+      $scope.errorMsg = null;
+      $scope.accepted = true;
+      $scope.verifyingBankAccount();
+    }).catch(function(error){});
 
     $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;
@@ -97,88 +95,20 @@ angular.module('caregiversComApp')
         $scope.verifyMsg = "Error while post " + url + ":" + (error && error.causeMessage || error.message || 'XHR Error');
       });
     }
-
-    // $scope.acceptTos = function() {
-    //   $('#term-modal').modal('hide');
-    //   $scope.toS = true;
-    //   $scope.acceptStripeToS().then(function(){
-    //     $scope.updateSpUser().then(function(){
-    //
-    //       $scope.processMsg = 'Sucessfully login, let\'s go to have fun...';
-    //       $timeout(function(){ $state.go('main'); }, 3000);
-    //     });
-    //   });
-    // }
-    // $scope.acceptStripeToS = function(){
-    //   var op = $q.defer();
-    //   if (!$user.currentUser.stripeAccountId
-    //     || $user.currentUser.stripeToS === true)
-    //     {op.resolve();return op.promise;}
-    //
-    //   $scope.verifyMsg = null;
-    //   $scope.processMsg = 'Accepting strip terms of services...';
-    //   var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
-    //     + $user.currentUser.stripeAccountId;
-    //   var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
-    //     + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
-    //   $http.post(url, postData).success(function(response){
-    //     $user.currentUser.stripeToS = true;
-    //     $scope.processMsg = 'Successfully accepted strip terms of services.';
-    //
-    //     op.resolve();
-    //   }).error(function(error){
-    //     $scope.posting = false;
-    //     $scope.processMsg = null;
-    //     $scope.verifyMsg = "Error while post " + url + " : " + (error && error.error && error.error.message || 'XHR Error');
-    //     op.reject();
-    //   });
-    //
-    //   return op.promise;
-    // };
-    $scope.updateSpUser = function(){
-      var op = $q.defer();
-      if (!$user || !$user.currentUser)
-        {op.resolve();return op.promise;}
-
-      $scope.verifyMsg = null;
-      var url = CareGiverEnv.server.host + '/api/users/update';
-      var postData = $user.currentUser;
-      $http.post(url, postData).success(function(response){
-        console.log("Updated current user with stripeToS(" + $user.currentUser.stripeToS + ")");
-
-        op.resolve();
-      }).error(function(error){
-        $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = "Error while post " + url + " : " + error;
-        op.reject();
-      });
-
-      return op.promise;
-    };
     $scope.verifyingBankAccount = function(){
       $scope.posting = false;
-      $scope.processMsg = '';
+      $scope.processMsg = null;
 
       if (!$user.currentUser.stripeToken) {
-        $scope.posting = false;
         $scope.processMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
         $timeout(function(){ $state.go('profile')}, 3000);
       }
-      // else if ($user.currentUser.stripeToS === undefined){
-      //   $("#term-modal").modal({'backdrop': 'static', 'keyboard': false});
-      // }
       else{
-        $scope.processMsg = 'Sucessfully login, let\'s go to have fun...';
+        $scope.processMsg = 'Sucessfully login, fun time...';
         $timeout(function(){ $state.go('main'); }, 3000);
       }
     };
 
-    $rootScope.$on('$sessionEnd', function(event, response) {
-      $http.defaults.headers.common.Authorization = null;
-      $cookies.remove('access_token');
-      $user.currentUser = false;
-    });
     $scope.$on('$authenticated', function(event, httpResponse) {
       if (httpResponse && httpResponse.access_token){
         $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;

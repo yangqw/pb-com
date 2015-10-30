@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $user, $state, $q, $timeout) {
+  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/#/home'
+      'link': '/'
     }];
 
     $scope.isCollapsed = true;
@@ -23,7 +23,7 @@ angular.module('caregiversComApp')
       $scope.acceptStripeToS().then(function(){
         $scope.updateSpUser().then(function(){
           $scope.processMsg = 'Thanks for your accepting terms of services...';
-          $timeout(function(){ $('#term-modal').modal('hide'); }, 3000);
+          $timeout(function(){$('#term-modal').modal('hide');}, 3000);
         });
       });
     }
@@ -75,13 +75,32 @@ angular.module('caregiversComApp')
       return op.promise;
     };
 
-    if($user.currentUser){
+    var accessToken = $cookies.get('access_token');
+    var isNeedVerifyUser = !angular.equals($state.current.name, "main")
+      && !angular.equals($state.current.name, "login")
+      && !angular.equals($state.current.name, "signup");
+    if (isNeedVerifyUser) {
       $user.get().then(function(user){
-        if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
+        //console.log('The current user is', user);
+        var isLoginState = angular.equals($state.current.name, "login");
+        if (isLoginState
+          && $user.currentUser.stripeToken
+          && $user.currentUser.stripeToS === undefined){
+          $state.go('main');
+        }
+        else if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
           $("#term-modal").modal({'backdrop': 'static', 'keyboard': false});
         }
       }).catch(function(error){
-        $state.go("login");
+        console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
+        if ($rootScope.toStateName
+          && !angular.equals($rootScope.toStateName,"main")
+          && !angular.equals($rootScope.toStateName,"login")){
+            $rootScope.toStateName = null;
+            $state.go('login');
+        }
       });
+
     }
+
   });

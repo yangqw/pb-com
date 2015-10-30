@@ -6,9 +6,6 @@ angular.module('caregiversComApp')
       .state('main', {
         url: '/',
         templateUrl: 'partners/app/main/main.html',
-        controller: 'MainCtrl',
-        sp:{
-          waitForUser: true
-        }
+        controller: 'MainCtrl'
       });
   });
