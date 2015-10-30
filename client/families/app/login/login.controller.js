@@ -100,6 +100,7 @@ angular.module('caregiversComApp')
         $cookies.put('access_token', httpResponse.access_token);
       }
       if (!$user || !$user.currentUser) return;
+      Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $user.currentUser.step = "Initialize Account... ";
       //Check contact profile, create one if NA throuht API server based on logged user info
       if (!$user.currentUser.contactId){

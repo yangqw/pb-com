@@ -14,6 +14,7 @@ angular.module('caregiversComApp')
       $user.get().then(function(user){
         $scope.errorMsg = null;
         $scope.accepted = true;
+        Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
         $scope.verifyingBankAccount();
       }).catch(function(error){});
 
