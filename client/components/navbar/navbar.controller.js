@@ -78,15 +78,17 @@ angular.module('caregiversComApp')
     };
 
     var accessToken = $cookies.get('access_token');
-    var isNeedVerifyUser = !angular.equals($state.current.name, "main")
-      && !angular.equals($state.current.name, "login")
+    var isNeedVerifyUser = !angular.equals($state.current.name, "logout")
+      //&& !angular.equals($state.current.name, "main")
+      //&& !angular.equals($state.current.name, "login")
       && !angular.equals($state.current.name, "signup");
+    var isPartnerDomain = angular.equals(CareGiverEnv.spGroupName, 'PARTNERS');
     if (isNeedVerifyUser) {
       $user.get().then(function(user){
         //console.log('The current user is', user);
         var isLoginState = angular.equals($state.current.name, "login");
         var isCheckToS = $user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined;
-        if (isCheckToS){
+        if (isCheckToS && isPartnerDomain){
           if (isLoginState){$state.go('main');}
           else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
         }
@@ -96,7 +98,7 @@ angular.module('caregiversComApp')
         Stormpath.resetSession(expired);
         Stormpath.checkSessionWatcher();
       }).catch(function(error){
-        console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
+        //console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
         if ($rootScope.toStateName
           && !angular.equals($rootScope.toStateName,"main")
           && !angular.equals($rootScope.toStateName,"login")){
