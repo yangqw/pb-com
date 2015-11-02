@@ -55,3 +55,19 @@
     </div>
   </div>
 </div>
+
+<div ng-controller="NavbarCtrl" class="modal fade" id="session-modal" tabindex="-1" role="dialog" aria-labelledby="sessionModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="sessionModalLabel">Session Timeout</h4>
+      </div>
+      <div class="modal-body">
+        <p class="terminal">You session will expire soon. To extend your session, please click Continue.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="continueSession();">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

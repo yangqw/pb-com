@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout) {
+  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout, Stormpath) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -85,14 +85,16 @@ angular.module('caregiversComApp')
       $user.get().then(function(user){
         //console.log('The current user is', user);
         var isLoginState = angular.equals($state.current.name, "login");
-        if (isLoginState
-          && $user.currentUser.stripeToken
-          && $user.currentUser.stripeToS === undefined){
-          $state.go('main');
+        var isCheckToS = $user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined;
+        if (isCheckToS){
+          if (isLoginState){$state.go('main');}
+          else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
         }
-        else if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
-          $("#term-modal").modal({'backdrop': 'static', 'keyboard': false});
-        }
+
+        //$user.currentUser.expires_in = new Date().getTime() + 30 * 1000;
+        var expired = $user.currentUser.expires_in - (new Date().getTime() / 1000);
+        Stormpath.resetSession(expired);
+        Stormpath.checkSessionWatcher();
       }).catch(function(error){
         console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
         if ($rootScope.toStateName
@@ -102,7 +104,5 @@ angular.module('caregiversComApp')
             $state.go('login');
         }
       });
-
     }
-
   });

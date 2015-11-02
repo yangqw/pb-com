@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Stormpath) {
     $scope.errorMsg = null;
     $scope.verifyMsg = null;
     $scope.processMsg = null; // message of sync process
@@ -30,12 +30,10 @@ angular.module('caregiversComApp')
       $scope.posting = true;
       $scope.processMsg = "Seems this is your first login, let\'s create a tenant first, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants';
-      var tenantData = {
-        "apiKey": $user.currentUser.email,
-        "apiSecret": $user.currentUser.partnerId,
-        "externalKey": $user.currentUser.partnerId
+      var config = {
+        headers: {"apiKey": $user.currentUser.email}
       };
-      $http.post(url, tenantData).success(function() {
+      $http.post(url, {}, config).success(function() {
         $scope.processMsg = "Tenant has been created sucessfully.";
 
         $user.currentUser.kbTenant = true;
@@ -116,6 +114,7 @@ angular.module('caregiversComApp')
         $scope.processMsg = 'Sucessfully login, fun time...';
         $timeout(function(){ $state.go('main'); }, 3000);
       }
+
     };
 
     $scope.$on('$authenticated', function(event, httpResponse) {
@@ -125,6 +124,7 @@ angular.module('caregiversComApp')
         $cookies.put('access_token', httpResponse.access_token);
       }
       if (!$user || !$user.currentUser) return;
+
       $scope.errorMsg = '';
       $scope.posting = false;
       $scope.accepted = true;
