@@ -94,9 +94,11 @@ angular.module('caregiversComApp')
 
     if ($rootScope.Authorized === true) {
       $user.get().then(function(user){
-        console.log('The current user is', user);
+        //console.log('The current user is', user);
         if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
-          if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
+          if ($user.currentUser.stripeAccountId
+          && $user.currentUser.stripeToken
+          && $user.currentUser.stripeToS === undefined){
             if (angular.equals($state.current.name, "login")){$state.go('main');}
             else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
           }

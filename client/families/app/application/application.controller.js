@@ -16,13 +16,6 @@ angular.module('caregiversComApp')
     $rootScope.$on('$currentUser', function(e, user){
       $rootScope.Authorized = true;
 
-      if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
-        if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
-          if (angular.equals($state.current.name, "login")){$state.go('main');}
-          else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
-        }
-      }
-
       var expired = $user.currentUser.expires_in - (new Date().getTime() / 1000);
       Stormpath.resetFight(expired);
       Stormpath.fight();

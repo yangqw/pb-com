@@ -25,7 +25,7 @@ angular.module('caregiversComApp')
       $scope.processMsg = "Seems this is your first login, let\'s create a tenant first, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants';
       var config = {
-        headers: {"apiKey": $user.currentUser.email}
+        headers: {'X-Killbill-ApiKey': $user.currentUser.email}
       };
       $http.post(url, {}, config).success(function() {
         $scope.processMsg = "Tenant has been created sucessfully.";
@@ -74,13 +74,13 @@ angular.module('caregiversComApp')
       $scope.posting = true;
       $scope.processMsg = "Config your stripe account to tenant, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants/config-stripe';
-      var headers = {headers: {
-        'X-Killbill-ApiKey': $user.currentUser.email,
-        'X-Killbill-ApiSecret': $user.currentUser.partnerId,
-        'X-Killbill-CreatedBy': 'CG Partners Site',
-        'Stripe-Destination': $user.currentUser.stripeAccountId
+      var config = {
+        headers: {
+          'X-Killbill-ApiKey': $user.currentUser.email,
+          'X-Killbill-CreatedBy': 'CG Partners Site',
+          'Stripe-Destination': $user.currentUser.stripeAccountId
       }};
-      $http.post(url, $scope.formModel, headers).success(function(response){
+      $http.post(url, $scope.formModel, config).success(function(response){
         $scope.processMsg = "Tenant and stripe account have been connected.";
 
         $user.currentUser.kbStripe = true;
