@@ -20,7 +20,7 @@ window.CareGiverEnv = {
       "INIT_KEY": "Q6vaxRitsZoLRvxQ7pKsKw=="
     },
     "stripe":{
-      "PUBLISHABLE_KEY": "pk_test_d1aKYweI07SGiH1OUk1Jr10t"
+      "PUBLISHABLE_KEY": "pk_live_XtSyQqLQb3FiONXaFcRQDN5G"
     },
     "ezfb":{
       "APP_ID": "1633212660281900",
