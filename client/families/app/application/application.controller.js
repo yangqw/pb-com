@@ -15,6 +15,17 @@ angular.module('caregiversComApp')
     });
     $rootScope.$on('$currentUser', function(e, user){
       $rootScope.Authorized = true;
+
+      if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
+        if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
+          if (angular.equals($state.current.name, "login")){$state.go('main');}
+          else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
+        }
+      }
+
+      var expired = $user.currentUser.expires_in - (new Date().getTime() / 1000);
+      Stormpath.resetFight(expired);
+      Stormpath.fight();
     });
     $rootScope.$on('$stateChangeUnauthenticated', function(e, toState, toParams){
       $rootScope.toStateName = toState.name;
@@ -60,7 +71,7 @@ angular.module('caregiversComApp')
 
           fightTimer = $interval(function () {
             sessionData.remain --;
-            console.log(sessionData.remain);
+            //console.log(sessionData.remain);
             if (sessionData.remain <= 0){
               $("#session-modal").modal('hide');
 

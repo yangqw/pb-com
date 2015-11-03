@@ -77,12 +77,15 @@ angular.module('caregiversComApp')
       return op.promise;
     };
     $scope.endSession = function(){
-      $("#session-modal").modal('hide');
 
       $auth.endSession().then(function(){
         $state.go('login');
+        $(".modal").modal('hide');
+        $(".modal-backdrop").remove();
       }).catch(function(){
         $state.go('login');
+        $(".modal").modal('hide');
+        $(".modal-backdrop").remove();
       });
     };
 
@@ -98,10 +101,6 @@ angular.module('caregiversComApp')
             else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
           }
         }
-
-        var expired = $user.currentUser.expires_in - (new Date().getTime() / 1000);
-        Stormpath.resetFight(expired);
-        Stormpath.fight();
       }).catch(function(error){
         console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
         $rootScope.$broadcast(STORMPATH_CONFIG.NOT_LOGGED_IN_EVENT);

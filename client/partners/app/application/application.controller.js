@@ -22,7 +22,7 @@ angular.module('caregiversComApp')
           else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
         }
       }
-      
+
       var expired = $user.currentUser.expires_in - (new Date().getTime() / 1000);
       Stormpath.resetFight(expired);
       Stormpath.fight();
@@ -78,7 +78,7 @@ angular.module('caregiversComApp')
 
           fightTimer = $interval(function () {
             sessionData.remain --;
-            console.log(sessionData.remain);
+            //console.log(sessionData.remain);
             if (sessionData.remain <= 0){
               $("#session-modal").modal('hide');
 
