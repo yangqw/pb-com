@@ -1,7 +1,6 @@
 window.CareGiverEnv = {
   "server": {
     "accesspoint": {
-      //"USER_COLLECTION_URI" : '/api/users/register',
       "REGISTER_URI" : '/api/users/register',
       "EMAIL_VERIFICATION_ENDPOINT" : '/api/users/emailVerification',
       "AUTHENTICATION_ENDPOINT" : '/api/users/oauth/token',
@@ -13,5 +12,18 @@ window.CareGiverEnv = {
     },
     "host": "http://api-proxy.caregiversstagingstack.justinsaul.svc.tutum.io:9100/",
     "host_kb": "https://gw.caregivers.com/"//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
+  },
+
+  "component":{
+    "raygun":{
+      "INIT_KEY": "Q6vaxRitsZoLRvxQ7pKsKw=="
+    },
+    "stripe":{
+      "PUBLISHABLE_KEY": "pk_test_d1aKYweI07SGiH1OUk1Jr10t"
+    },
+    "ezfb":{
+      "APP_ID": "1633212660281900",
+      "APP_SECRET": ""
+    }
   }
 }

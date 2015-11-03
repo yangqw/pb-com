@@ -1,4 +1,6 @@
-<div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
+<div ng-controller="NavbarCtrl">
+
+<div class="navbar navbar-default navbar-static-top">
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
@@ -63,11 +65,13 @@
         <h4 class="modal-title" id="sessionModalLabel">Session Timeout</h4>
       </div>
       <div class="modal-body">
-        <p class="terminal">You session will expire soon. To extend your session, please click Continue.</p>
+        <p class="terminal">You session will expire soon. Please click Continue to login again.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="continueSession();">Continue</button>
+        <button type="button" class="btn btn-primary" ng-click="endSession();">Continue</button>
       </div>
     </div>
   </div>
+</div>
+
 </div>

@@ -88,11 +88,6 @@ angular.module('caregiversComApp')
       return op.promise;
     };
 
-    $rootScope.$on('$sessionEnd', function(event, response) {
-      $http.defaults.headers.common.Authorization = null;
-      $cookies.remove('access_token');
-      $user.currentUser = false;
-    });
     $scope.$on('$authenticated', function(event, httpResponse) {
       if (httpResponse && httpResponse.access_token){
         $http.defaults.headers.common.Authorization = 'Bearer ' + httpResponse.access_token;

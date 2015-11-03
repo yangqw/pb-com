@@ -1,7 +1,7 @@
 'user strict'
 
 angular.module('caregiversComApp')
-  .config(function(STORMPATH_CONFIG){
+  .config(function(STORMPATH_CONFIG, ezfbProvider){
     //console.log("********AppConfig********");
     if (CareGiverEnv) {
       // Overwrite STORMPATH_CONFIG keys if found definition at GareGiverEnv
@@ -16,5 +16,31 @@ angular.module('caregiversComApp')
 
       // Set strompath group belongs for current subdomain
       if (!CareGiverEnv.spGroupName) CareGiverEnv.spGroupName = 'PARTNERS';
+
+      if (CareGiverEnv.component){
+        // Init component of Raygun
+        if (CareGiverEnv.component.raygun
+        && CareGiverEnv.component.raygun.INIT_KEY
+        && Raygun && Raygun.init){
+          Raygun.init(CareGiverEnv.component.raygun.INIT_KEY);
+        }
+
+        // Init component of Stripe
+        if (CareGiverEnv.component.stripe
+        && CareGiverEnv.component.stripe.PUBLISHABLE_KEY
+        && Stripe && Stripe.setPublishableKey){
+          Stripe.setPublishableKey(CareGiverEnv.component.stripe.PUBLISHABLE_KEY);
+        }
+
+        // Init component of ezfbProvider
+        if (CareGiverEnv.component.ezfb
+        && CareGiverEnv.component.ezfb.APP_ID
+        && ezfbProvider && ezfbProvider.setInitParams){
+          ezfbProvider.setInitParams({
+            appId: CareGiverEnv.component.ezfb.APP_ID
+          });
+        }
+
+      }
     }
   });
