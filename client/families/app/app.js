@@ -23,8 +23,10 @@ angular.module('caregiversComApp', [
 
   .run(function($stormpath){
     $stormpath.uiRouter({
-        loginState: 'login',
-        defaultPostLoginState: 'main'
+        autoRedirect: true,
+        defaultPostLoginState: 'main',
+        //forbiddenState: 'forbidden',
+        loginState: 'login'
     });
   })
 

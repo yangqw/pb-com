@@ -13,5 +13,18 @@ window.CareGiverEnv = {
     },
     "host": "https://api-proxy.caregivers.com",
     "host_kb": "https://api.caregivers.com/prod"//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
+  },
+
+  "component":{
+    "raygun":{
+      "INIT_KEY": "Q6vaxRitsZoLRvxQ7pKsKw=="
+    },
+    "stripe":{
+      "PUBLISHABLE_KEY": "pk_test_d1aKYweI07SGiH1OUk1Jr10t"
+    },
+    "ezfb":{
+      "APP_ID": "1633212660281900",
+      "APP_SECRET": ""
+    }
   }
 }

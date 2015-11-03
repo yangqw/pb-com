@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout, Stormpath) {
+  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout, Stormpath, $auth) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -76,35 +76,35 @@ angular.module('caregiversComApp')
 
       return op.promise;
     };
+    $scope.endSession = function(){
+      $("#session-modal").modal('hide');
+
+      $auth.endSession().then(function(){
+        $state.go('login');
+      }).catch(function(){
+        $state.go('login');
+      });
+    };
 
     var accessToken = $cookies.get('access_token');
-    var isNeedVerifyUser = !angular.equals($state.current.name, "logout")
-      //&& !angular.equals($state.current.name, "main")
-      //&& !angular.equals($state.current.name, "login")
-      && !angular.equals($state.current.name, "signup");
     var isPartnerDomain = angular.equals(CareGiverEnv.spGroupName, 'PARTNERS');
-    if (isNeedVerifyUser) {
+
+    if ($rootScope.Authorized === true) {
       $user.get().then(function(user){
-        //console.log('The current user is', user);
-        var isLoginState = angular.equals($state.current.name, "login");
-        var isCheckToS = $user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined;
-        if (isCheckToS && isPartnerDomain){
-          if (isLoginState){$state.go('main');}
-          else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
+        console.log('The current user is', user);
+        if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
+          if ($user.currentUser.stripeToken && $user.currentUser.stripeToS === undefined){
+            if (angular.equals($state.current.name, "login")){$state.go('main');}
+            else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
+          }
         }
 
-        //$user.currentUser.expires_in = new Date().getTime() + 30 * 1000;
         var expired = $user.currentUser.expires_in - (new Date().getTime() / 1000);
-        Stormpath.resetSession(expired);
-        Stormpath.checkSessionWatcher();
+        Stormpath.resetFight(expired);
+        Stormpath.fight();
       }).catch(function(error){
-        //console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
-        if ($rootScope.toStateName
-          && !angular.equals($rootScope.toStateName,"main")
-          && !angular.equals($rootScope.toStateName,"login")){
-            $rootScope.toStateName = null;
-            $state.go('login');
-        }
+        console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
+        $rootScope.$broadcast(STORMPATH_CONFIG.NOT_LOGGED_IN_EVENT);
       });
     }
   });
