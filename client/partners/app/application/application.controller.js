@@ -1,7 +1,7 @@
 'use strict';
 //Base controller, one purpose is going to set access_token to http headers
 angular.module('caregiversComApp')
-  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $rootScope, $state, Stormpath) {
+  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $rootScope, $state, Stormpath, $auth) {
     //console.log("ApplicationCtrl");
     $rootScope.Authorized = false;
     $rootScope.$on('$notLoggedin', function(e){
@@ -15,6 +15,14 @@ angular.module('caregiversComApp')
     });
     $rootScope.$on('$currentUser', function(e, user){
       $rootScope.Authorized = true;
+
+      var isSameGroup = angular.isDefined(user.groups)
+      && angular.isArray(user.groups) && user.groups.length == 1
+      && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
+      if (!isSameGroup){
+        $auth.endSession();
+        return;
+      }
 
       if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
         if ($user.currentUser.stripeAccountId

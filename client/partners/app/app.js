@@ -11,15 +11,16 @@ angular.module('caregiversComApp', [
   'stripe',
   'ezfb'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, ezfbProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(true);
 
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
-    
+
   })
+
   .run(function($stormpath){
     $stormpath.uiRouter({
         autoRedirect: true,
@@ -28,6 +29,7 @@ angular.module('caregiversComApp', [
         loginState: 'login'
     });
   })
+  
   .factory('$exceptionHandler', function () {
     return function (exception) {
       if (window.location.port == 9334){
