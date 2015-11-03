@@ -11,31 +11,23 @@ angular.module('caregiversComApp', [
   'stripe',
   'ezfb'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, ezfbProvider) {
-    $urlRouterProvider
-      .otherwise('/');
-
-    Raygun.init('Q6vaxRitsZoLRvxQ7pKsKw==');
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(true);
-
-    if(Stripe && Stripe.setPublishableKey){
-      Stripe.setPublishableKey('pk_test_d1aKYweI07SGiH1OUk1Jr10t');
-    }
 
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
 
-    ezfbProvider.setInitParams({
-      appId: '1633212660281900'
-    });
   })
+
   .run(function($stormpath){
     $stormpath.uiRouter({
         loginState: 'login',
         defaultPostLoginState: 'main'
     });
   })
+
   .factory('$exceptionHandler', function () {
     return function (exception) {
       if (window.location.port == 9333){

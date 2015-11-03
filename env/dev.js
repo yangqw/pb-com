@@ -1,7 +1,6 @@
 window.CareGiverEnv = {
   "server": {
     "accesspoint": {
-      //"USER_COLLECTION_URI" : '/api/users/register',
       "REGISTER_URI" : '/api/users/register',
       "EMAIL_VERIFICATION_ENDPOINT" : '/api/users/emailVerification',
       "AUTHENTICATION_ENDPOINT" : '/api/users/oauth/token',
@@ -12,6 +11,19 @@ window.CareGiverEnv = {
       "FORM_CONTENT_TYPE" : 'application/json',
     },
     "host": "http://localhost:9100",
-    "host_kb": "https://gw.caregivers.com" //"https://api.caregivers.com/prod"
+    "host_kb": "https://gw.caregivers.com"
+  },
+
+  "component":{
+    "raygun":{
+      "INIT_KEY": "Q6vaxRitsZoLRvxQ7pKsKw=="
+    },
+    "stripe":{
+      "PUBLISHABLE_KEY": "pk_test_d1aKYweI07SGiH1OUk1Jr10t"
+    },
+    "ezfb":{
+      "APP_ID": "1633212660281900",
+      "APP_SECRET": ""
+    }
   }
 }
