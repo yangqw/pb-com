@@ -28,17 +28,20 @@ angular.module('caregiversComApp')
         "remain": -1
       };
 
+      var sessionTimer;
+
       this.resetSession = function(seconds){
         sessionData.remain = seconds;
       };
       this.checkSessionWatcher = function(){
         if (sessionData.remain <= 0) return;
 
-        var sessionTimer = setInterval(function () {
+        sessionTimer = $interval(function () {
           sessionData.remain --;
+          console.log(sessionData.remain);
           if (sessionData.remain <= 0){
             $("#session-modal").modal('hide');
-            clearInterval(sessionTimer);
+            $interval.cancel(sessionTimer);
 
             $auth.endSession().then(function(){
               $state.go('login');
