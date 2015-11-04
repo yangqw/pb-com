@@ -10,13 +10,16 @@ angular.module('caregiversComApp')
 
     if (!$user) return;
 
-    if($rootScope.Authorized)
-      $user.get().then(function(user){
-        $scope.errorMsg = null;
-        $scope.accepted = true;
-        Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
-        $scope.verifyingBankAccount();
-      }).catch(function(error){});
+    //if($rootScope.Authorized)
+    // $user.get().then(function(user){
+    //   Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
+    //   $rootScope.$broadcast('$authenticated');
+    // })
+    // .catch(function(error){
+    //   $rootScope.$broadcast('$sessionEnd');
+    //   $rootScope.$broadcast('$notLoggedin');
+    //   return;
+    // });
 
     $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;

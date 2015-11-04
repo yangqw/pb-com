@@ -62,6 +62,16 @@ angular.module('caregiversComApp')
       $rootScope.location = response;
     });
 
+    $user.get().then(function(user){
+      Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
+      $rootScope.$broadcast('$authenticated');
+    })
+    .catch(function(error){
+      $rootScope.$broadcast('$sessionEnd');
+      $rootScope.$broadcast('$notLoggedin');
+      return;
+    });
+
   })
 
   .service('Stormpath', ["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth",
@@ -89,7 +99,7 @@ angular.module('caregiversComApp')
           fightTimer = $interval(function () {
             sessionData.remain --;
             //console.log(sessionData.remain);
-            if (sessionData.remain <= 0){
+            if (sessionData.remain <= 5){
               $("#session-modal").modal('hide');
 
               $auth.endSession().then(function(){

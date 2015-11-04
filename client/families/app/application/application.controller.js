@@ -73,7 +73,7 @@ angular.module('caregiversComApp')
           fightTimer = $interval(function () {
             sessionData.remain --;
             //console.log(sessionData.remain);
-            if (sessionData.remain <= 0){
+            if (sessionData.remain <= 5){
               $("#session-modal").modal('hide');
 
               $auth.endSession().then(function(){
