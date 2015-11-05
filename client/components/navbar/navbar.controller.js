@@ -55,7 +55,7 @@ angular.module('caregiversComApp')
 
       return op.promise;
     };
-    $scope.updateSpUser = function(){
+    $rootScope.updateSpUser = function(){
       var op = $q.defer();
       if (!$user || !$user.currentUser)
         {op.resolve();return op.promise;}
@@ -64,7 +64,7 @@ angular.module('caregiversComApp')
       var url = CareGiverEnv.server.host + '/api/users/update';
       var postData = $user.currentUser;
       $http.post(url, postData).success(function(response){
-        console.log("Updated current user with stripeToS(" + $user.currentUser.stripeToS + ")");
+        //console.log("Updated current user with stripeToS(" + $user.currentUser.stripeToS + ")");
 
         op.resolve();
       }).error(function(error){

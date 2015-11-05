@@ -2,7 +2,6 @@
 //Base controller, one purpose is going to set access_token to http headers
 angular.module('caregiversComApp')
   .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $rootScope, $state, Stormpath, $auth) {
-    //console.log("ApplicationCtrl");
     $rootScope.Authorized = false;
     $rootScope.$on('$notLoggedin', function(e){
       $rootScope.Authorized = false;
@@ -38,7 +37,8 @@ angular.module('caregiversComApp')
       Stormpath.fight();
     });
     $rootScope.$on('$stateChangeUnauthenticated', function(e, toState, toParams){
-      $rootScope.toStateName = toState.name;
+      $rootScope.$broadcast('$sessionEnd');
+      $rootScope.$broadcast('$notLoggedin');
     });
     $rootScope.$on('$sessionEnd', function(event, response) {
       $http.defaults.headers.common.Authorization = null;

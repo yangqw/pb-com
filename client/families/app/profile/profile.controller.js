@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window) {
+  .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $timeout) {
     $scope.acceptedMsg = '';
     $scope.error = '';
 
@@ -31,12 +31,10 @@ angular.module('caregiversComApp')
       $http.post(url, postData
       ).success(function(response) {
         $scope.acceptedMsg = 'Successfully map credit card to your killbill paymentmethod.';
-        $('.alert').alert('close');
-        console.log($scope.acceptedMsg);
+        $timeout(function(){ $('.alert').alert('close');}, 3000);
       }).error(function(error){
         $scope.acceptedMsg = '';
         $scope.error = "Error while post " + url + " : " + error;
-        console.log($scope.error);
       });
 
     };

@@ -13,6 +13,7 @@ angular.module('caregiversComApp')
   $scope.submit = function(){
     $scope.posting = true;
     $scope.error = null;
+    $scope.processMsg = 'Authenticating...';
     $auth.authenticate($scope.formModel)
       .catch(function(response){
         $scope.posting = false;

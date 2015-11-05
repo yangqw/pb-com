@@ -83,7 +83,7 @@ angular.module('caregiversComApp')
           'X-Killbill-CreatedBy': 'CG Partners Site',
           'Stripe-Destination': $user.currentUser.stripeAccountId
       }};
-      $http.post(url, $scope.formModel, config).success(function(response){
+      $http.post(url, {}, config).success(function(response){
         $scope.processMsg = "Tenant and stripe account have been connected.";
 
         $user.currentUser.kbStripe = true;
@@ -105,7 +105,7 @@ angular.module('caregiversComApp')
 
       if (!$user.currentUser.stripeToken) {
         $scope.processMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
-        $timeout(function(){ $state.go('profile')}, 3000);
+        $timeout(function(){ $state.go('profile'); }, 3000);
       }
       else{
         $scope.processMsg = 'Sucessfully login, fun time...';
@@ -122,6 +122,7 @@ angular.module('caregiversComApp')
       }
       if (!$user || !$user.currentUser) return;
 
+      Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $scope.errorMsg = '';
       $scope.posting = false;
       $scope.accepted = true;
