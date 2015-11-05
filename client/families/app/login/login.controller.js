@@ -61,7 +61,7 @@ angular.module('caregiversComApp')
       }).error(function(error) {
         $scope.posting = false;
         $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + " : ") + (error && error.causeMessage || error.message || 'XHR Error');
+        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     };
     $scope.createKbAccount = function() {
@@ -88,7 +88,7 @@ angular.module('caregiversComApp')
       }).error(function(error) {
         $scope.posting = false;
         $scope.processMsg = null;
-        $scope.verifyMsg = "Error while post " + url + ":" + (error && error.causeMessage || error.message || 'XHR Error');
+        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     };
     $scope.verifyingPayment = function(){
