@@ -3,10 +3,10 @@
 angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout) {
     $scope.errorMsg = null;
-    $scope.verifyMsg = null;
-    $scope.processMsg = null; // message of sync process
+    $rootScope.verifyMsg = null;
+    $rootScope.processMsg = null; // message of sync process
     $scope.posting = false; // Is waitting for sync posting response
-    $scope.accepted = false; //Authorization was accepted or not
+    $rootScope.accepted = false; //Authorization was accepted or not
 
     $scope.fbLogin = function () {
       /**
@@ -39,7 +39,7 @@ angular.module('caregiversComApp')
       if (!$user.currentUser.email) return;
 
       $scope.posting = true;
-      $scope.processMsg = "Seems this is your first login, let\'s setup contact profile for you, a moment please...";
+      $rootScope.processMsg = "Seems this is your first login, let\'s setup contact profile for you, a moment please...";
       var url = CareGiverEnv.server.host + '/contacts';
       var data = {
         "firstName" : $user.currentUser.surname,
@@ -49,7 +49,7 @@ angular.module('caregiversComApp')
       $http.post(url, data).success(function(response) {
         $user.currentUser.contactId = response.content._id;
         $rootScope.updateSpUser().then(function(){
-          $scope.processMsg = "Contact profile has been created sucessfully.";
+          $rootScope.processMsg = "Contact profile has been created sucessfully.";
 
           if (!$user.currentUser.kbAccount) $scope.createKbAccount();
           else {
@@ -60,15 +60,15 @@ angular.module('caregiversComApp')
         });
       }).error(function(error) {
         $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     };
     $scope.createKbAccount = function() {
       if (!$user.currentUser.email || !$user.currentUser.contactId) return;
 
       $scope.posting = true;
-      $scope.processMsg = "Setting up a Killbill account for you, a moment please...";
+      $rootScope.processMsg = "Setting up a Killbill account for you, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/accounts';
       var data = {
         "name": $user.currentUser.fullName,
@@ -77,7 +77,7 @@ angular.module('caregiversComApp')
         "currency": "USD"
       };
       $http.post(url, data).success(function() {
-        $scope.processMsg = "Killbill account has been created sucessfully.";
+        $rootScope.processMsg = "Killbill account has been created sucessfully.";
 
         $rootScope.getKbAccount().then(function() {
           $rootScope.updateSpUser().then(function(){
@@ -87,20 +87,20 @@ angular.module('caregiversComApp')
         });
       }).error(function(error) {
         $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     };
     $scope.verifyingPayment = function(){
       $scope.posting = false;
-      $scope.processMsg = null;
+      $rootScope.processMsg = null;
 
       if (!$user.currentUser.stripeToken) {
-        $scope.processMsg = 'Sucessfully login, let\'s go to set up your payment now...';
+        $rootScope.processMsg = 'Sucessfully login, let\'s go to set up your payment now...';
         $timeout(function(){ $state.go('profile')}, 3000);
       }
       else{
-        $scope.processMsg = 'Sucessfully login, fun time...';
+        $rootScope.processMsg = 'Sucessfully login, fun time...';
         $timeout(function(){ $state.go('main'); }, 3000);
       }
 
@@ -117,14 +117,31 @@ angular.module('caregiversComApp')
       Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $scope.errorMsg = '';
       $scope.posting = false;
-      $scope.accepted = true;
+      $rootScope.accepted = true;
+
+      var user = $user.currentUser;
+      var isSameGroup = angular.isDefined(user.groups)
+      && angular.isArray(user.groups) && user.groups.length == 1
+      && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
+      if (!isSameGroup){
+        $scope.posting = false;
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now..";
+
+        $timeout(function(){
+          $rootScope.accepted = false;
+          $auth.endSession().then(function(){$state.go('login');});
+        },3000);
+
+        return;
+      }
 
       if (!$user.currentUser.contactId)$scope.createContact();//create contact profile based on logged user info
       else if (!$user.currentUser.kbAccount) $scope.createKbAccount(); //create account based on contactId as externalKey
       else {  //Get kbAccountId against contactId as externalKey
-        //$rootScope.getKbAccount().then(function(){
+        $rootScope.getKbAccount().then(function(){
           $scope.verifyingPayment();
-        //});
+        });
       }
 
     });

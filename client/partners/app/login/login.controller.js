@@ -127,6 +127,25 @@ angular.module('caregiversComApp')
       $scope.posting = false;
       $scope.accepted = true;
 
+      var user = $user.currentUser;
+      var isSameGroup = angular.isDefined(user.groups)
+      && angular.isArray(user.groups) && user.groups.length == 1
+      && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
+      if (!isSameGroup){
+        $scope.posting = false;
+        $scope.processMsg = null;
+        $scope.verifyMsg = "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now..";
+
+        $timeout(function(){
+          $scope.accepted = false;
+          $auth.endSession().then(function(){
+            $scope.verifyMsg = null;
+            $state.go('login');});
+        },3000);
+
+        return;
+      }
+
       if (!$user.currentUser.partnerId){
         console.log("Impossible for a partner who does not have a partnerId");
       }

@@ -18,7 +18,7 @@ angular.module('caregiversComApp')
       var isSameGroup = angular.isDefined(user.groups)
       && angular.isArray(user.groups) && user.groups.length == 1
       && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
-      if (!isSameGroup){
+      if (!isSameGroup && !angular.equals($state.current.name, "login")){
         $auth.endSession();
         return;
       }

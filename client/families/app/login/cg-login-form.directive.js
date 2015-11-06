@@ -2,7 +2,7 @@
 
 angular.module('caregiversComApp')
 
-.controller('CgLoginFormCtrl', ['$scope','$auth',function ($scope,$auth) {
+.controller('CgLoginFormCtrl', ['$scope','$auth', '$rootScope',function ($scope,$auth,$rootScope) {
 
   $scope.formModel = {
     username: '',
@@ -13,7 +13,7 @@ angular.module('caregiversComApp')
   $scope.submit = function(){
     $scope.posting = true;
     $scope.error = null;
-    $scope.processMsg = 'Authenticating...';
+    $rootScope.processMsg = 'Authenticating...';
     $auth.authenticate($scope.formModel)
       .catch(function(response){
         $scope.posting = false;

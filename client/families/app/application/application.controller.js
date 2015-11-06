@@ -60,7 +60,7 @@ angular.module('caregiversComApp')
       var isSameGroup = angular.isDefined(user.groups)
       && angular.isArray(user.groups) && user.groups.length == 1
       && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
-      if (!isSameGroup){
+      if (!isSameGroup && !angular.equals($state.current.name, "login")){
         $auth.endSession();
         return;
       }
@@ -83,7 +83,8 @@ angular.module('caregiversComApp')
           });
         }
 
-        if ($user.currentUser.contactId && !$user.currentUser.kbAccountId){
+        if ($user.currentUser.contactId && !$user.currentUser.kbAccountId
+        && !angular.equals($state.current.name, "login")){
           $rootScope.getKbAccount();
         }
       }
@@ -97,19 +98,21 @@ angular.module('caregiversComApp')
 
     $rootScope.getKbAccount = function() {
       var op = $q.defer();
-      if (!$user || !$user.currentUser || !$user.currentUser.contactId) return op.promise;
+      if ($user.currentUser.kbAccountId) {op.resolve();return op.promise;}
+      if (!$user.currentUser.contactId) {op.reject();return op.promise;}
 
-      $scope.posting = true;
-      $scope.processMsg = "Retrieve your info...";
+      $rootScope.posting = true;
+      $rootScope.processMsg = "Retrieve your info...";
+      $rootScope.verifyMsg = null;
       var url = CareGiverEnv.server.host_kb + '/billing/accounts?externalKey=' + $user.currentUser.contactId;
       $http.get(url).success(function(response){
         if (!response || !response.accountId){
           $user.currentUser.kbAccount = false;
           $user.currentUser.kbAccountId = '';
 
-          $scope.posting = false;
-          $scope.processMsg = null;
-          $scope.verifyMsg = "Error while getting AccountID from killbill :" + response.message;
+          $rootScope.posting = false;
+          $rootScope.processMsg = null;
+          $rootScope.verifyMsg = "Error while getting AccountID from killbill :" + response.message;
           op.reject();
         }
         else{
@@ -120,9 +123,9 @@ angular.module('caregiversComApp')
 
         op.resolve();
       }).error(function(error){
-        $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        $rootScope.posting = false;
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
         op.reject();
       });
 

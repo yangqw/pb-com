@@ -4,7 +4,7 @@ angular.module('caregiversComApp')
   .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $timeout) {
     $scope.acceptedMsg = '';
     $scope.error = '';
-
+debugger
     if (!$user || !$user.currentUser) {
       $state.go('logout');
       return;
@@ -15,7 +15,14 @@ angular.module('caregiversComApp')
     }
 
     $scope.mapStripToKillBill = function() {
-      if (!$user.currentUser.kbAccountId || !$user.currentUser.stripeToken) return;
+      if (!$user.currentUser.kbAccountId || !$user.currentUser.stripeToken){
+        $scope.acceptedMsg = '';
+        $scope.error = "Sorry, process failed due to missing "
+          + (!$user.currentUser.kbAccountId ? "Killbill Account" : "Stripe Token")
+          + ", please contact administrator to fix this.";
+        return;
+      }
+
       $scope.acceptedMsg = 'Try to map your strip credit card...';
 
       var url = CareGiverEnv.server.host_kb + '/billing/accounts/'
