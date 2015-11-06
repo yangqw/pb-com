@@ -16,7 +16,10 @@ window.CareGiverEnv = {
 
   "component":{
     "raygun":{
-      "INIT_KEY": "Q6vaxRitsZoLRvxQ7pKsKw=="
+      "initkey":{
+        "FAMILIES": "Q6vaxRitsZoLRvxQ7pKsKw==",
+        "PARTNERS": "h0ixr2ghLc+Cg82KiDhQ0g=="
+      }
     },
     "stripe":{
       "PUBLISHABLE_KEY": "pk_test_d1aKYweI07SGiH1OUk1Jr10t"

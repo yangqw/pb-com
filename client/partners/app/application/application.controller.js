@@ -103,9 +103,10 @@ angular.module('caregiversComApp')
               $("#session-modal").modal('hide');
 
               $auth.endSession().then(function(){
-                $state.go('login');
+                $rootScope.$broadcast('$notLoggedin');
               }).catch(function(){
-                $state.go('login');
+                $rootScope.$broadcast('$sessionEnd');
+                $rootScope.$broadcast('$notLoggedin');
               });
 
               return;

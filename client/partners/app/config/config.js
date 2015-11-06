@@ -20,9 +20,10 @@ angular.module('caregiversComApp')
       if (CareGiverEnv.component){
         // Init component of Raygun
         if (CareGiverEnv.component.raygun
-        && CareGiverEnv.component.raygun.INIT_KEY
+        && CareGiverEnv.component.raygun.initkey
+        && CareGiverEnv.component.raygun.initkey.PARTNERS
         && Raygun && Raygun.init){
-          Raygun.init(CareGiverEnv.component.raygun.INIT_KEY);
+          Raygun.init(CareGiverEnv.component.raygun.initkey.PARTNERS);
         }
 
         // Init component of Stripe
