@@ -4,7 +4,6 @@ angular.module('caregiversComApp')
   .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $timeout) {
     $scope.acceptedMsg = '';
     $scope.error = '';
-debugger
     if (!$user || !$user.currentUser) {
       $state.go('logout');
       return;
