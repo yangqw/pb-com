@@ -6,7 +6,7 @@ module.exports = function (grunt) {
   var validSites = [
     {name: 'families', port: 9333},
     {name: 'partners', port: 9334}
-  ]; 
+  ];
   var clientPort = 9333;
   var site = 'families';
 
@@ -16,7 +16,7 @@ module.exports = function (grunt) {
       clientPort = validSites[s].port;
     }
   }
-  
+
   var siteFolder = 'client/' + site;
   var destinationFolder = 'www/' + site;
   var destinationIndex = destinationFolder + '/index.html';
@@ -212,7 +212,7 @@ module.exports = function (grunt) {
         livereload: true,
       },
       dev: {
-        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', siteFolder + '/assets/stylesheets/*.css'],
+        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', siteFolder + '/assets/stylesheets/*.css', 'client/components/**/*.js'],
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
       },
       configFiles: {

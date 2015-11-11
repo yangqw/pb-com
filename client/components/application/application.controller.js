@@ -2,8 +2,11 @@
 //Base controller, one purpose is going to set access_token to http headers
 //And customize Stormpath broadcast events
 angular.module('caregiversComApp')
-  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $q, $rootScope, $state, Stormpath, $auth) {
+  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $q, $rootScope, $state, Stormpath, $auth, Killbill) {
+    //console.log('ApplicationCtrl')
     $rootScope.Authorized = false;
+    $rootScope.debugMode = false;
+    $rootScope.location = null;
 
     /**
      * @rootScope Stormpath listener
@@ -29,6 +32,7 @@ angular.module('caregiversComApp')
       $rootScope.Authorized = false;
       if (!angular.equals($state.current.name, "login")
       && !angular.equals($state.current.name, "logout")
+      && !angular.equals($state.current.name, "signup")
       && !angular.equals($state.current.name, "register")
       && !angular.equals($state.current.name, "main")){
           $state.go('login');
@@ -85,7 +89,7 @@ angular.module('caregiversComApp')
 
         if ($user.currentUser.contactId && !$user.currentUser.kbAccountId
         && !angular.equals($state.current.name, "login")){
-          $rootScope.getKbAccount();
+          Killbill.getKbAccount();
         }
       }
 
@@ -96,48 +100,17 @@ angular.module('caregiversComApp')
       }
     });
 
-    $rootScope.getKbAccount = function() {
-      var op = $q.defer();
-      if ($user.currentUser.kbAccountId) {op.resolve();return op.promise;}
-      if (!$user.currentUser.contactId) {op.reject();return op.promise;}
-
-      $rootScope.posting = true;
-      $rootScope.processMsg = "Retrieve your info...";
-      $rootScope.verifyMsg = null;
-      var url = CareGiverEnv.server.host_kb + '/billing/accounts?externalKey=' + $user.currentUser.contactId;
-      $http.get(url).success(function(response){
-        if (!response || !response.accountId){
-          $user.currentUser.kbAccount = false;
-          $user.currentUser.kbAccountId = '';
-
-          $rootScope.posting = false;
-          $rootScope.processMsg = null;
-          $rootScope.verifyMsg = "Error while getting AccountID from killbill :" + response.message;
-          op.reject();
-        }
-        else{
-          console.log("Get AccountID from killbill :" + response.accountId);
-          $user.currentUser.kbAccount = true;
-          $user.currentUser.kbAccountId = response.accountId;
-        }
-
-        op.resolve();
-      }).error(function(error){
-        $rootScope.posting = false;
-        $rootScope.processMsg = null;
-        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
-        op.reject();
-      });
-
-      return op.promise;
-    };
-
     var accessToken = $cookies.get('access_token');
     if (accessToken) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
         $http.defaults.headers.common.withCredentials = true;
     }
-    $scope.debugMode = false;
+
+    if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
+      $.get("http://ipinfo.io/json", function(response){
+        $rootScope.location = response;
+      });
+    }
 
     $user.get().then(function(user){
       Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
@@ -151,53 +124,4 @@ angular.module('caregiversComApp')
 
   })
 
-  .service('Stormpath', ["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth",
-    function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth){
-      var sessionData = {
-        "remain": -1
-      };
-      var fightTimer = undefined;
-
-      return {
-        resetFight: function(seconds){
-          sessionData.remain = seconds;
-        },
-
-        stopFight: function(){
-          if (angular.isDefined(fightTimer)){
-            $interval.cancel(fightTimer);
-            fightTimer = undefined;
-          }
-        },
-
-        fight: function(){
-          if (angular.isDefined(fightTimer) || sessionData.remain <= 0) return;
-
-          fightTimer = $interval(function () {
-            sessionData.remain --;
-            //console.log(sessionData.remain);
-            if (sessionData.remain <= 5){
-              $("#session-modal").modal('hide');
-
-              $auth.endSession().then(function(){
-                $rootScope.$broadcast('$notLoggedin');
-              }).catch(function(){
-                $rootScope.$broadcast('$sessionEnd');
-                $rootScope.$broadcast('$notLoggedin');
-              });
-
-              return;
-            }
-            else if (sessionData.remain <= 10){
-              if ($("#term-modal").hasClass('in')){
-                $("#term-modal").modal('hide');
-              }
-              if (!$("#session-modal").hasClass('in')){
-                $("#session-modal").modal({'backdrop': 'static', 'keyboard': false});
-              }
-            }
-          }, 1000);
-        }
-
-      };
-  }]);
+  ;

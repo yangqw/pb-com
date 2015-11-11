@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('SignupCtrl', ['$scope','$http','$location','$user',function ($scope,$http,$location,$user) {
+  .controller('SignupCtrl', ['$scope','$http','$location','$user','$state','$auth', '$timeout',
+  function ($scope,$http,$location,$user,$state,$auth,$timeout) {
     $scope.message = 'Hello SignupCtrl';
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       givenName:'',
@@ -11,8 +12,12 @@ angular.module('caregiversComApp')
       partnerId: '',
       domain: CareGiverEnv.spGroupName
     };
+    $scope.partnerModel = {};
     $scope.verifySignupToken = function(){
       return $http.get(CareGiverEnv.server.host+'/partners/fetch?token='+token);
+    };
+    $scope.updatePartner = function(){
+      return $http.put(CareGiverEnv.server.host+'/partners/',$scope.partnerModel);
     };
 
     var token = $location.search().token;
@@ -26,16 +31,24 @@ angular.module('caregiversComApp')
     $scope.creating = false;
     $scope.authenticating = false;
     $scope.error = null;
+    $scope.emailExists = false;
 
     if(typeof token==='string'){
       $scope.verifying = true;
       $scope.verifySignupToken(token)
         .then(function(response){
+          if (!response || response.status == 406
+          || !response.data || !response.data.email || !response.data.token){
+            $scope.showVerificationError = true;
+            return;
+          }
+
           $scope.verified = true;
           $scope.formModel.givenName = response.data.firstName;
           $scope.formModel.surname = response.data.lastName;
           $scope.formModel.email = response.data.email;
           $scope.formModel.partnerId = response.data.token;
+          $scope.partnerModel = response.data;
         })
         .catch(function(){
           $scope.showVerificationError = true;
@@ -52,12 +65,22 @@ angular.module('caregiversComApp')
       $user.create($scope.formModel)
         .then(function(account){
           $scope.created = true;
+
           $scope.enabled = account.status === 'ENABLED';
-          if($scope.enabled && $scope.autoLogin){
+          if($scope.enabled){
+            $scope.creating = false;
+
+            $timeout(function(){
+            $state.go('login');
+            $scope.posting = true;
+            $scope.error = null;
+            $scope.processMsg = 'Authenticating...';
+
             $scope.authenticating = true;
             $auth.authenticate({
               username: $scope.formModel.email,
-              password: $scope.formModel.password
+              password: $scope.formModel.password,
+              domain: CareGiverEnv.spGroupName
             })
             .then(function(){
               if($scope.postLoginPath){
@@ -65,12 +88,15 @@ angular.module('caregiversComApp')
               }
             })
             .catch(function(response){
-              $scope.error = response.data.error;
+              $scope.posting = false;
+              $scope.error = response.data && response.data.error || 'XHR Error';
             })
             .finally(function(){
               $scope.authenticating = false;
               $scope.creating = false;
             });
+
+            },2000);
           }else{
             $scope.creating = false;
           }
@@ -78,6 +104,11 @@ angular.module('caregiversComApp')
         .catch(function(response){
           $scope.creating = false;
           $scope.error = response.data.error;
+          if (response.status == 400 && response.data
+          && response.data.status == 409 && response.data.code == 2001){
+            $scope.error = "Account with that email already exists.";
+            $scope.emailExists = true;
+          }
         });
     };
   }]);

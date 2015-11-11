@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Killbill, Contact, Stormpath) {
     $scope.errorMsg = null;
     $rootScope.verifyMsg = null;
     $rootScope.processMsg = null; // message of sync process
@@ -35,62 +35,6 @@ angular.module('caregiversComApp')
       }, {scope: 'email,public_profile'});
     };
 
-    $scope.createContact = function(){
-      if (!$user.currentUser.email) return;
-
-      $scope.posting = true;
-      $rootScope.processMsg = "Seems this is your first login, let\'s setup contact profile for you, a moment please...";
-      var url = CareGiverEnv.server.host + '/contacts';
-      var data = {
-        "firstName" : $user.currentUser.surname,
-        "lastName" : $user.currentUser.givenName,
-        "email": $user.currentUser.email
-      };
-      $http.post(url, data).success(function(response) {
-        $user.currentUser.contactId = response.content._id;
-        $rootScope.updateSpUser().then(function(){
-          $rootScope.processMsg = "Contact profile has been created sucessfully.";
-
-          if (!$user.currentUser.kbAccount) $scope.createKbAccount();
-          else {
-            $rootScope.getKbAccount().then(function(){
-              $scope.verifyingPayment();
-            });
-          }
-        });
-      }).error(function(error) {
-        $scope.posting = false;
-        $rootScope.processMsg = null;
-        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
-      });
-    };
-    $scope.createKbAccount = function() {
-      if (!$user.currentUser.email || !$user.currentUser.contactId) return;
-
-      $scope.posting = true;
-      $rootScope.processMsg = "Setting up a Killbill account for you, a moment please...";
-      var url = CareGiverEnv.server.host_kb + '/billing/accounts';
-      var data = {
-        "name": $user.currentUser.fullName,
-        "email": $user.currentUser.email,
-        "externalKey": $user.currentUser.contactId,
-        "currency": "USD"
-      };
-      $http.post(url, data).success(function() {
-        $rootScope.processMsg = "Killbill account has been created sucessfully.";
-
-        $rootScope.getKbAccount().then(function() {
-          $rootScope.updateSpUser().then(function(){
-            console.log("Update AccountID and tag at current user.kbAccount :" + $user.currentUser.kbAccountId);
-            $scope.verifyingPayment();
-          });
-        });
-      }).error(function(error) {
-        $scope.posting = false;
-        $rootScope.processMsg = null;
-        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
-      });
-    };
     $scope.verifyingPayment = function(){
       $scope.posting = false;
       $rootScope.processMsg = null;
@@ -136,13 +80,13 @@ angular.module('caregiversComApp')
         return;
       }
 
-      if (!$user.currentUser.contactId)$scope.createContact();//create contact profile based on logged user info
-      else if (!$user.currentUser.kbAccount) $scope.createKbAccount(); //create account based on contactId as externalKey
-      else {  //Get kbAccountId against contactId as externalKey
-        $rootScope.getKbAccount().then(function(){
-          $scope.verifyingPayment();
+      Contact.createContact().then(function(){
+        Killbill.createKbAccount().then(function(){
+          Killbill.getKbAccount().then(function(){
+            $scope.verifyingPayment();
+          });
         });
-      }
+      });
 
     });
     $scope.$on('$authenticationFailure', function(event, response) {

@@ -10,16 +10,12 @@ angular.module('caregiversComApp')
 
     if (!$user) return;
 
-    //if($rootScope.Authorized)
-    // $user.get().then(function(user){
-    //   Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
-    //   $rootScope.$broadcast('$authenticated');
-    // })
-    // .catch(function(error){
-    //   $rootScope.$broadcast('$sessionEnd');
-    //   $rootScope.$broadcast('$notLoggedin');
-    //   return;
-    // });
+    $scope.verifySignupToken = function(token){
+      return $http.get(CareGiverEnv.server.host+'/partners/fetch?token='+token);
+    };
+    $scope.updatePartner = function(data){
+      return $http.put(CareGiverEnv.server.host+'/partners/',data);
+    };
 
     $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;
@@ -150,6 +146,18 @@ angular.module('caregiversComApp')
         console.log("Impossible for a partner who does not have a partnerId");
       }
       else{
+        $scope.verifySignupToken($user.currentUser.partnerId).then(function(response){
+          if (!response || response.status == 406
+          || !response.data || !response.data.email
+          || !response.data.token || response.data.tokenUsed == true){
+            return;
+          }
+
+          response.data.tokenUsed = true;
+          $scope.updatePartner(response.data).then(function(){
+            console.log("Set partner token used flag to avoid re-signup.");
+          });
+        });
         //Check KB Tenant && Stripe profile
         if (!$user.currentUser.kbTenant) $scope.createTenant(); //create Tenant based on partnerId as externalKey
         else if (!$user.currentUser.stripeAccountId) $scope.createStripeAccount(); //create Strip Account for this partner
