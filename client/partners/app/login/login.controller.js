@@ -147,16 +147,20 @@ angular.module('caregiversComApp')
       }
       else{
         $scope.verifySignupToken($user.currentUser.partnerId).then(function(response){
-          if (!response || response.status == 406
-          || !response.data || !response.data.email
+          if (!response || !response.data || !response.data.email
           || !response.data.token || response.data.tokenUsed == true){
             return;
           }
 
           response.data.tokenUsed = true;
           $scope.updatePartner(response.data).then(function(){
-            console.log("Set partner token used flag to avoid re-signup.");
+            console.log("Updare partner token used flag to true.");
           });
+        }).catch(function(exception){
+          if (!exception || exception.status == 406){
+            console.log("Partner token already used.");
+            return;
+          }
         });
         //Check KB Tenant && Stripe profile
         if (!$user.currentUser.kbTenant) $scope.createTenant(); //create Tenant based on partnerId as externalKey
