@@ -3,10 +3,16 @@
 angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Stormpath) {
     $scope.errorMsg = null;
-    $scope.verifyMsg = null;
-    $scope.processMsg = null; // message of sync process
-    $scope.posting = false; // Is waitting for sync posting response
-    $scope.accepted = false; //Authorization was accepted or not
+    $rootScope.verifyMsg = null;
+    $rootScope.accepted = false; //Authorization was accepted or not
+
+    if (!$rootScope.isAutoLogin){
+      $rootScope.processMsg = null; // message of sync process
+      $rootScope.posting = false; // Is waitting for sync posting response
+    }else{
+      $rootScope.processMsg = 'Authenticating...';
+      $rootScope.posting = true;
+    }
 
     if (!$user) return;
 
@@ -20,14 +26,14 @@ angular.module('caregiversComApp')
     $scope.createTenant = function() {
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;
 
-      $scope.posting = true;
-      $scope.processMsg = "Seems this is your first login, let\'s create a tenant first, a moment please...";
+      $rootScope.posting = true;
+      $rootScope.processMsg = "Seems this is your first login, let\'s create a tenant first, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants';
       var config = {
         headers: {'X-Killbill-ApiKey': $user.currentUser.email}
       };
       $http.post(url, {}, config).success(function() {
-        $scope.processMsg = "Tenant has been created sucessfully.";
+        $rootScope.processMsg = "Tenant has been created sucessfully.";
 
         $user.currentUser.kbTenant = true;
         var update_user_url = CareGiverEnv.server.host + '/api/users/update';
@@ -39,19 +45,19 @@ angular.module('caregiversComApp')
           else $scope.verifyingBankAccount();
         });
       }).error(function(error) {
-        $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        $rootScope.posting = false;
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     };
     $scope.createStripeAccount = function() {
-      $scope.posting = true;
-      $scope.processMsg = "Setting up a stripe account for you, a moment please...";
+      $rootScope.posting = true;
+      $rootScope.processMsg = "Setting up a stripe account for you, a moment please...";
 
       var url = CareGiverEnv.server.host_kb + '/billing/stripe-accounts';
       var body = "managed=true&country=US";
       $http.post(url, body).success(function(response){
-        $scope.processMsg = "Stripe account has been created sucessfully.";
+        $rootScope.processMsg = "Stripe account has been created sucessfully.";
 
         $user.currentUser.stripeAccountId = response.id;
         var update_user_url = CareGiverEnv.server.host + '/api/users/update';
@@ -62,16 +68,16 @@ angular.module('caregiversComApp')
           else $scope.verifyingBankAccount();
         });
       }).error(function(error){
-        $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        $rootScope.posting = false;
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     }
     $scope.configStripe = function() {
       if (!$user.currentUser.partnerId || !$user.currentUser.stripeAccountId) return;
 
-      $scope.posting = true;
-      $scope.processMsg = "Config your stripe account to tenant, a moment please...";
+      $rootScope.posting = true;
+      $rootScope.processMsg = "Config your stripe account to tenant, a moment please...";
       var url = CareGiverEnv.server.host_kb + '/billing/tenants/config-stripe';
       var config = {
         headers: {
@@ -80,7 +86,7 @@ angular.module('caregiversComApp')
           'Stripe-Destination': $user.currentUser.stripeAccountId
       }};
       $http.post(url, {}, config).success(function(response){
-        $scope.processMsg = "Tenant and stripe account have been connected.";
+        $rootScope.processMsg = "Tenant and stripe account have been connected.";
 
         $user.currentUser.kbStripe = true;
         var update_user_url = CareGiverEnv.server.host + '/api/users/update';
@@ -90,21 +96,21 @@ angular.module('caregiversComApp')
           $scope.verifyingBankAccount();
         });
       }).error(function(error){
-        $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        $rootScope.posting = false;
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
       });
     }
     $scope.verifyingBankAccount = function(){
-      $scope.posting = false;
-      $scope.processMsg = null;
+      $rootScope.posting = false;
+      $rootScope.processMsg = null;
 
       if (!$user.currentUser.stripeToken) {
-        $scope.processMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
+        $rootScope.processMsg = 'Sucessfully login, let\'s go to set up your bank account now...';
         $timeout(function(){ $state.go('profile'); }, 3000);
       }
       else{
-        $scope.processMsg = 'Sucessfully login, fun time...';
+        $rootScope.processMsg = 'Sucessfully login, fun time...';
         $timeout(function(){ $state.go('main'); }, 3000);
       }
 
@@ -120,22 +126,22 @@ angular.module('caregiversComApp')
 
       Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $scope.errorMsg = '';
-      $scope.posting = false;
-      $scope.accepted = true;
+      $rootScope.posting = false;
+      $rootScope.accepted = true;
 
       var user = $user.currentUser;
       var isSameGroup = angular.isDefined(user.groups)
       && angular.isArray(user.groups) && user.groups.length == 1
-      && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
+      && user.groups[0].name === CareGiverEnv.spGroupFullName;
       if (!isSameGroup){
-        $scope.posting = false;
-        $scope.processMsg = null;
-        $scope.verifyMsg = "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now..";
+        $rootScope.posting = false;
+        $rootScope.processMsg = null;
+        $rootScope.verifyMsg = "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now..";
 
         $timeout(function(){
-          $scope.accepted = false;
+          $rootScope.accepted = false;
           $auth.endSession().then(function(){
-            $scope.verifyMsg = null;
+            $rootScope.verifyMsg = null;
             $state.go('login');});
         },3000);
 

@@ -28,5 +28,7 @@ window.CareGiverEnv = {
       "APP_ID": "1633212660281900",
       "APP_SECRET": ""
     }
-  }
+  },
+
+  "isStaging": true
 }

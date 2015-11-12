@@ -44,6 +44,9 @@
       <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">
           <p class="alert alert-danger" ng-show="error" ng-bind="error | uselessSpInfo"></p>
+          <p class="alert alert-success" ng-show="emailExists">
+            If you are the guy who own this email CareGivers account. Please <a ui-sref="login">Login Now</a>.
+          </p>
           <button type="submit" class="btn btn-primary" ng-disabled="creating">Register</button>
         </div>
       </div>

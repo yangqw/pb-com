@@ -2,7 +2,7 @@
 //Base controller, one purpose is going to set access_token to http headers
 //And customize Stormpath broadcast events
 angular.module('caregiversComApp')
-  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $q, $rootScope, $state, Stormpath, $auth, Killbill) {
+  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $q, $rootScope, $state, Stormpath, $auth, Killbill, Contact) {
     //console.log('ApplicationCtrl')
     $rootScope.Authorized = false;
     $rootScope.debugMode = false;
@@ -63,7 +63,7 @@ angular.module('caregiversComApp')
 
       var isSameGroup = angular.isDefined(user.groups)
       && angular.isArray(user.groups) && user.groups.length == 1
-      && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
+      && user.groups[0].name === CareGiverEnv.spGroupFullName;
       if (!isSameGroup && !angular.equals($state.current.name, "login")){
         $auth.endSession();
         return;
@@ -78,17 +78,13 @@ angular.module('caregiversComApp')
         }
       }
 
-      if(angular.equals(CareGiverEnv.spGroupName, 'FAMILIES')){
+      if(angular.equals(CareGiverEnv.spGroupName, 'FAMILIES')
+      && !angular.equals($state.current.name, "login")){
         if ($user.currentUser.contactId && !$user.currentUser.contact){
-          $http.get(CareGiverEnv.server.host + '/contacts/' + $user.currentUser.contactId)
-          .success(function(response) {
-            if (response && response.content)
-              $user.currentUser.contact = response.content;
-          });
+          Contact.getContact();
         }
 
-        if ($user.currentUser.contactId && !$user.currentUser.kbAccountId
-        && !angular.equals($state.current.name, "login")){
+        if ($user.currentUser.contactId && !$user.currentUser.kbAccountId){
           Killbill.getKbAccount();
         }
       }

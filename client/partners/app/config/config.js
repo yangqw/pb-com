@@ -15,7 +15,9 @@ angular.module('caregiversComApp')
       }
 
       // Set strompath group belongs for current subdomain
-      if (!CareGiverEnv.spGroupName) CareGiverEnv.spGroupName = 'PARTNERS';
+      CareGiverEnv.spGroupName = 'PARTNERS';
+      CareGiverEnv.spGroupFullName = 'CG_' + CareGiverEnv.spGroupName;
+      if (CareGiverEnv.isStaging === true)  CareGiverEnv.spGroupFullName += '_STAGING';
 
       if (CareGiverEnv.component){
         // Init component of Raygun

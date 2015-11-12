@@ -4,9 +4,15 @@ angular.module('caregiversComApp')
   .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Killbill, Contact, Stormpath) {
     $scope.errorMsg = null;
     $rootScope.verifyMsg = null;
-    $rootScope.processMsg = null; // message of sync process
-    $scope.posting = false; // Is waitting for sync posting response
     $rootScope.accepted = false; //Authorization was accepted or not
+
+    if (!$rootScope.isAutoLogin){
+      $rootScope.processMsg = null; // message of sync process
+      $rootScope.posting = false; // Is waitting for sync posting response
+    }else{
+      $rootScope.processMsg = 'Authenticating...';
+      $rootScope.posting = true;
+    }
 
     $scope.fbLogin = function () {
       /**
@@ -21,7 +27,8 @@ angular.module('caregiversComApp')
           var formData = {
             providerId: 'facebook',         // Get access token from FB sdk login
             accessToken: res.authResponse.accessToken,
-            domain: CareGiverEnv.spGroupName
+            domain: CareGiverEnv.spGroupName,
+            isStaging: CareGiverEnv.isStaging === true
           }
             $auth.authenticate(formData)
               .then(function(){
@@ -36,7 +43,7 @@ angular.module('caregiversComApp')
     };
 
     $scope.verifyingPayment = function(){
-      $scope.posting = false;
+      $rootScope.posting = false;
       $rootScope.processMsg = null;
 
       if (!$user.currentUser.stripeToken) {
@@ -60,21 +67,23 @@ angular.module('caregiversComApp')
 
       Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $scope.errorMsg = '';
-      $scope.posting = false;
+      $rootScope.posting = false;
       $rootScope.accepted = true;
 
       var user = $user.currentUser;
       var isSameGroup = angular.isDefined(user.groups)
       && angular.isArray(user.groups) && user.groups.length == 1
-      && user.groups[0].name === "CG_" + CareGiverEnv.spGroupName;
+      && user.groups[0].name === CareGiverEnv.spGroupFullName;;
       if (!isSameGroup){
-        $scope.posting = false;
+        $rootScope.posting = false;
         $rootScope.processMsg = null;
         $rootScope.verifyMsg = "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now..";
 
         $timeout(function(){
           $rootScope.accepted = false;
-          $auth.endSession().then(function(){$state.go('login');});
+          $auth.endSession().then(function(){
+            $rootScope.verifyMsg = null;
+            $state.go('login');});
         },3000);
 
         return;

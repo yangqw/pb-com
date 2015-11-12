@@ -9,7 +9,8 @@ angular.module('caregiversComApp')
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       name: '', account_number:'', routing_number: '',
       country: 'US', currency: 'USD',
-      domain: CareGiverEnv.spGroupName
+      domain: CareGiverEnv.spGroupName,
+      isStaging: CareGiverEnv.isStaging === true
     };
 
     $scope.isSubmitable = function(){

@@ -28,9 +28,9 @@ angular.module('caregiversComApp')
             console.log("Get AccountID from killbill :" + response.accountId);
             $user.currentUser.kbAccount = true;
             $user.currentUser.kbAccountId = response.accountId;
+            op.resolve();
           }
 
-          op.resolve();
         }).error(function(error){
           $rootScope.posting = false;
           $rootScope.processMsg = null;
@@ -59,7 +59,7 @@ angular.module('caregiversComApp')
         };
         $http.post(url, data).success(function() {
           $rootScope.processMsg = "Killbill account has been created sucessfully.";
-          
+
           self.getKbAccount().then(function(){
             Stormpath.updateSpUser().then(function(){
             console.log("Update AccountID and tag at current user.kbAccount :" + $user.currentUser.kbAccountId);

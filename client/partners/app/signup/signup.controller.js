@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('SignupCtrl', ['$scope','$http','$location','$user','$state','$auth', '$timeout',
-  function ($scope,$http,$location,$user,$state,$auth,$timeout) {
+  .controller('SignupCtrl', ['$scope','$http','$location','$user','$state','$auth', '$timeout','$rootScope',
+  function ($scope,$http,$location,$user,$state,$auth,$timeout,$rootScope) {
     $scope.message = 'Hello SignupCtrl';
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       givenName:'',
@@ -10,7 +10,8 @@ angular.module('caregiversComApp')
       email: '',
       password: '',
       partnerId: '',
-      domain: CareGiverEnv.spGroupName
+      domain: CareGiverEnv.spGroupName,
+      isStaging: CareGiverEnv.isStaging === true
     };
     $scope.partnerModel = {};
     $scope.verifySignupToken = function(){
@@ -71,16 +72,15 @@ angular.module('caregiversComApp')
             $scope.creating = false;
 
             $timeout(function(){
+            $rootScope.isAutoLogin = true;
             $state.go('login');
-            $scope.posting = true;
-            $scope.error = null;
-            $scope.processMsg = 'Authenticating...';
 
             $scope.authenticating = true;
             $auth.authenticate({
               username: $scope.formModel.email,
               password: $scope.formModel.password,
-              domain: CareGiverEnv.spGroupName
+              domain: CareGiverEnv.spGroupName,
+              isStaging: CareGiverEnv.isStaging === true
             })
             .then(function(){
               if($scope.postLoginPath){
@@ -88,8 +88,8 @@ angular.module('caregiversComApp')
               }
             })
             .catch(function(response){
-              $scope.posting = false;
-              $scope.error = response.data && response.data.error || 'XHR Error';
+              $rootScope.posting = false;
+              $rootScope.error = response.data && response.data.error || 'XHR Error';
             })
             .finally(function(){
               $scope.authenticating = false;

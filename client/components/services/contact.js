@@ -5,6 +5,24 @@ angular.module('caregiversComApp')
   function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath){
 
     return self = {
+      getContact: function(){
+        var op = $q.defer();
+        if ($user.currentUser.contact) {op.resolve();return op.promise;}
+        if (!$user.currentUser.contactId) {op.reject();return op.promise;}
+
+        var url = CareGiverEnv.server.host + '/contacts/' + $user.currentUser.contactId;
+        $http.get(url).success(function(response) {
+          if (!response || !response.content){
+            op.reject();
+          }
+          else{
+            $user.currentUser.contact = response.content;
+            op.resolve();
+          }
+        });
+
+        return op.promise;
+      },
       createContact: function(){
         var op = $q.defer();
         if ($user.currentUser.contactId) {op.resolve();return op.promise;}
