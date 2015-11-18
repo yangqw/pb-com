@@ -56,6 +56,12 @@ module.exports = function (grunt) {
 
   // grunt.loadNpmTasks 'grunt-contrib-copy'
     copy: {
+      images_global: {
+        expand: true,
+        cwd: 'client/assets/images/',
+        src: ['*', '**/*'],
+        dest: destinationFolder + '/assets/images'
+      },
       images: {
         expand: true,
         cwd: siteFolder + '/assets/images/',
@@ -67,6 +73,12 @@ module.exports = function (grunt) {
         cwd: siteFolder + '/assets/js/',
         src: ['*.js'],
         dest: destinationFolder + '/assets/js'
+      },
+      css_global: {
+        expand: true,
+        cwd: 'client/assets/',
+        src: ['css/**/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css'],
+        dest: destinationFolder + '/assets/stylesheets'
       },
       css: {
         expand: true,
@@ -254,9 +266,11 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build:dev', [
+    'copy:images_global',
     'copy:images',
     'copy:js',
     'copy:css',
+    'copy:css_global',
     'copy:index',
     'copy:devEnv',
     'concat:dist',
