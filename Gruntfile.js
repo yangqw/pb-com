@@ -49,7 +49,7 @@ module.exports = function (grunt) {
         separator: ';',
       },
       dist: {
-        src: [siteFolder + '/app/**/*.js', 'client/components/**/*.js', '!' + siteFolder + '/app/**/*.spec.js'],
+        src: [siteFolder + '/app/app.js', siteFolder + '/app/**/*.js', 'client/components/**/*.js', '!' + siteFolder + '/app/**/*.spec.js'],
         dest: destinationFolder + '/js/app.js'
       }
     },
@@ -212,7 +212,7 @@ module.exports = function (grunt) {
         livereload: true,
       },
       dev: {
-        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', siteFolder + '/assets/stylesheets/*.css', 'client/components/**/*.js'],
+        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', siteFolder + '/assets/stylesheets/*.css', 'client/components/**/*.js', 'client/components/**/*.html'],
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
       },
       configFiles: {

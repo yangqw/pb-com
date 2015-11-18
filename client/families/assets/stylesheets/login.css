@@ -1,0 +1,30 @@
+/* Form */
+input.form-control {height: 34px;}
+input.form-control,textarea.form-control{border-bottom:1px solid #ededed}
+input.form-control{border:0;background-image:linear-gradient(#0097a7,#0097a7),linear-gradient(#d2d2d2,#d2d2d2)}
+.form-control:focus{background-color:transparent!important;border:none}
+input.form-control.form-white, input.form-control.form-white:hover { border:none;background-image: none;}
+input.form-control.form-white:focus {border:none; background-image: linear-gradient(#0097a7,#0097a7),linear-gradient(#d2d2d2,#d2d2d2);}
+input.form-control.form-dark, input.form-control.form-dark:hover { border: 0;background-color:transparent !important; background-image: linear-gradient(#0097a7,#0097a7),linear-gradient(#121212,#121212);}
+input.form-control.form-dark:focus {background-color:transparent !important;border:none;}
+
+
+.form-control {
+  border: 0;
+  background-image: linear-gradient(#0097a7, #0097a7), linear-gradient(#d2d2d2, #d2d2d2);
+  background-size: 0 2px, 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center bottom, center calc(100% - 1px);
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background 0 ease-out;
+}
+.form-control::-webkit-input-placeholder {
+  color: #bdbdbd;
+}
+.form-control::-moz-placeholder {
+  color: #bdbdbd;
+}
+.form-control:-ms-input-placeholder {
+  color: #bdbdbd;
+}

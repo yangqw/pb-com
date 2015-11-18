@@ -1,17 +1,25 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>Login To CareGivers</h3>
-      <hr>
-    </div>
+<div class="" style="background: #ececec none repeat scroll 0 0; position: relative; margin-top: -20px; margin-bottom: -70px;">
+  <div class="container" style="width: 555px; height: 135px; top: 10px; position: relative;">
+    <img id="u32_img" class="img" src="assets/images/u32.png">
+    <img id="u36_img" class="img" src="assets/images/u36.png">
+    <img id="u34_img" class="img" src="assets/images/u34.png">
   </div>
-  <div cg-login-form template-url="families/app/login/cg-login.html"></div>
-  <div class="row" ng-hide=accepted>
-    <div class=" col-sm-4"></div>
-    <div class="col-xs-8">
-      <p><button class="btn btn-primary" ng-click="fbLogin();" ng-disabled=posting>Connect with Facebook</button></p>
+
+  <div class="container" style="width: 670px; height: 475px; background: url('assets/images/u38.png') no-repeat;">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3 class="col-xs-offset-1">Log In To CareGivers</h3>
+        <hr>
+      </div>
     </div>
+    <div cg-login-form template-url="families/app/login/cg-login.html"></div>
   </div>
 </div>
+
+<footer class="footer">
+  <div class="container">
+      <p>© Copyright 2015 Caregivers.com </p>
+  </div>
+</footer>

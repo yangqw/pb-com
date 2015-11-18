@@ -12,6 +12,7 @@ angular.module('caregiversComApp')
   };
   if (!$rootScope.isAutoLogin) $rootScope.posting = false;
   $scope.submit = function(){
+    $scope.errorMsg = '';
     $rootScope.posting = true;
     $rootScope.error = null;
     $rootScope.processMsg = 'Authenticating...';
