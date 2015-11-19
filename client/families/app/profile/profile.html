@@ -1,155 +1,163 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="" style="height: 1100px; background: #ececec none repeat scroll 0 0; position: relative; margin-top: -20px; margin-bottom: -70px;">
-  <div class="" style="width: 100%; height: 60px; background: url('assets/images/bkgd-grey.png') repeat scroll 0 0 / 670px 185px;">
-    <div class="col-xs-12">
-      <h3 class="col-xs-offset-1" style="color: white">{{user.surname}}'s' Profile</h3>
+<div class="at-view-slide-in-left page-content">
+  <div class="">
+    <div class="header">
+      <h2>{{user.surname}}'s'<strong> PROFILE</strong>
+      </h2>
     </div>
-  </div>
-
-  <div class="container" style="width: 670px; height: 225px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 225px; margin-top: 15px;">
-    <div class="row">
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/heart.png">
-        <h3 class="col-xs-offset-1" style="margin-top: -30px;">Name and Address</h3>
-        <hr>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="container" style="width: 670px; height: 425px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 425px; margin-top: 15px;">
-    <div class="row">
-      <div class="col-xs-12">
-        <span style="font-size:26px; margin-top: 15px; width: 35px;" class="glyphicon glyphicon-user"></span>
-        <h3 class="col-xs-offset-1" style="margin-top: -30px;">Presonal Details</h3>
-        <hr>
-      </div>
-      <div class="col-xs-12" style="margin-top: -30px;">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/cigarette.png">
-        <h5 class="col-xs-offset-1" style="margin-top: -30px;">Smoker?</h5>
-        <h5 class="col-xs-offset-1" style="margin-top: -10px; color: grey;">No</h5>
-      </div>
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/palm.png">
-        <h5 class="col-xs-offset-1" style="margin-top: -30px;">Pet?</h5>
-        <h5 class="col-xs-offset-1" style="margin-top: -10px; color: grey;">No</h5>
-      </div>
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/im.png">
-        <h5 class="col-xs-offset-1" style="margin-top: -30px;">Languages</h5>
-        <h5 class="col-xs-offset-1" style="margin-top: -10px; color: grey;">English</h5>
-      </div>
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/face.png">
-        <h5 class="col-xs-offset-1" style="margin-top: -30px;">Bio & Special Needs</h5>
-        <h5 class="col-xs-offset-1" style="margin-top: -10px; color: grey;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam maximus turpis vitae diam lobortis egestas. Morbi id sollicitudin risus. Sed sed tempor elit. Nunc dignissim, mi eu elementum tempor.</h5>
-      </div>
-    </div>
-  </div>
-
-  <div class="container" style="width: 670px; height: 315px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 315px; margin-top: 15px;">
-    <!-- <div class="row">
-      <div class="col-xs-12">
-        <h3>My Payment</h3>
-        <hr>
-      </div>
-
-    </div> -->
 
     <div class="row">
-      <div class="col-xs-12">
-        <form class="form-horizontal" stripe:form="saveCustomer">
-          <div class="ccjs-card">
-            <label class="ccjs-number">
-              Card Number
-              <input name="card-number" class="ccjs-number" data-stripe="number" placeholder="•••• •••• •••• ••••">
-            </label>
-
-            <label class="ccjs-csc">
-              Security Code
-              <input name="csc" class="ccjs-csc" data-stripe="cvc" placeholder="•••">
-            </label>
-
-            <button type="button" class="ccjs-csc-help">?</button>
-
-            <label class="ccjs-name">
-              Name on Card
-              <input name="name" class="ccjs-name" data-stripe="name">
-            </label>
-
-            <fieldset class="ccjs-expiration">
-              <legend>Expiration</legend>
-              <select name="month" class="ccjs-month" data-stripe="exp-month">
-                <option selected disabled value="">MM</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
-
-              <select name="year" class="ccjs-year" data-stripe="exp-year">
-                <option selected disabled value="">YY</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-              </select>
-            </fieldset>
-
-            <select name="card-type" class="ccjs-hidden-card-type">
-              <option value="amex" class="ccjs-amex">American Express</option>
-              <option value="discover" class="ccjs-discover">Discover</option>
-              <option value="mastercard" class="ccjs-mastercard">MasterCard</option>
-              <option value="visa" class="ccjs-visa">Visa</option>
-              <option value="diners-club" class="ccjs-diners-club">Diners Club</option>
-              <option value="jcb" class="ccjs-jcb">JCB</option>
-              <!--<option value="laser" class="laser">Laser</option>-->
-              <!--<option value="maestro" class="maestro">Maestro</option>-->
-              <!--<option value="unionpay" class="unionpay">UnionPay</option>-->
-              <!--<option value="visa-electron" class="visa-electron">Visa Electron</option>-->
-              <!--<option value="dankort" class="dankort">Dankort</option>-->
-            </select>
+      <div class="col-md-6">
+        <div class="card small">
+          <div class="card-title">
+            <h3><i class="mdi-action-favorite" style="font-size: 2em;"></i>Name & Address</h3>
+            <div class="ripple-wrapper"></div>
           </div>
-          <script src="assets/js/creditcardjs-v0.10.12.min.js"></script>
-
-          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-4">
-              <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
-              <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit Payment Info</button>
+          <hr style="margin: 0!important;">
+          <div class="card-content">
+            <div class="col-xs-12">
+              <i class="mdi-maps-location-history" style="font-size: 8em;"></i>
+              <h4 class="" style="margin-left: 100px; margin-top: -80px;">{{user.fullName}}</h4>
+              <h4 class="" style="margin-left: 100px; ">555 5th Ave, Austin, TX 78555</h4>
             </div>
           </div>
-        </form>
+          <div class="card-action">
+            <a href="#">EDIT</a>
+          </div>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="acceptedMsg">
-              <button type=button class=close data-dismiss=alert aria-label=Close>
-                <span aria-hidden=true>&times;</span>
-              </button>
-              <p ng-bind="acceptedMsg"></p>
+      <div class="col-md-6">
+        <div class="card small">
+          <div class="card-title">
+            <h3><i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>Presonal Details</h3>
+          </div>
+          <hr style="margin: 0!important;">
+          <div class="card-content">
+            <div class="col-xs-12" style="">
+              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
+              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Smoker?</h5>
+              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">No</h5>
             </div>
-            <pre ng-show="debugMode" ng-bind="user.payment | json"></pre>
+            <div class="col-xs-12">
+              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
+              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Pet?</h5>
+              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">No</h5>
+            </div>
+            <div class="col-xs-12">
+              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
+              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Languages</h5>
+              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">English</h5>
+            </div>
+            <div class="col-xs-12">
+              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
+              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Bio & Special Needs</h5>
+              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam maximus turpis vitae diam lobortis egestas. Morbi id sollicitudin risus. Sed sed tempor elit. Nunc dignissim, mi eu elementum tempor.</h5>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="#">EDIT</a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card small">
+            <div class="card-content">
+              <form class="form-horizontal" stripe:form="saveCustomer">
+                <div class="ccjs-card">
+                  <label class="ccjs-number">
+                    Card Number
+                    <input name="card-number" class="ccjs-number" data-stripe="number" placeholder="•••• •••• •••• ••••">
+                  </label>
 
+                  <label class="ccjs-csc">
+                    Security Code
+                    <input name="csc" class="ccjs-csc" data-stripe="cvc" placeholder="•••">
+                  </label>
+
+                  <button type="button" class="ccjs-csc-help">?</button>
+
+                  <label class="ccjs-name">
+                    Name on Card
+                    <input name="name" class="ccjs-name" data-stripe="name">
+                  </label>
+
+                  <fieldset class="ccjs-expiration">
+                    <legend>Expiration</legend>
+                    <select name="month" class="ccjs-month" data-stripe="exp-month">
+                      <option selected disabled value="">MM</option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+
+                    <select name="year" class="ccjs-year" data-stripe="exp-year">
+                      <option selected disabled value="">YY</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                    </select>
+                  </fieldset>
+
+                  <select name="card-type" class="ccjs-hidden-card-type">
+                    <option value="amex" class="ccjs-amex">American Express</option>
+                    <option value="discover" class="ccjs-discover">Discover</option>
+                    <option value="mastercard" class="ccjs-mastercard">MasterCard</option>
+                    <option value="visa" class="ccjs-visa">Visa</option>
+                    <option value="diners-club" class="ccjs-diners-club">Diners Club</option>
+                    <option value="jcb" class="ccjs-jcb">JCB</option>
+                    <!--<option value="laser" class="laser">Laser</option>-->
+                    <!--<option value="maestro" class="maestro">Maestro</option>-->
+                    <!--<option value="unionpay" class="unionpay">UnionPay</option>-->
+                    <!--<option value="visa-electron" class="visa-electron">Visa Electron</option>-->
+                    <!--<option value="dankort" class="dankort">Dankort</option>-->
+                  </select>
+                </div>
+                <script src="assets/js/creditcardjs-v0.10.12.min.js"></script>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-4 col-sm-4">
+                    <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
+                    <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit Payment Info</button>
+                  </div>
+                </div>
+              </form>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="acceptedMsg">
+                    <button type=button class=close data-dismiss=alert aria-label=Close>
+                      <span aria-hidden=true>&times;</span>
+                    </button>
+                    <p ng-bind="acceptedMsg"></p>
+                  </div>
+                  <pre ng-show="debugMode" ng-bind="user.payment | json"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>
 
 <footer class="footer">

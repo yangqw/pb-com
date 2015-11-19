@@ -1,29 +1,33 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
-  <div if-user-state-known class="container">
-    <div style="background-image: url('https://wwwstatic.caregivers.com/wp-content/uploads/2015/10/01140603/home-hero-1140x535.jpg'); height: 400px;">
-      <h1 style="padding-top: 50px;">Welcome, family member!</h1>
-      <div if-user>
-        <h2>{{user.step}}</h2>
+<header class="at-view-slide-in-left page-content hero-unit" id="">
+  <div class="row">
+    <div if-user-state-known class="col-md-12">
+      <div class="card x-large">
+        <div class="card-image">
+          <img class="" src="https://wwwstatic.caregivers.com/wp-content/uploads/2015/10/01140603/home-hero-1140x535.jpg">
+          <span class="card-title" style="top: 0px;">Welcome, family member!</span>
+
+        </div>
+
+        <div class="card-content">
+          <div if-user-state-known class="">
+            <div class="row">
+              <div if-user class="col-lg-12">
+                <span class="card-title activator grey-text text-darken-4 page-header">Hello {{user.fullName}}, your contact info</span>
+
+                <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6">
+                  <li><a href="#" tooltip="{{user.contact.email}}">{{user.contact.firstName}} {{user.contact.email}}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div if-user>
-      <h1>Hello, {{user.fullName}}</h1>
     </div>
   </div>
 </header>
 
-<div if-user-state-known class="container">
-  <div class="row">
-    <div if-user class="col-lg-12">
-      <h1 class="page-header">Your contact info</h1>
-      <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6">
-        <li><a href="#" tooltip="{{user.contact.email}}">{{user.contact.firstName}} {{user.contact.email}}</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
 
 <footer class="footer">
   <div class="container">

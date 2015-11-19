@@ -1546,7 +1546,7 @@ body:not(.sidebar-collapsed) .topbar .header-left .topnav .menutoggle:hover .men
   background: #202226;
   height: 50px;
   left: 0;
-  padding: 10px;
+  padding: 5px 10px;
   position: fixed;
   right: auto;
   top: 0;
@@ -1570,7 +1570,7 @@ body:not(.sidebar-collapsed) .topbar .header-left .topnav .menutoggle:hover .men
 .sidebar .logopanel h1 a {
   background: url(../images/logo/logo-white.png) no-repeat;
   display: block;
-  height: 31px;
+  height: 40px;
 }
 .sidebar .logopanel h1 span {
   color: #E6E7E8;
@@ -3173,13 +3173,13 @@ body:not(.sidebar-collapsed) .sidebar .sidebar-inner .nav-sidebar > li.nav-paren
     right: auto;
     top: -50px;
     top: 0 !important;
-    width: 140px;
+    width: 200px;
     -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
   }
   .sidebar-top .sidebar .logopanel h1 a {
-    background: url(../images/logo/logo-dark.png) no-repeat;
+    background: url(../../images/caregivers-logo-header-40px.jpg) no-repeat;
   }
   .sidebar-top .sidebar:before {
     display: none;
@@ -3313,7 +3313,7 @@ body:not(.sidebar-collapsed) .sidebar .sidebar-inner .nav-sidebar > li.nav-paren
     margin-top: 0;
   }
   .sidebar-top.fixed-topbar .topbar {
-    left: 140px;
+    left: 200px;
     right: 0;
     position: fixed !important;
   }
@@ -12545,7 +12545,7 @@ blockquote i {
     right: auto;
     top: -50px;
     top: -50px !important;
-    width: 140px;
+    width: 200px;
   }
   .rtl .sidebar-top .sidebar {
     bottom: auto!important;
@@ -12704,7 +12704,7 @@ blockquote i {
   .rtl .sidebar-top.fixed-topbar .sidebar .logopanel {
     left: auto;
     right: 0;
-    width: 140px;
+    width: 200px;
   }
   .rtl .sidebar-top.sidebar-fixed.app-header-fixed {
     padding-top: 115px;
@@ -13152,4 +13152,26 @@ body.rtl .layout-options .img-sidebar-right {
 }
 .rtl .sidebar-condensed.sidebar-hover:not(.sidebar-collapsed) .main-content {
   margin-right: 0;
+}
+
+
+
+/* Cutomized Section */
+.main-content .page-content .card .card-title h3 {
+  display: block;
+  font-family: 'Lato', 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+.main-content .page-content .card .card-title {
+  display: block;
+  height: auto;
+  padding: 6px 15px 6px 18px;
+}
+.main-content .page-content .card-title i {
+  padding-right: 6px;
 }

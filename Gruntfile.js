@@ -77,7 +77,7 @@ module.exports = function (grunt) {
       css_global: {
         expand: true,
         cwd: 'client/assets/',
-        src: ['css/**/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css'],
+        src: ['css/**/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css', 'fonts/*'],
         dest: destinationFolder + '/assets/stylesheets'
       },
       css: {

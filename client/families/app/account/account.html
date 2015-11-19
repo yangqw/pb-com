@@ -1,48 +1,72 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="" style="height: 900px; background: #ececec none repeat scroll 0 0; position: relative; margin-top: -20px; margin-bottom: -70px;">
-  <div class="" style="width: 100%; height: 60px; background: url('assets/images/bkgd-grey.png') repeat scroll 0 0 / 670px 185px;">
-    <div class="col-xs-12">
-      <h3 class="col-xs-offset-1" style="color: white">My Account</h3>
-    </div>
+<div class="at-view-slide-in-left page-content" style="">
+  <div class="header">
+    <h2><strong>My Account</strong></h2>
   </div>
 
-  <div class="container" style="width: 670px; height: 155px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 155px; margin-top: 15px;">
-    <div class="row">
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/mail-inbox.png">
-        <h3 class="col-xs-offset-1" style="margin-top: -30px;">Notification</h3>
-        <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card small">
+        <div class="card-title">
+          <h3><i class="mdi-content-markunread" style="font-size: 2em;"></i>Notification</h3>
+          <div class="ripple-wrapper"></div>
+        </div>
+        <hr style="margin: 0!important;">
+        <div class="card-content"></div>
+        <div class="card-action">
+          <a href="#">EDIT</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card small">
+        <div class="card-title">
+          <h3><i class="mdi-action-favorite" style="font-size: 2em;"></i>Your Info</h3>
+          <div class="ripple-wrapper"></div>
+        </div>
+        <hr style="margin: 0!important;">
+        <div class="card-content">
+          <div class="col-xs-12">
+            <i class="mdi-maps-location-history" style="font-size: 8em;"></i>
+            <h4 class="" style="margin-left: 100px; margin-top: -80px;">Email - {{user.email}}</h4>
+            <h4 class="" style="margin-left: 100px; ">Cell - {{user.tel}}</h4>
+          </div>
+        </div>
+        <div class="card-action">
+          <a href="#">EDIT</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="container" style="width: 670px; height: 225px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 225px; margin-top: 15px;">
-    <div class="row">
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/thumbnail.png">
-        <h3 class="col-xs-offset-1" style="margin-top: -30px;">Your Info</h3>
-        <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card small">
+        <div class="card-title">
+          <h3><i class="mdi-action-lock" style="font-size: 2em;"></i>Password</h3>
+          <div class="ripple-wrapper"></div>
+        </div>
+        <hr style="margin: 0!important;">
+        <div class="card-content"></div>
+        <div class="card-action">
+          <a href="#">Rest Password</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container" style="width: 670px; height: 155px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 155px; margin-top: 15px;">
-    <div class="row">
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/lock.png">
-        <h3 class="col-xs-offset-1" style="margin-top: -30px;">Password</h3>
-        <hr>
-      </div>
-    </div>
-  </div>
-
-  <div class="container" style="width: 670px; height: 155px; background: url('assets/images/ctn-shadow.png') no-repeat scroll 0 0 / 670px 155px; margin-top: 15px;">
-    <div class="row">
-      <div class="col-xs-12">
-        <img class="icon" style="margin-top: 15px; width: 35px;" src="assets/images/card.png">
-        <h3 class="col-xs-offset-1" style="margin-top: -30px;">Payment Method</h3>
-        <hr>
+    <div class="col-md-6">
+      <div class="card small">
+        <div class="card-title">
+          <h3><i class="mdi-action-credit-card" style="font-size: 2em;"></i>Payment Method</h3>
+          <div class="ripple-wrapper"></div>
+        </div>
+        <hr style="margin: 0!important;">
+        <div class="card-content"></div>
+        <div class="card-action">
+          <a href="#">Edit</a>
+        </div>
       </div>
     </div>
   </div>

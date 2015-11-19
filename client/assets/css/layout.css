@@ -717,9 +717,9 @@ input.parsley-error, select.parsley-error, textarea.parsley-error { background-c
 .card .card-title{font-size:24px;font-weight:300;font-family: Roboto;}
 .card-image .card-title {color:#fff;}
 .card .card-title.activator{cursor:pointer}
-.card.small,.card.medium,.card.large{position:relative}
-.card.small .card-image,.card.medium .card-image,.card.large .card-image{overflow:hidden}
-.card.small .card-content,.card.medium .card-content,.card.large .card-content{overflow:hidden}
+.card.small,.card.medium,.card.large,.card.x-large{position:relative}
+.card.small .card-image,.card.medium .card-image,.card.large .card-image, .card.x-large .card-image{overflow:hidden}
+.card.small .card-content,.card.medium .card-content,.card.large .card-content,.card.x-large .card-content{overflow:hidden}
 .card.small .card-image{height:150px}
 .card.medium .card-image{height:250px}
 .card.large .card-image{height:330px}
@@ -771,3 +771,6 @@ body.boxed {height: auto}
   .boxed.sidebar-top section .main-content .topbar { margin-left: 0;}
   .boxed.sidebar-top section .sidebar {  width: 240px;}
 }
+
+/*Customized Section*/
+.card.x-large .card-image{height:400px}
