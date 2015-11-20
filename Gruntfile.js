@@ -238,8 +238,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['server']);
   grunt.registerTask('build:prod', [
+    'copy:images_global',
     'copy:images',
     'copy:js',
+    'copy:css_global',
     'copy:css',
     'copy:prodEnv',
     'concat:dist',
@@ -250,8 +252,10 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build:staging', [
+    'copy:images_global',
     'copy:images',
     'copy:js',
+    'copy:css_global',
     'copy:css',
     'copy:stagingEnv',
     'concat:dist',
@@ -269,8 +273,8 @@ module.exports = function (grunt) {
     'copy:images_global',
     'copy:images',
     'copy:js',
-    'copy:css',
     'copy:css_global',
+    'copy:css',
     'copy:index',
     'copy:devEnv',
     'concat:dist',

@@ -30,5 +30,5 @@ window.CareGiverEnv = {
     }
   },
 
-  "isStaging": true
+  "isStaging": false
 }
