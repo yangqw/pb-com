@@ -183,41 +183,29 @@ module.exports = function (grunt) {
         destFile: destinationIndex,
       },
       // Inject application script files into index.html (doesn't include bower)
-      scripts: {
+      scripts_and_css: {
         options: {
           transform: function(filePath) {
-            filePath = filePath.replace('/'+destinationFolder, '');
-            return '<script src="' + filePath + '"></script>';
+            if (/^.*\.css$/.test(filePath)) {
+              filePath = filePath.replace('/'+destinationFolder, '');
+              return '<link rel="stylesheet" href="' + filePath + '">';
+            } else {
+              filePath = filePath.replace('/'+destinationFolder, '');
+              return '<script src="' + filePath + '"></script>';
+            }
+
           },
           template: 'client/index.html',
-          starttag: '<!-- injector:js -->',
-          endtag: '<!-- endinjector -->'
         },
         files: {
           src: [
             destinationFolder + '/js/env.js',
             destinationFolder + '/js/app.js',
-            destinationFolder + '/js/*.js'
-          ]
-        }
-      },
-
-      css: {
-        options: {
-          transform: function(filePath) {
-            filePath = filePath.replace('/'+destinationFolder, '');
-            return '<link rel="stylesheet" href="' + filePath + '">';
-          },
-          template: 'client/index.html',
-          starttag: '<!-- injector:css -->',
-          endtag: '<!-- endinjector -->'
-        },
-        files: {
-          src: [
+            destinationFolder + '/js/*.js',
             destinationFolder + '/assets/stylesheets/**/*.css'
           ]
         }
-      }
+      },
     },
     watch: {
       options: {
@@ -246,8 +234,7 @@ module.exports = function (grunt) {
     'copy:prodEnv',
     'concat:dist',
     'ngtemplates:main',
-    'injector:scripts',
-    'injector:css',
+    'injector:scripts_and_css',
     'wiredep:target',
   ]);
 
@@ -260,8 +247,7 @@ module.exports = function (grunt) {
     'copy:stagingEnv',
     'concat:dist',
     'ngtemplates:main',
-    'injector:scripts',
-    'injector:css',
+    'injector:scripts_and_css',
     'wiredep:target',
   ])
 
@@ -279,8 +265,7 @@ module.exports = function (grunt) {
     'copy:devEnv',
     'concat:dist',
     'ngtemplates:main',
-    'injector:scripts',
-    'injector:css',
+    'injector:scripts_and_css',
     'wiredep:target',
   ])
 
