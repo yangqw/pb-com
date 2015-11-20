@@ -4,6 +4,8 @@ angular.module('caregiversComApp')
 .service('Killbill',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath",
   function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath){
 
+    var self;
+
     return self = {
       getKbAccount: function(){
         var op = $q.defer();

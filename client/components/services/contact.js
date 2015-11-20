@@ -4,6 +4,8 @@ angular.module('caregiversComApp')
 .service('Contact',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath",
   function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath){
 
+    var self;
+
     return self = {
       getContact: function(){
         var op = $q.defer();

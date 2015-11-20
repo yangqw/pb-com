@@ -7,6 +7,7 @@ angular.module('caregiversComApp')
       "remain": -1
     };
     var fightTimer = undefined;
+    var self;
 
     return self = {
       resetFight: function(seconds){
