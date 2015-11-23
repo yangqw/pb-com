@@ -48,7 +48,7 @@ angular.module('caregiversComApp')
 
       if (!$user.currentUser.stripeToken) {
         $rootScope.processMsg = 'Sucessfully login, let\'s go to set up your payment now...';
-        $timeout(function(){ $state.go('profile')}, 3000);
+        $timeout(function(){ $state.go('account')}, 3000);
       }
       else{
         $rootScope.processMsg = 'Sucessfully login, fun time...';
