@@ -68,6 +68,12 @@ module.exports = function (grunt) {
         src: ['*', '**/*'],
         dest: destinationFolder + '/assets/images'
       },
+      js_global: {
+        expand: true,
+        cwd:  'client/assets/',
+        src: ['plugins/**/*.js'],
+        dest: destinationFolder + '/assets/js'
+      },
       js: {
         expand: true,
         cwd: siteFolder + '/assets/js/',
@@ -189,7 +195,7 @@ module.exports = function (grunt) {
             if (/^.*\.css$/.test(filePath)) {
               filePath = filePath.replace('/'+destinationFolder, '');
               return '<link rel="stylesheet" href="' + filePath + '">';
-            } else {
+            } else if (/^.*\.js$/.test(filePath) && filePath.indexOf('creditcardjs') < 0){
               filePath = filePath.replace('/'+destinationFolder, '');
               return '<script src="' + filePath + '"></script>';
             }
@@ -202,6 +208,7 @@ module.exports = function (grunt) {
             destinationFolder + '/js/env.js',
             destinationFolder + '/js/app.js',
             destinationFolder + '/js/*.js',
+            destinationFolder + '/assets/js/**/*.js',
             destinationFolder + '/assets/stylesheets/**/*.css'
           ]
         }
@@ -258,6 +265,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build:dev', [
     'copy:images_global',
     'copy:images',
+    'copy:js_global',
     'copy:js',
     'copy:css_global',
     'copy:css',

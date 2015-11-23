@@ -1,0 +1,25 @@
+.ccjs-card .clear-after-content::after {
+    content: ""!important;
+  }
+.ccjs-card.margin{
+  margin: 1em 2em!important;
+}
+.ccjs-card .ccjs-csc-diagram .ccjs-signature,
+.ccjs-card-style .ccjs-csc-diagram .ccjs-signature{
+  font-size: .8em!important;
+}
+.ccjs-explanation{
+  font-size: 1.0em!important;
+}
+
+.ccjs-card .ccjs-csc-diagram-wrapper:not(.ccjs-media-query-disabled) .ccjs-csc-diagram,
+.ccjs-card-style .ccjs-csc-diagram-wrapper:not(.ccjs-media-query-disabled) .ccjs-csc-diagram,
+.ccjs-card .ccjs-csc-diagram-wrapper:not(.ccjs-media-query-disabled) .ccjs-csc-diagram-amex,
+.ccjs-card-style .ccjs-csc-diagram-wrapper:not(.ccjs-media-query-disabled) .ccjs-csc-diagram-amex {
+  left: 100%!important;
+  bottom: 52%!important;
+}
+.ccjs-card .ccjs-csc-diagram-wrapper:not(.ccjs-media-query-disabled) .ccjs-csc-diagram-amex,
+.ccjs-card-style .ccjs-csc-diagram-wrapper:not(.ccjs-media-query-disabled) .ccjs-csc-diagram-amex{
+  top: 52%!important;
+}
