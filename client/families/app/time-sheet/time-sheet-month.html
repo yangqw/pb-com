@@ -1,0 +1,18 @@
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title ">
+          <a ui-sref="time-sheet.year({year: weekTS.year, month: weekTS.month})">{{ weekTS.month }} timesheets</a>
+        </span>
+        <div class="list-group" ng-repeat="week in weekTS.weeks">
+          <div class="list-group-item">
+
+            <div class="row-content">
+              <!-- <div class="least-content">15m</div> -->
+              <h4 class="list-group-item-heading" ui-sref="time-sheet.week({year: weekTS.year, month: weekTS.month, week: week.path})">{{week.name}}</h4>
+              <p class="list-group-item-text" ng-repeat="data in week.data">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
