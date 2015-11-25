@@ -235,6 +235,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build:prod', [
     'copy:images_global',
     'copy:images',
+    'copy:js_global',
     'copy:js',
     'copy:css_global',
     'copy:css',
@@ -248,6 +249,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build:staging', [
     'copy:images_global',
     'copy:images',
+    'copy:js_global',
     'copy:js',
     'copy:css_global',
     'copy:css',
