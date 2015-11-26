@@ -12,7 +12,7 @@ angular.module('caregiversComApp')
     $scope.profileTitle = CareGiverEnv.spGroupName == 'FAMILIES' ? 'Profile': 'Billing';
 
     $scope.isActive = function(route) {
-      return route === $location.path();
+      return RegExp(route).test($location.path());
     };
 
     /**
@@ -89,8 +89,24 @@ angular.module('caregiversComApp')
       });
     };
 
+    // theme related functions
+    //
+    $scope.themeFunc = {};
+
+    /* Toggle Sidebar Fixed / Fluid */
+    function toggleSidebar() {
+      var $body = $('body');
+      if ($body.hasClass('sidebar-show')) $body.removeClass('sidebar-show');
+      else $body.addClass('sidebar-show');
+    }
+
+    $scope.themeFunc.toggleSidebar = toggleSidebar;
+
+
     var accessToken = $cookies.get('access_token');
     var isPartnerDomain = angular.equals(CareGiverEnv.spGroupName, 'PARTNERS');
+
+    //
 
     if ($rootScope.Authorized === true) {
       $user.get().then(function(user){
