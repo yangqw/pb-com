@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $timeout) {
+  .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $timeout, $q) {
     $scope.acceptedMsg = '';
     $scope.error = '';
     if (!$user || !$user.currentUser) {
@@ -64,5 +64,20 @@ angular.module('caregiversComApp')
       }
       //$scope.$apply();
     };
+
+    $scope.getCreditCardInfo = function() {
+      var op = $q.defer();
+      var url = CareGiverEnv.server.host_kb + '/billing/stripe-tokens/'
+        + $user.currentUser.stripeToken;
+      $http.get(url).success(function(response) {
+        $scope.cardInfo = response.card;
+      }).error(function(error){
+        $scope.processMsg = null;
+        $scope.error = "Error while post " + url + " : " + error;
+        op.reject();
+      });
+    }
+
+    $scope.getCreditCardInfo();
 
   });

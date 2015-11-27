@@ -8,3 +8,10 @@
 ul.nav.nav-sidebar span {
   line-height: 66px;
 }
+
+.sidebar .logopanel {
+  background: white !important;
+}
+.sidebar .sidebar-inner .nav-sidebar > li:not(.nav-active) > a:hover {
+  background: #319db5;
+}
