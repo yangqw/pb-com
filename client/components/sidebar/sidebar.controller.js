@@ -7,6 +7,7 @@ angular.module('caregiversComApp')
 
   $scope.isRegisterOpen = CareGiverEnv.spGroupName == 'FAMILIES';
   $scope.profileTitle = CareGiverEnv.spGroupName == 'FAMILIES' ? 'Profile': 'Billing';
+  $scope.hasTimeSheet = CareGiverEnv.spGroupName == 'FAMILIES';
 
   $scope.isActive = function(route) {
     if(route === '/') {
