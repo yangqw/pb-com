@@ -31,8 +31,8 @@
       </span>
 
       <div class="card-content">
-        <ul>
-          <li ng-repeat="year in oldYears">
+        <ul class="list-group">
+          <li ng-repeat="year in oldYears" class="list-group-item">
             <a ui-sref="time-sheet.year({year: year.path})">{{year.name}}</a>
           </li>
         </ul>

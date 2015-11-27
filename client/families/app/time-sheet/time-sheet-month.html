@@ -10,7 +10,7 @@
 
             <div class="row-content">
               <!-- <div class="least-content">15m</div> -->
-              <h4 class="list-group-item-heading" ui-sref="time-sheet.week({year: weekTS.year, month: weekTS.month, week: week.path})">{{week.name}}</h4>
+              <h4 class="list-group-item-heading" ><a ui-sref="time-sheet.week({year: weekTS.year, month: weekTS.month, week: week.path})">{{week.name}}</a></h4>
               <p class="list-group-item-text" ng-repeat="data in week.data">
               </p>
             </div>
