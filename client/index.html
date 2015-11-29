@@ -28,14 +28,23 @@
     <![endif]-->
 
     <section style="opacity: 1;">
-      <div class="sidebar">
-        <div class="logopanel">
-          <h1><a href="/" class="navbar-branded"></a></h1>
-        </div>
-        <div class="sidebar-inner"></div>
-      </div>
       <!-- Add your site or application content here -->
-      <div ui-view="" class="main-content"></div>
+      <div class="sidebar">
+        <!-- SIDEBAR -->
+        <div ng-include="'components/sidebar/sidebar.html'"></div>
+      </div>
+      <!-- BEGIN MAIN CONTENT -->
+      <div class="main-content">
+        <div class="topbar">
+          <div ng-include="'components/navbar/navbar.html'"></div>
+          <!-- TOPBAR -->
+        </div>
+        <div class="at-view-slide-in-left page-content" id="" ui-view >
+          <!-- PAGE CONTENT -->
+        </div>
+      </div>
+        <!-- END MAIN CONTENT -->
+      <div ng-include="'components/footer/footer.html'"></div>
     </section>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
