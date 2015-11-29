@@ -3,6 +3,7 @@
 angular.module('caregiversComApp')
   .controller('ProfileCtrl', function ($scope, $http, $user, $state, $window, $timeout, $q) {
     $scope.acceptedMsg = '';
+    $scope.cardInfo = null;
     $scope.error = '';
     if (!$user || !$user.currentUser) {
       $state.go('logout');
@@ -58,6 +59,8 @@ angular.module('caregiversComApp')
         $user.currentUser.stripeToken = response.id;
         $http.post(CareGiverEnv.server.host + '/api/users/update', $user.currentUser
         ).success(function(user) {
+          $scope.getCreditCardInfo();
+          $('.payment .f-right').click();
           console.log("Updated current user with stripeToken:" + $user.currentUser.stripeToken);
           $scope.mapStripToKillBill();
         });
@@ -77,7 +80,8 @@ angular.module('caregiversComApp')
         op.reject();
       });
     }
-
     $scope.getCreditCardInfo();
-
+    $scope.$watch('cardInfo', function() {
+      $scope.hasCreditCard = !!$scope.cardInfo;
+    })
   });
