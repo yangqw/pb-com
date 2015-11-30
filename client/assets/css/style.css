@@ -13175,3 +13175,5 @@ body.rtl .layout-options .img-sidebar-right {
 .main-content .page-content .card-title i {
   padding-right: 6px;
 }
+
+@import "app.css";
