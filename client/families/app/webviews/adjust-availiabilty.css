@@ -68,6 +68,14 @@ section.days-available ul.days li:last-child {
 /*   left: 1.5em; */
 /* } */
 
+section.hours-per-week {
+  min-height: 200px;
+}
+
+section.hours-per-week ul#dropdown2 {
+  margin-left: 2em;
+}
+
 section.hours-per-week header {
   margin-top: 1.5em;
   color: black;

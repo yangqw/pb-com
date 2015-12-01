@@ -4,27 +4,18 @@
 <section class="days-available">
   <header>Days Available</header>
   <ul class="days">
-    <li class="active">s</li>
-    <li>m</li>
-    <li>t</li>
-    <li>w</li>
-    <li>t</li>
-    <li>f</li>
-    <li>s</li>
+    <li ng-repeat="(day, info) in avaCtrl.availibiltyInfo.days" ng-bind="info.display" ng-class="{active: info.status}" ng-click="avaCtrl.toggleDay(day);"></li>
   </ul>
 </section>
 
-<ul id="dropdown2" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li><a href="#!">three</a></li>
-</ul>
-<section class="hours-per-week"  data-activates="dropdown2">
-  <header>
+<section class="hours-per-week" >
+  <ul id="dropdown2" class="dropdown-content">
+    <li ng-repeat="option in avaCtrl.hoursPerWeek"><a href="#!" ng-bind="option.desc" ng-click="avaCtrl.selectHoursPerWeek(option);"></a></li>
+  </ul>
+  <header class="">
     <i class="mdi-action-schedule"></i><span>Hours per Week</span>
   </header>
-  <div class="hours">
-    21 - 34 hours
+  <div class="hours" data-activates="dropdown2" ng-bind="avaCtrl.hoursPerWeekDesc">
   </div>
 </section>
 <footer class="actions">
