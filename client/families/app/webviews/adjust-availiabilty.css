@@ -1,0 +1,101 @@
+header.header::after  {
+  content: '';
+  background: #DDDDDD;
+  height: 1px;
+  display: block;
+  margin-top: 1em;
+}
+header.header {
+  /* width: 37rem; */
+  font-size: 2rem;
+}
+
+section.days-available > header {
+  font-size: 1.5rem;
+  color: black;
+  padding: 1rem 0;
+}
+
+section.days-available>header> .day {
+  width: 2rem;
+}
+
+section.days-available ul.days {
+  width: 100%;
+  display: flex;
+}
+
+section.days-available ul.days li {
+    display: block;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.5em;
+    content: inherit;
+    text-transform: uppercase;
+    margin: auto;
+    font-weight: bold;
+    /* background: #46A294; */
+    color: #CFCFCF;
+    border: 1px solid #CFCFCF;
+}
+
+section.days-available ul.days li.active {
+  background: #46A294;
+  color: white;
+  border: 1px solid #DEDEDE;
+}
+
+
+section.days-available ul.days li:first-child {
+  margin-left: 0;
+}
+
+section.days-available ul.days li:last-child {
+  margin-right: 0;
+}
+/* section.hours-per-week { */
+/*   padding-left: 3em; */
+/* } */
+/* section.hours-per-week:before { */
+/*   content: ''; */
+/*   display: block; */
+/*   width: 2em; */
+/*   background: red; */
+/*   height: 2em; */
+/*   position: absolute; */
+/*   left: 1.5em; */
+/* } */
+
+section.hours-per-week header {
+  margin-top: 1.5em;
+  color: black;
+}
+
+section.hours-per-week i.mdi-action-schedule {
+  font-size: 2em;
+  position: relative;
+  top: 11px;
+}
+
+section.hours-per-week span {
+  margin-left: 0.5em;
+}
+
+section.hours-per-week .hours  {
+  margin-left: 2.5em;
+}
+
+footer.actions {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer.actions>a.btn {
+    position: relative;
+    right: 3em;
+    bottom: 3em;
+    float: right;
+}
