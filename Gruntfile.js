@@ -245,7 +245,7 @@ module.exports = function (grunt) {
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
       },
       devCss: {
-        files: ['client/assets/css/**/*.css', siteFolder + '/assets/stylesheets/**/*.css', siteFolder + '/**/*.css'],
+        files: ['client/assets/css/**/*.css', siteFolder + '/assets/stylesheets/**/*.css', siteFolder + '/app/**/*.css'],
         tasks: ['concat:css'],
         options: {
           reload: true
