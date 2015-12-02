@@ -3,12 +3,14 @@
 angular.module('caregiversComApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('adjust-availiabilty', {
+      .state('headless.adjust-availiabilty', {
         url: '/availiabilty/edit',
         templateUrl: 'partners/app/webviews/adjust-availiabilty.html',
         controller: 'AdjustAvailibiltyCtrl as avaCtrl'
-        // views: {
-        //   "base@main" : { templateUrl: "families/app/webviews/adjust-availiabilty.html" }
-        // }
+      })
+      .state('headless.request-for-backup', {
+        url: '/request-for-backup',
+        templateUrl: 'partners/app/webviews/request-for-backup.html',
+        controller: 'RequestForBackupCtrl as rCtrl'
       })
   });
