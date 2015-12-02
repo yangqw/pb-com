@@ -53,7 +53,7 @@ module.exports = function (grunt) {
         dest: destinationFolder + '/js/app.js'
       },
       css: {
-        src: ['client/assets/css/app.css', siteFolder + '/assets/stylesheets/*.css', siteFolder + '/app/**/*.css'],
+        src: ['client/assets/css/*.css', siteFolder + '/assets/stylesheets/*.css', siteFolder + '/app/**/*.css'],
         dest: destinationFolder + '/css/all.css',
         options: {
           separator: ''
@@ -90,7 +90,7 @@ module.exports = function (grunt) {
       css_global: {
         expand: true,
         cwd: 'client/assets/',
-        src: ['css/**/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css', 'fonts/*'],
+        src: ['css/vendors/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css', 'fonts/*'],
         dest: destinationFolder + '/assets/stylesheets'
       },
       css: {
@@ -148,14 +148,19 @@ module.exports = function (grunt) {
     },
 
     // clent www
-    clean: [destinationFolder + '/js/*', destinationFolder + '/css/*', destinationFolder + '/vendor/*', destinationFolder + '/assets/images/*'],
+    clean: [destinationFolder + '/js/*', destinationFolder + '/assets/stylesheets/*',  destinationFolder + '/css/*', destinationFolder + '/vendor/*', destinationFolder + '/assets/images/*'],
 
     // Automatically inject Bower components into the app
     wiredep: {
       target: {
         src: destinationFolder + '/index.html',
         ignorePath: '../client/',
-        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/']
+        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/'],
+        "overrides": {
+          "moment": {
+            "main": "min/moment-with-locales.js"
+          }
+        }
       }
     },
 
