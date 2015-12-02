@@ -26,7 +26,7 @@ angular.module('caregiversComApp', [
       url: '/headless',
       views: {
         'base': {
-          template: "<div class=\"mobile-view\" ui-view></div>"
+          template: "<div class=\"mobile-view\" ui-view><a ui-sref=\"headless.adjust-availiabilty\">Adjust Availiabilty</a></br><a ui-sref=\"headless.request-for-backup\">Request for Backup</a></br><a ui-sref=\"headless.full-review\">Full Review</a></div>"
         }
       }
     })
