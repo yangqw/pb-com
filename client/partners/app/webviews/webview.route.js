@@ -13,4 +13,14 @@ angular.module('caregiversComApp')
         templateUrl: 'partners/app/webviews/request-for-backup.html',
         controller: 'RequestForBackupCtrl as rCtrl'
       })
+      .state('headless.full-review.detail', {
+        url: '/:id',
+        templateUrl: 'partners/app/webviews/full_review_detail.html',
+        controller: 'FullReviewDetailCtrl as frdCtrl'
+      })
+      .state('headless.full-review', {
+        url: '/full-review',
+        templateUrl: 'partners/app/webviews/full_review.html',
+        controller: 'FullReviewCtrl as frCtrl'
+      })
   });
