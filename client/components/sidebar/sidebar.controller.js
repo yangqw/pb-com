@@ -16,4 +16,12 @@ angular.module('caregiversComApp')
       return RegExp(route).test($location.path());
     }
   };
+
+  $scope.init = function() {
+    $(".button-collapse").sideNav({
+      closeOnClick: true
+    });
+  }
+
+  $scope.init();
 })
