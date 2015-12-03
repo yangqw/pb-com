@@ -1,0 +1,30 @@
+.sidebar-inner {
+  height: 52px !important;
+}
+.nav.nav-sidebar {
+  background-color: #666666;
+}
+
+ul.nav.nav-sidebar span {
+  line-height: 62px;
+}
+
+@media (max-width: 1024px) {
+  ul.nav.nav-sidebar span {
+    line-height: 40px !important;
+  }
+}
+
+
+
+.sidebar .logopanel {
+  background: white !important;
+}
+.sidebar .sidebar-inner .nav-sidebar > li:not(.nav-active) > a:hover {
+  background: #319db5;
+}
+@media (min-width: 768px) and ( max-width: 1024px) {
+  .navbar-toggle {
+      display: block !important;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title ">
+      <a ui-sref="time-sheet.month({year: weekCtrl.stateInfo.year, month: weekCtrl.stateInfo.month})">{{ weekCtrl.stateInfo.month }} {{weekCtrl.stateInfo.week}} timesheets</a>
+    </span>
+    <div class="list-group" ng-repeat="day in weekCtrl.daysGroup">
+      <div class="list-group-item">
+
+        <div class="row-content">
+          <!-- <div class="least-content">15m</div> -->
+          <h4 class="list-group-item-heading">{{day.name}}</h4>
+          <div class="list group-item-text row" ng-repeat="data in day.data">
+            <div class="col-sm-4">{{data.name}}</div>
+            <div class="col-sm-4">{{data.start}} - {{data.end}}</div>
+            <div class="col-sm-4" style="text-align: end;">{{data.elapse}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

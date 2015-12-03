@@ -1,8 +1,8 @@
 'use strict';
 //Global Killbill Services for both domain useage
 angular.module('caregiversComApp')
-.service('Killbill',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath",
-  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath){
+.service('Killbill',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath", "$timeout",
+  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath, $timeout){
 
     var self;
 
@@ -73,6 +73,44 @@ angular.module('caregiversComApp')
           $rootScope.posting = false;
           $rootScope.processMsg = null;
           $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+          op.reject();
+        });
+
+        return op.promise;
+      },
+
+      mapStripToKillBill : function(){
+        var op = $q.defer();
+
+        if (!$user.currentUser.kbAccountId || !$user.currentUser.stripeToken){
+          $rootScope.acceptedMsg = '';
+          $rootScope.error = "Sorry, process failed due to missing "
+            + (!$user.currentUser.kbAccountId ? "Killbill Account" : "Stripe Token")
+            + ", please contact administrator to fix this.";
+
+          op.reject();
+          return op.promise;
+        }
+
+        $rootScope.acceptedMsg = 'Try to map your strip credit card...';
+        var url = CareGiverEnv.server.host_kb + '/billing/accounts/'
+              + $user.currentUser.kbAccountId + "/paymentmethods?isDefault=true";
+        var postData = {
+          "pluginName": "killbill-stripe",
+            "pluginInfo":{
+              "properties":[{
+                "key":"token",
+                "value": $user.currentUser.stripeToken}]
+            }
+        };
+        $http.post(url, postData).success(function(response) {
+          $rootScope.acceptedMsg = 'Successfully map credit card to your killbill paymentmethod.';
+
+          op.resolve();
+        }).error(function(error){
+          $rootScope.acceptedMsg = '';
+          $rootScope.error = "Error while post " + url + " : " + error;
+
           op.reject();
         });
 

@@ -1,12 +1,9 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
-<div class="at-view-slide-in-left page-content" style="">
   <div class="header">
     <h2><strong>My Account</strong></h2>
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" ng-show=!editingPayment>
       <div class="card small">
         <div class="card-title">
           <h3><i class="mdi-content-markunread" style="font-size: 2em;"></i>Notification</h3>
@@ -20,7 +17,7 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6" ng-show=!editingPayment>
       <div class="card small">
         <div class="card-title">
           <h3><i class="mdi-action-favorite" style="font-size: 2em;"></i>Your Info</h3>
@@ -43,7 +40,7 @@
 
   <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-md-3" ng-show=!editingPayment>
       <div class="card small">
         <div class="card-title">
           <h3><i class="mdi-action-lock" style="font-size: 2em;"></i>Password</h3>
@@ -71,7 +68,7 @@
             Input your payment method info
           </span>
 
-          <form class="" stripe:form="saveCustomer">
+          <form class="" stripe:form="onGotStripeToken">
             <div class="ccjs-card margin">
               <label class="ccjs-number">
                 Card Number
@@ -140,7 +137,7 @@
             <script src="assets/js/creditcardjs-v0.10.12.min.js"></script>
 
             <div class="form-group">
-              <div class="col-sm-offset-1 col-sm-4">
+              <div class="col-sm-offset-1 col-sm-10">
                 <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
                 <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit Payment Info</button>
               </div>
@@ -150,10 +147,10 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="acceptedMsg">
-                <button type=button class=close data-dismiss=alert aria-label=Close>
+                <!-- <button type=button class=close data-dismiss=alert aria-label=Close>
                   <span aria-hidden=true>&times;</span>
-                </button>
-                <p ng-bind="acceptedMsg"></p>
+                </button> -->
+                <div ng-bind="acceptedMsg"></div>
               </div>
               <pre ng-show="debugMode" ng-bind="user.payment | json"></pre>
             </div>
@@ -164,7 +161,7 @@
           <div class="ccjs-card" ng-show=!editingPayment>
             <label class="ccjs-number" style="width: 11.25em;">
               Card Number
-              <label class="form-control">•••• •••• •••• 3249</label>
+              <label class="form-control">•••• •••• •••• {{user.payment.card.last4}}</label>
             </label>
 
             <label class="ccjs-csc">
@@ -174,12 +171,12 @@
 
             <label class="ccjs-name">
               Name on Card
-              <label class="form-control">••••••</label>
+              <label class="form-control" ng-bind=user.payment.card.name>••••••</label>
             </label>
 
             <fieldset class="ccjs-expiration clear-after-content">
               <legend>Expiration</legend>
-              <label class="form-control">••/••</label>
+              <label class="form-control">{{user.payment.card.exp_month}}/{{user.payment.card.exp_year}}</label>
             </fieldset>
           </div>
         </div>
@@ -190,10 +187,3 @@
       </div>
     </div>
   </div>
-</div>
-
-<footer class="footer">
-  <div class="container">
-      <p>© Copyright 2015 Caregivers.com </p>
-  </div>
-</footer>

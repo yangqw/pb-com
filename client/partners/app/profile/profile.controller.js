@@ -6,6 +6,7 @@ angular.module('caregiversComApp')
     $scope.processMsg = null; // message of sync process
     $scope.posting = false; // Is waitting for sync posting response
     $scope.toS = false; // Agree toS(terms of service) or not
+    $scope.bankInfos = [];
     $scope.formModel = (typeof $scope.formModel==='object') ? $scope.formModel : {
       name: '', account_number:'', routing_number: '',
       country: 'US', currency: 'USD',
@@ -135,6 +136,20 @@ angular.module('caregiversComApp')
       return op.promise;
     };
 
+    $scope.bankAccountsInfo = function() {
+      var op = $q.defer();
+      var url = CareGiverEnv.server.host_kb + '/billing/stripe-accounts/'
+        + $user.currentUser.stripeAccountId + '/external-accounts' + "?object=bank_account";
+      $http.get(url).success(function(response) {
+        $scope.bankInfos = response.data;
+      }).error(function(error){
+        $scope.posting = false;
+        $scope.processMsg = null;
+        $scope.error = "Error while post " + url + " : " + error;
+        op.reject();
+      });
+    }
+
     $scope.submit = function(){
       $scope.posting = true;
 
@@ -142,6 +157,7 @@ angular.module('caregiversComApp')
         $scope.generateStripeToken().then(function(){
           $scope.updateSpUser().then(function(){
             $scope.mapStripeBankAccount().then(function(){
+              $scope.bankAccountsInfo();
               $timeout(function(){
                 $('.alert').alert('close');
                 $scope.posting = false;
@@ -152,5 +168,7 @@ angular.module('caregiversComApp')
       });
 
     };
+
+    $scope.bankAccountsInfo();
 
   });
