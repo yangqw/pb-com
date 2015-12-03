@@ -171,4 +171,13 @@ angular.module('caregiversComApp')
 
     $scope.bankAccountsInfo();
 
+    var init = function(){
+      $('.modal-trigger').leanModal();
+      $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+      });
+    }
+
+    init();
+
   });

@@ -1,103 +1,95 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col s12">
       <h3>My Billing</h3>
       <hr>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Tokenize Bank Account</h3>
-            </div>
-            <div class="panel-body">
-                <form role="form" class="form-horizontal" ng-submit=submit()>
-                    <div class="form-group">
-                        <label class="col-lg-5 control-label">Account Holder's Name</label>
-                        <div class="col-lg-6">
-                            <input type="text" ng-model="formModel.name" id="ba-name" class="form-control" autocomplete="off" placeholder="John Doe" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-5 control-label">Routing Number</label>
-                        <div class="col-lg-6">
-                            <input type="text" ng-model="formModel.routing_number" id="ba-routing" class="form-control" autocomplete="off" placeholder="110000000" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-5 control-label">Account Number</label>
-                        <div class="col-lg-6">
-                            <input type="text" ng-model="formModel.account_number" id="ba-number" class="form-control" autocomplete="off" placeholder="•••• •••• •••• ••••" />
-                        </div>
-                    </div>
-                    <!-- <a id="ba-submit" class="btn btn-large btn-primary pull-right">Tokenize</a> -->
-                    <div class="form-group">
-                      <div class="col-lg-offset-5 col-lg-6">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" ng-model="toS"> Accept <a data-toggle="modal" data-target="#tos-modal">Terms of Service</a>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-9 col-sm-4">
-                        <button type="submit" class="btn btn-primary" ng-disabled="isSubmitable();">Submit</button>
-                      </div>
-                    </div>
-                </form>
-                <div class="modal fade" id="tos-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="termModalLabel">Terms of Service</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p class="terminal">Payment processing services for partner on CareGivers are provided by Stripe and are subject to the <a href="https://stripe.com/connect/account-terms" target="_blank">Stripe Connected Account Agreement</a>, which includes the <a href="https://stripe.com/terms" target="_blank">Stripe Terms of Service</a> (collectively, the “Stripe Services Agreement”). By agreeing to these terms or continuing to operate as a partner on CareGivers, you agree to be bound by the Stripe Services Agreement, as the same may be modified by Stripe from time to time. As a condition of CareGivers enabling payment processing services through Stripe, you agree to provide CareGivers accurate and complete information about you and your business, and you authorize CareGivers to share it and transaction information related to your use of the payment processing services provided by Stripe.</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" ng-click="acceptTos();">Accept</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="panel">
-        <div class="panel-heading">
-          <h3 class="panel-title">Bank Accounts</h3>
-        </div>
-        <div class="card" ng-repeat="bank in bankInfos">
+    <div class="col l6 s12">
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Tokenize Bank Account</h3>
           <div class="panel-body">
-            <form role="form" class="form-horizontal">
+            <form role="form" class="form-horizontal" ng-submit=submit()>
               <div class="form-group">
                 <label class="col-lg-5 control-label">Account Holder's Name</label>
                 <div class="col-lg-6">
-                  <input type="text" ng-model="bank.name" id="ba-name" class="form-control" autocomplete="off" disabled/>
+                  <input type="text" ng-model="formModel.name" id="ba-name" class="form-control" autocomplete="off" placeholder="John Doe" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-5 control-label">Routing Number</label>
                 <div class="col-lg-6">
-                  <input type="text" ng-model="bank.routing_number" id="ba-routing" class="form-control" autocomplete="off" disabled/>
+                  <input type="text" ng-model="formModel.routing_number" id="ba-routing" class="form-control" autocomplete="off" placeholder="110000000" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-5 control-label">Account Number</label>
                 <div class="col-lg-6">
-                  <input type="text" value="**** **** **** {{bank.last4}}" id="ba-number" class="form-control" autocomplete="off" placeholder="•••• •••• •••• ••••" disabled/>
+                  <input type="text" ng-model="formModel.account_number" id="ba-number" class="form-control" autocomplete="off" placeholder="•••• •••• •••• ••••" />
                 </div>
               </div>
+              <!-- <a id="ba-submit" class="btn btn-large btn-primary pull-right">Tokenize</a> -->
+              <p>
+              <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="toS"/>
+              <label for="filled-in-box"> Accept <a data-toggle="modal" class="modal-trigger" href="#tos-modal" data-target="#tos-modal">Terms of Service</a></label>
+              </p>
+              <div class="row">
+                <div class="col-sm-offset-9 col-sm-4 col m4">
+                <button type="submit" class="btn btn-primary" ng-disabled="isSubmitable();">Submit</button>
+              </div>
+              </div>
+              
             </form>
+            <div class="modal fade" id="tos-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <h4>Terms of Service</h4>
+                    <p class="terminal">Payment processing services for partner on CareGivers are provided by Stripe and are subject to the <a href="https://stripe.com/connect/account-terms" target="_blank">Stripe Connected Account Agreement</a>, which includes the <a href="https://stripe.com/terms" target="_blank">Stripe Terms of Service</a> (collectively, the “Stripe Services Agreement”). By agreeing to these terms or continuing to operate as a partner on CareGivers, you agree to be bound by the Stripe Services Agreement, as the same may be modified by Stripe from time to time. As a condition of CareGivers enabling payment processing services through Stripe, you agree to provide CareGivers accurate and complete information about you and your business, and you authorize CareGivers to share it and transaction information related to your use of the payment processing services provided by Stripe.</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="acceptTos();">Accept</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="col l6 s12" ng-show="!!bankInfos">
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>Bank Accounts</h4></li>
+        <ul class="collapsible" data-collapsible="accordion">
+          <li ng-repeat="bank in bankInfos">
+            <div class="collapsible-header">{{bank.name}}</div>
+            <div class="collapsible-body">
+              <form role="form" class="form-horizontal">
+                <div class="form-group">
+                  <label class="col l5 control-label">Account Holder's Name</label>
+                  <div class="col l6">
+                    <input type="text" ng-model="bank.name" id="ba-name" class="form-control" autocomplete="off" disabled/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col l5 control-label">Routing Number</label>
+                  <div class="col l6">
+                    <input type="text" ng-model="bank.routing_number" id="ba-routing" class="form-control" autocomplete="off" disabled/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col l5 control-label">Account Number</label>
+                  <div class="col l6">
+                    <input type="text" value="**** **** **** {{bank.last4}}" id="ba-number" class="form-control" autocomplete="off" placeholder="•••• •••• •••• ••••" disabled/>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+      </ul>
     </div>
   </div>
 

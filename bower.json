@@ -17,7 +17,8 @@
     "angular-easyfb": "1.4.1",
     "raygun4js": "v2.0.3",
     "materialize": "~0.97.3",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-materialize": "*"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

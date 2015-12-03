@@ -5,11 +5,19 @@
   .controller('FullReviewCtrl', FullReviewCtrl)
   .controller('FullReviewDetailCtrl', FullReviewDetailCtrl)
 
-  FullReviewCtrl.$inject = ['$scope', 'filterFilter'];
+  FullReviewCtrl.$inject = ['$scope', '$http', '$user'];
   FullReviewDetailCtrl.$inject = ['$scope', '$stateParams', '$state'];
 
-  function FullReviewCtrl($scope, filterFilter) {
+  function FullReviewCtrl($scope, $http, $user) {
     var vm = this
+
+    $user.get().then(function(user) {
+      $http.get(CareGiverEnv.server.host + '/reviews/professionals/' + user.partnerId)
+      .then(function(response) {
+        debugger
+
+      })
+    })
 
     vm.fullReview = {
       id: 1,
