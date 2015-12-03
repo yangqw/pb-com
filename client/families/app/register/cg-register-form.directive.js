@@ -10,13 +10,18 @@ function ($scope,$rootScope,$user,$auth,$location,$timeout,$state) {
     email: '',
     password: '',
     domain: CareGiverEnv.spGroupName,
-    isStaging: CareGiverEnv.isStaging === true
+    isStaging: CareGiverEnv.isStaging === true,
+    tosAccepted: false
   };
   $scope.created = false;
   $scope.enabled = false;
   $scope.creating = false;
   $scope.authenticating = false;
   $scope.submit = function(){
+    $scope.shouldAcceptTos = !$scope.formModel.tosAccepted;
+    if ($scope.shouldAcceptTos) {
+      return;
+    }
     $scope.creating = true;
     $scope.error = null;
     $user.create($scope.formModel)
