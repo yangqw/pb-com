@@ -17,11 +17,13 @@ angular.module('caregiversComApp')
     }
   };
 
-  $scope.init = function() {
+  var vm = this
+
+  vm.init = function() {
     $(".button-collapse").sideNav({
       closeOnClick: true
     });
   }
 
-  $scope.init();
+  vm.init();
 })
