@@ -5,19 +5,19 @@
   .controller('FullReviewCtrl', FullReviewCtrl)
   .controller('FullReviewDetailCtrl', FullReviewDetailCtrl)
 
-  FullReviewCtrl.$inject = ['$scope', '$http', '$user'];
-  FullReviewDetailCtrl.$inject = ['$scope', '$stateParams', '$state'];
+  FullReviewCtrl.$inject = ['$scope', '$http', '$user', "Review"];
 
-  function FullReviewCtrl($scope, $http, $user) {
+  function FullReviewCtrl($scope, $http, $user, Review) {
     var vm = this
 
-    $user.get().then(function(user) {
-      $http.get(CareGiverEnv.server.host + '/reviews/professionals/' + user.partnerId)
-      .then(function(response) {
-        debugger
-
+    vm.getReviews = function() {
+      $user.get().then(function(user) {
+        Review.query({partnerId: user.partnerId}).$promise.then(function(reviews) {
+          vm.fullReview.reviews = reviews;
+        })
       })
-    })
+    }
+
 
     vm.fullReview = {
       id: 1,
@@ -25,43 +25,35 @@
       first_name: "Carrrie",
       last_inital: "F",
       hire_month: 2,
-      reviews: [
-        { id: 1,
-          star_rating: 1,
-          created_at: moment(),
-          since_hire: 2,
-          content: "Erin did a good job. I can see that she was cleaning my mom's back bedroom and she also did dishes.",
-          reply: 'this is good'
-        },
-        { id: 2,
-          star_rating: 2,
-          hire_month: 2,
-          created_at: moment(),
-          since_hire: 2,
-          content: "Erin did a good job. I can see that she was cleaning my mom's back bedroom and she also did dishes.",
-          reply: ''
-        },
-        { id: 3,
-          star_rating: 4,
-          hire_month: 2,
-          created_at: moment(),
-          since_hire: 2,
-          content: "Erin did a good job. I can see that she was cleaning my mom's back bedroom and she also did dishes.",
-          reply: ''
-        }
-      ]}
+      reviews: []
+    }
+    vm.getReviews();
   }
 
-  function FullReviewDetailCtrl($scope, $stateParams, $state) {
+  FullReviewDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'Review', '$user'];
+
+  function FullReviewDetailCtrl($scope, $stateParams, $state, Review, $user) {
     var vm = this
     vm.id = $stateParams.id
     vm.reply = ''
-    vm.review = $scope.frCtrl.fullReview.reviews.filter(function(r) {return r.id == vm.id})[0]
-    $scope.review = vm.review
+    vm.review = null
+
+    Review.get({id: vm.id}, function(review) {
+      vm.review = review
+      $scope.review = vm.review
+    })
 
     vm.reply2Review = function () {
-      vm.review.reply = vm.reply
-      $state.go('headless.full-review')
+      if (!!vm.reply) {
+        $user.get().then(function(user) {
+          Review.reply({id: vm.review._id}, {content: vm.reply, replier_id: user.partnerId }, function(response) {
+            $scope.frCtrl.getReviews()
+            $state.go('headless.full-review')
+          })
+
+        })
+
+      }
     }
   }
 })()

@@ -1,9 +1,9 @@
 <div class="col s12 m8">
   <div class="card-panel grey lighten-5" style="margin: initial;box-shadow:initial;">
     <div class="rate">
-      <i ng-repeat="star in [1,2,3,4,5]" ng-class="star <= review.star_rating ? 'mdi-toggle-star' : 'mdi-toggle-star-outline'"></i><span>{{review.star_rating}}/5 stars</span>
+      <i ng-repeat="star in [1,2,3,4,5]" ng-class="star <= review.score ? 'mdi-toggle-star' : 'mdi-toggle-star-outline'"></i><span>{{review.score}}/5 stars</span>
     </div>
-    <div class="time">{{review.created_at.format('ll')}} (after {{review.since_hire}} of care)</div>
+    <div class="time">{{review.created_at.format('ll')}} (after {{review.since_hire || 2}} months of care)</div>
     <div class="content">"{{review.content}}"</div>
     <div class="my-reply">
       <div class="input-field col s12">
