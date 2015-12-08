@@ -9,24 +9,27 @@
 
   function FullReviewCtrl($scope, $http, $user, Review) {
     var vm = this
+    vm.views = []
+    vm.userName = ''
 
     vm.getReviews = function() {
       $user.get().then(function(user) {
+        vm.userName = user.name
         Review.query({partnerId: user.partnerId}).$promise.then(function(reviews) {
-          vm.fullReview.reviews = reviews;
+          vm.reviews = reviews;
         })
       })
     }
 
 
-    vm.fullReview = {
-      id: 1,
-      gravatar: null,
-      first_name: "Carrrie",
-      last_inital: "F",
-      hire_month: 2,
-      reviews: []
-    }
+    // vm.fullReview = {
+    //   id: 1,
+    //   gravatar: null,
+    //   first_name: "Carrrie",
+    //   last_inital: "F",
+    //   hire_month: 2,
+    //   reviews: []
+    // }
     vm.getReviews();
   }
 

@@ -1,5 +1,6 @@
 <section ui-view class="full-review">
-  <header class="header">
+  <section class="reviewers" ng-repeat="review in frCtrl.reviews">
+    <header class="header">
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card-panel grey lighten-5 z-depth-1">
           <div class="row valign-wrapper">
@@ -8,30 +9,45 @@
             </div>
             <div class="col s9">
               <span class="black-text">
-                  <header class="title">
-                    {{frCtrl.fullReview.first_name}} {{frCtrl.fullReview.last_inital}}.'s Review
-                  </header>
-                  <p>Hired {{frCtrl.fullReview.first_name}} for {{frCtrl.fullReview.hire_month}} months</p>
+                <header class="title">
+                  {{review.name}}.'s Review
+                </header>
+                <p>Hired {{frCtrl.userName}} for {{review.hire_month || 2}} months</p>
               </span>
             </div>
           </div>
         </div>
       </div>
-  </header>
-  <section class="review-list" ng-repeat="review in frCtrl.fullReview.reviews | orderBy:'-created_at'">
-    <div class="col s12 m8">
-      <div class="card-panel grey lighten-5 z-depth-1">
-        <div class="rate">
-          <i ng-repeat="star in [1,2,3,4,5]" ng-class="star <= review.score ? 'mdi-toggle-star' : 'mdi-toggle-star-outline'"></i><span>{{review.score}}/5 stars</span><i ng-if="!review.replies" ui-sref="headless.full-review.detail({id : review._id})" class="mdi-content-reply"></i>
-        </div>
-        <div class="time">{{review.created_at | date: "longDate"}} (after {{review.since_hire || 2}} months of care)</div>
-        <div class="content">"{{review.content}}"</div>
-        <div class="reply" ng-if="!!review.replies">
-          <p>Your reply:</p>
-          <p class="content">"{{review.replies[0].content}}"</p>
+    </header>
+    <section class="review-list">
+      <div class="col s12 m8">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="rate">
+            <i ng-repeat="star in [1,2,3,4,5]" ng-class="star <= review.score ? 'mdi-toggle-star' : 'mdi-toggle-star-outline'"></i><span>{{review.score}}/5 stars</span><i ng-if="!review.replies" ui-sref="headless.full-review.detail({id : review._id})" class="mdi-content-reply"></i>
+          </div>
+          <div class="time">{{review.created_at | date: "longDate"}} (after {{review.since_hire || 2}} months of care)</div>
+          <div class="content">"{{review.content}}"</div>
+          <div class="reply" ng-if="!!review.replies">
+            <p>Your reply:</p>
+            <p class="content">"{{review.replies[0].content}}"</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <section class="review-list" ng-repeat="r in review.review_histories | orderBy:'-created_at'">
+      <div class="col s12 m8">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="rate">
+            <i ng-repeat="star in [1,2,3,4,5]" ng-class="star <= r.score ? 'mdi-toggle-star' : 'mdi-toggle-star-outline'"></i><span>{{r.score}}/5 stars</span><i ng-if="!r.replies" class="mdi-content-reply"></i>
+          </div>
+          <div class="time">{{r.created_at | date: "longDate"}} (after {{r.since_hire || 2}} months of care)</div>
+          <div class="content">"{{r.content}}"</div>
+          <div class="reply" ng-if="!!r.replies">
+            <p>Your reply:</p>
+            <p class="content">"{{r.replies[0].content}}"</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </section>
-
 </section>
