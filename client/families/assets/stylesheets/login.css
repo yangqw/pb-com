@@ -1,0 +1,111 @@
+@media (min-width: 1280px){
+  .container {
+    width: 1140px;
+    background-color: #fafafa;
+  }
+
+  .sign_in_form {
+    width: 480px;
+    height: 415px;
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -240px;
+    margin-top: 142px;
+  }
+  .sign_in_form .caption {
+    width:100%;
+    height:80px;
+    background-color: #21304E;
+    border-top-left-radius: 2px;
+    border-top-right-radius:2px;
+  }
+  .sign_in_form .caption .title {
+    color: white;
+    font-size: 24px;
+    font-family: Roboto;
+    margin-left: 30px;
+    padding-top: 23px;
+    display: block;
+  }
+
+  .sign_in_form .sign_in_section {
+    background: white;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_554.png");
+    width: 554px;
+    height: 126px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1279px){
+  .container {
+    background-color: #fafafa;
+  }
+
+  .sign_in_form {
+    width: 480px;
+    height: 415px;
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -240px;
+    margin-top: 142px;
+  }
+
+  .sign_in_form .caption {
+    width:100%;
+    height:80px;
+    background-color: #21304E;
+    border-top-left-radius: 2px;
+    border-top-right-radius:2px;
+  }
+  .sign_in_form .caption .title {
+    color: white;
+    font-size: 24px;
+    font-family: Roboto;
+    margin-left: 30px;
+    padding-top: 23px;
+    display: block;
+  }
+
+  .sign_in_form .sign_in_section {
+    background: white;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_554.png");
+    width: 554px;
+    height: 126px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 599px){
+  .container {
+    background-color: #fafafa;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_320.png")!important;
+    width: 320px!important;
+    height: 73px!important;
+    margin: 0 auto!important;
+  }
+}
+
+@media (width: 480px){
+  .container {
+    width: 420px!important;
+  }
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_320.png")!important;
+    width: 320px!important;
+    height: 73px!important;
+    margin: 0 auto!important;
+  }
+}
+

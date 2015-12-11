@@ -10,7 +10,8 @@ window.CareGiverEnv = {
       "CHANGE_PASSWORD_ENDPOINT" : '/api/users/reset_password',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
-    "host": "http://localhost:9100",
+    "host": "http://api-proxy.caregiversstagingstack.justinsaul.svc.tutum.io:9100",
+    // "host": "http://localhost:9100",
     "host_kb": "https://gw.caregivers.com"
   },
 

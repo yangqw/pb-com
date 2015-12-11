@@ -1,26 +1,77 @@
-<div class="container">
-<div class=row>
-  <div class=col-xs-12>
+<div class="sign_in_form">
+  <div class="caption">
+    <span class="title">Sign In</span>
+  </div>
+
+  <div class="sign_in_section">
     <form class=form-horizontal ng-hide=accepted ng-submit=submit()>
-      <div class=form-group>
-        <label for=spEmail class="col-xs-12 col-sm-4 control-label">Email</label>
-        <div class="col-xs-12 col-sm-4">
-          <input class=form-control id=spUsername ng-model=formModel.username placeholder="Username or Email" ng-disabled=posting>
+
+      <span class="input input--nao">
+				<input class="input__field input__field--nao" type="text" id="spUsername" ng-model=formModel.username ng-disabled=posting >
+				<label class="input__label input__label--nao" for="spUsername">
+          <span class="input__label-content input__label-content--nao">Email</span>
+        </label>
+				<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+        </svg>
+			</span>
+
+      <span class="input input--nao">
+				<input class="input__field input__field--nao" type="password" id="spPassword"  ng-model=formModel.password ng-disabled=posting >
+				<label class="input__label input__label--nao" for="spPassword">
+          <span class="input__label-content input__label-content--nao">Password</span>
+        </label>
+				<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+        </svg>
+			</span>
+
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+          <p class=text-danger ng-show=errorMsg ng-bind=errorMsg></p>
+          <button type=submit class="btn btn-primary" ng-disabled=posting>Login</button>
+          <a ui-sref=passwordResetRequest class=pull-right>Forgot?</a>
         </div>
       </div>
-      <div class=form-group>
-        <label for=spPassword class="col-xs-12 col-sm-4 control-label">Password</label>
-        <div class="col-xs-12 col-sm-4">
-          <input type=password class=form-control id=spPassword ng-model=formModel.password placeholder=Password ng-disabled=posting></div>
-        </div>
-        <div class=form-group>
-          <div class="col-sm-offset-4 col-sm-4">
-            <p class=text-danger ng-show=errorMsg ng-bind=errorMsg></p>
-            <button type=submit class="btn btn-primary" ng-disabled=posting>Login</button>
-            <a ui-sref=passwordResetRequest class=pull-right>Forgot Password</a>
-          </div>
-        </div>
-      </form>
-    </div>
+    </form>
   </div>
+
 </div>
+
+<script src="../../assets/js/classie.js"></script>
+<script>
+  (function() {
+
+    if (!String.prototype.trim) {
+      (function() {
+        // Make sure we trim BOM and NBSP
+        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+        String.prototype.trim = function() {
+          return this.replace(rtrim, '');
+        };
+      })();
+    }
+
+    [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+      // in case the input is already filled..
+      if( inputEl.value.trim() !== '' ) {
+        classie.add( inputEl.parentNode, 'input--filled' );
+      }
+
+      // events:
+      inputEl.addEventListener( 'focus', onInputFocus );
+      inputEl.addEventListener( 'blur', onInputBlur );
+    } );
+
+    function onInputFocus( ev ) {
+      classie.add( ev.target.parentNode, 'input--filled' );
+    }
+
+    function onInputBlur( ev ) {
+      if( ev.target.value.trim() === '' ) {
+        classie.remove( ev.target.parentNode, 'input--filled' );
+      }
+    }
+  })();
+</script>
+
