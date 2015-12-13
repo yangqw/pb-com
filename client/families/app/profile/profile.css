@@ -1,0 +1,19 @@
+.container.profile .card-title h3{
+  font-size: 1em;
+}
+
+.container.profile .card-title h3{}
+
+.container.profile i.card-left {
+  position: absolute;
+  left: 1rem;
+  font-size: 3em;
+}
+
+.container.profile .card-right {
+  margin-left: 3rem;
+  font-size: initial;
+}
+.container.profile .card-right h4,.container.profile .card-right h5 {
+  font-size: 1em;
+}
