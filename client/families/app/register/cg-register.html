@@ -8,27 +8,29 @@
 <div class="row">
   <div class="col-sm-offset-1 col-xs-12">
     <form class="form-horizontal" ng-hide="created && !authenticating" ng-submit="submit()">
-      <div class="form-group">
-        <label for="spFirstName" class="col-xs-12 col-sm-2 control-label">First Name</label>
-        <div class="col-xs-12 col-sm-8">
-          <input class="form-control" id="spFirstName" ng-model="formModel.givenName" placeholder="First Name" ng-disabled="creating">
+      <div class="row">
+        <div class="col s12 m8 push-m2" input-field>
+          <label for="spFirstName" class="col-xs-12 col-sm-2 control-label">First Name</label>
+          <input class="form-control" type="text" id="spFirstName" ng-model="formModel.givenName" placeholder="First Name" ng-disabled="creating">
         </div>
       </div>
-      <div class="form-group">
-        <label for="spLastName" class="col-xs-12 col-sm-2 control-label">Last Name</label>
-        <div class="col-xs-12 col-sm-8">
-          <input class="form-control" id="spLastName" ng-model="formModel.surname" placeholder="Last Name" ng-disabled="creating">
+      
+      <div class="row">
+        <div class="col s12 m8 push-m2" input-field>
+          <label for="spLastName" class="col-xs-12 col-sm-2 control-label">Last Name</label>
+          <input class="form-control" type="text" id="spLastName" ng-model="formModel.surname" placeholder="Last Name" ng-disabled="creating">
         </div>
       </div>
-      <div class="form-group">
-        <label for="spEmail" class="col-xs-12 col-sm-2 control-label">Email</label>
-        <div class="col-xs-12 col-sm-8">
-          <input class="form-control" id="spEmail" ng-model="formModel.email" placeholder="Email" ng-disabled="creating">
+      <div class="row">
+        <div class="col s12 m8 push-m2" input-field>
+          <label for="spEmail" class="col-xs-12 col-sm-2 control-label">Email</label>
+          <input class="form-control" type="email" id="spEmail" ng-model="formModel.email" placeholder="Email" ng-disabled="creating">
         </div>
       </div>
-      <div class="form-group">
-        <label for="spPassword" class="col-xs-12 col-sm-2 control-label">Password</label>
-        <div class="col-xs-12 col-sm-8">
+      
+      <div class="row">
+        <div class="col s12 m8 push-m2" input-field>
+          <label for="spPassword" class="col-xs-12 col-sm-2 control-label">Password</label>
           <input type="password" class="form-control" id="spPassword" ng-model="formModel.password" placeholder="Password" ng-disabled="creating">
           <div>Your password must be at least 8 characters, contain 1 uppercase, 1 lowercase, and 1 numeric value. Example: Password1</div>
         </div>
@@ -39,7 +41,7 @@
           <p class="alert alert-success" ng-show="emailExists">
             If you are the guy who own this email CareGivers account. Please <a ui-sref="login">Login Now</a>.
           </p>
-          <button type="submit" class="btn btn-primary" ng-disabled="creating">Register</button>
+          <button type="submit" class="btn btn-primary center-align" ng-disabled="creating" style="display: block; margin: 0 auto;">Register</button>
         </div>
       </div>
     </form>
