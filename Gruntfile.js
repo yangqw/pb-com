@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-aws-s3');
   var path = require('path');
   var modRewrite = require('connect-modrewrite');
   var serveStatic = require('serve-static');
@@ -24,16 +23,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    aws_s3: {
-      production: {
-      options: {
-        bucket: site + '.caregivers.com',
-      },
-        files: [
-          {expand: true, cwd: 'www', src: ['**'], dest: '/'}
-        ]
-      }
-    },
     client: {
       base: siteFolder + "/app",
       port: clientPort,
@@ -272,7 +261,8 @@ module.exports = function (grunt) {
     'copy:js_global',
     'copy:js',
     'copy:css_global',
-    'copy:css',
+    // 'copy:css',
+    'copy:index',
     'copy:prodEnv',
     'concat:dist',
     'ngtemplates:main',
@@ -297,7 +287,7 @@ module.exports = function (grunt) {
   ])
 
   grunt.registerTask('deploy:prod', function () {
-    grunt.task.run(['build:prod', 'aws_s3']);
+    grunt.task.run(['build:prod']);
   });
 
   grunt.registerTask('build:dev', [
