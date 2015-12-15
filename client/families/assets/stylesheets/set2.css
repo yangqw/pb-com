@@ -10,7 +10,8 @@
 .input__field {
 	position: relative;
 	display: block;
-	float: right;
+	/*float: right;*/
+  float: left;
 	padding: 0.8em;
 	width: 60%;
 	border: none;
@@ -49,6 +50,9 @@
 	display: block;
 	padding: 1.6em 0;
 	width: 100%;
+  color: #90857B;
+  font-size: 16px;
+  font-weight: lighter;
 }
 
 .graphic {
@@ -68,12 +72,15 @@
 /* Nao */
 .input--nao {
 	overflow: hidden;
-	padding-top: 1em;
+	/*padding-top: 1em;*/
+  padding-top: 30px;
 }
 
 .input__field--nao {
-	padding: 0.5em 0em 0.25em;
-	width: 100%;
+	/*padding: 0.5em 0em 0.25em;*/
+  padding: 1em 0em 0.5em;
+	/*width: 100%;*/
+  width: 85%;
 	background: transparent;
 	color: #9da8b2;
 	font-size: 1.25em;
@@ -81,7 +88,7 @@
 
 .input__label--nao {
 	position: absolute;
-	top: 0.95em;
+	top: 2em;
 	font-size: 0.85em;
 	left: 0;
 	display: block;

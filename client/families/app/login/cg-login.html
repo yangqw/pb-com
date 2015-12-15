@@ -1,4 +1,4 @@
-<div class="sign_in_form">
+<div>
   <div class="caption">
     <span class="title">Sign In</span>
   </div>
@@ -26,14 +26,20 @@
         </svg>
 			</span>
 
-      <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-4">
-          <p class=text-danger ng-show=errorMsg ng-bind=errorMsg></p>
-          <button type=submit class="btn btn-primary" ng-disabled=posting>Login</button>
-          <a ui-sref=passwordResetRequest class=pull-right>Forgot?</a>
-        </div>
-      </div>
+      <a ui-sref=passwordResetRequest class="pull-right terms_policy forgot">Forgot?</a>
+      <div style="clear:both"></div>
+      <button type="submit" class="sign_in_button pull-right" ng-disabled="posting">Sign In</button>
+      <!--<div class="form-group">-->
+        <!--<div class="col-sm-offset-4 col-sm-4">-->
+          <!--<p class=text-danger ng-show=errorMsg ng-bind=errorMsg></p>-->
+
+        <!--</div>-->
+      <!--</div>-->
     </form>
+    <div style="clear: both"></div>
+    <div class="announcement">
+      By logging in, you agree to our <a href="http://www.caregivers.com/terms-of-use/" target="_blank" class="terms_policy">Terms</a><span class="terms_policy"> & </span><a href="http://www.caregivers.com/privacy-policy/" target="_blank" class="terms_policy">Privacy</a><span class="terms_policy"> Policy</span>
+    </div>
   </div>
 
 </div>
