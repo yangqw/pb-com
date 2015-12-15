@@ -1,0 +1,51 @@
+.full-review .header .card-panel {
+  margin: initial;
+  margin-bottom: 8px;
+}
+
+.full-review .review-list .rate {
+  margin-bottom: 0.5em;
+}
+
+.full-review .review-list .time {
+  margin: 0.5em 0;
+}
+
+.full-review .review-list .card-panel {
+  margin: initial;
+}
+
+.full-review .content {
+  color: black;
+}
+
+.full-review .rate .mdi-toggle-star,.full-review .rate .mdi-toggle-star-outline {
+  font-size: 1.5rem;
+  color: #DB4462;
+}
+
+.full-review .rate i.mdi-content-reply {
+  font-size: 2rem;
+  float: right;
+  color: #46A294;
+  position: relative;
+  bottom: 0.5rem;
+}
+
+.full-review .rate > span {
+  position: relative;
+  bottom: 0.15rem;
+  left: 1em;
+}
+
+
+.mobile-view .full-review header.header::after  {
+  content: '';
+  background: #DDDDDD;
+  height: initial;
+  display: none;
+}
+
+.mobile-view .full-review header.title, .mobile-view .full-review header p {
+  font-size: 1.25rem;
+}

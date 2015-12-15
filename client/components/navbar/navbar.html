@@ -1,86 +1,73 @@
 <div ng-controller="NavbarCtrl">
-
-<div class="navbar-default topbar">
-  <div class="" style="width: 100%;">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="sidebar-behaviour" ng-click="themeFunc.toggleSidebar();">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul if-user class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Hi, {{user.surname}}
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li if-user ng-class="{active: isActive('/profile')}">
-              <a href="#" ui-sref="profile">
-                <i class="mdi-maps-location-history"></i>
-                <span>{{user.surname}}'s Profile</span>
-              </a>
-            </li>
-            <li if-user ng-class="{active: isActive('/account')}">
-              <a href="#" ui-sref="account">
-                <i class="mdi-av-recent-actors"></i>
-                <span>My Account</span>
-              </a>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="#">Contact & FAQ</a></li>
-            <li if-user ng-class="{active: isActive('/logout')}">
-              <a ui-sref="main" cg-logout>Sign Out</a>
-            </li>
-          </ul>
-        </li>
+  <!-- Dropdown Structure -->
+  <ul id="user-settings" class="dropdown-content" >
+    <li if-user ng-class="{active: isActive('/profile')}">
+      <a href="#" ui-sref="profile">
+        <!-- <i class="mdi-maps-location-history"></i> -->
+        <span>{{user.surname}}'s Profile</span>
+      </a>
+    </li>
+    <li if-user ng-class="{active: isActive('/account')}">
+      <a href="#" ui-sref="account">
+        <!-- <i class="mdi-av-recent-actors"></i> -->
+        <span>My Account</span>
+      </a>
+    </li>
+    <li role="separator" class="divider"></li>
+    <li class="disabled"><a href="#">Contact & FAQ</a></li>
+    <li if-user ng-class="{active: isActive('/logout')}">
+      <a ui-sref="main" cg-logout>Sign Out</a>
+    </li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper" style="background-color: #F5F5F5;">
+      <a ui-sref="main" class="brand-logo"></a>
+      <ul class="right">
+        <!-- Dropdown Trigger -->
+        <li><a if-user class="dropdown-button black-text" href="#!" dropdown data-constrainwidth="false" data-beloworigin="true" data-activates="user-settings">Hi, {{user.surname}}<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
-  </div>
-</div>
+  </nav>
 
-<div class="modal fade" id="term-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="termModalLabel">Terms of Service</h4>
-      </div>
-      <div class="modal-body">
-        <p class="terminal">Payment processing services for partner on CareGivers are provided by Stripe and are subject to the <a href="https://stripe.com/connect/account-terms" target="_blank">Stripe Connected Account Agreement</a>, which includes the <a href="https://stripe.com/terms" target="_blank">Stripe Terms of Service</a> (collectively, the “Stripe Services Agreement”). By agreeing to these terms or continuing to operate as a partner on CareGivers, you agree to be bound by the Stripe Services Agreement, as the same may be modified by Stripe from time to time. As a condition of CareGivers enabling payment processing services through Stripe, you agree to provide CareGivers accurate and complete information about you and your business, and you authorize CareGivers to share it and transaction information related to your use of the payment processing services provided by Stripe.</p>
-      </div>
-      <div class="modal-footer">
-        <div class="col-sm-10" style="top: -10px;">
-          <div class="alert alert-info alert-dismissible text-left fade in" ng-show="posting" ng-bind="processMsg">
-            <button type=button class=close data-dismiss=alert aria-lable=Close>
-              <span aria-hidden=true>&times;</span>
-            </button>
-          </div>
-          <div class="alert alert-success" ng-show="!posting && processMsg" ng-bind="processMsg"></div>
-          <div class="alert alert-danger" ng-show="!posting && verifyMsg" ng-bind="verifyMsg"></div>
+<!-- modals -->
+  <div class="modal fade" id="term-modal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="termModalLabel">Terms of Service</h4>
         </div>
-        <button type="button" class="btn btn-primary" ng-disabled=posting ng-click="acceptTos();">Accept</button>
+        <div class="modal-body">
+          <p class="terminal">Payment processing services for partner on CareGivers are provided by Stripe and are subject to the <a href="https://stripe.com/connect/account-terms" target="_blank">Stripe Connected Account Agreement</a>, which includes the <a href="https://stripe.com/terms" target="_blank">Stripe Terms of Service</a> (collectively, the “Stripe Services Agreement”). By agreeing to these terms or continuing to operate as a partner on CareGivers, you agree to be bound by the Stripe Services Agreement, as the same may be modified by Stripe from time to time. As a condition of CareGivers enabling payment processing services through Stripe, you agree to provide CareGivers accurate and complete information about you and your business, and you authorize CareGivers to share it and transaction information related to your use of the payment processing services provided by Stripe.</p>
+        </div>
+        <div class="modal-footer">
+          <div class="col-sm-10" style="top: -10px;">
+            <div class="alert alert-info alert-dismissible text-left fade in" ng-show="posting" ng-bind="processMsg">
+              <button type=button class=close data-dismiss=alert aria-lable=Close>
+                <span aria-hidden=true>&times;</span>
+              </button>
+            </div>
+            <div class="alert alert-success" ng-show="!posting && processMsg" ng-bind="processMsg"></div>
+            <div class="alert alert-danger" ng-show="!posting && verifyMsg" ng-bind="verifyMsg"></div>
+          </div>
+          <button type="button" class="btn btn-primary" ng-disabled=posting ng-click="acceptTos();">Accept</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="session-modal" tabindex="-1" role="dialog" aria-labelledby="sessionModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="sessionModalLabel">Session Timeout</h4>
-      </div>
-      <div class="modal-body">
-        <p class="terminal">You session will expire soon. Please click Continue to login again.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="endSession();">Continue</button>
+  <div class="modal fade" id="session-modal" tabindex="-1" role="dialog" aria-labelledby="sessionModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="sessionModalLabel">Session Timeout</h4>
+        </div>
+        <div class="modal-body">
+          <p class="terminal">You session will expire soon. Please click Continue to login again.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="endSession();">Continue</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
 </div>

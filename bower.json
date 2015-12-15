@@ -8,7 +8,6 @@
     "angular-resource": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
     "angular-ui-router": "~0.2.15",
-    "bootstrap": "~3.1.1",
     "es5-shim": "~3.0.1",
     "font-awesome": ">=4.1.0",
     "json3": "~3.3.1",
@@ -16,7 +15,10 @@
     "stormpath-sdk-angularjs": "~0.7.1",
     "stripe-angular": "~1.0.2",
     "angular-easyfb": "1.4.1",
-    "raygun4js": "v2.0.3"
+    "raygun4js": "v2.0.3",
+    "materialize": "~0.97.3",
+    "moment": "~2.10.6",
+    "angular-materialize": "*"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

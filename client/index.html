@@ -27,17 +27,18 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <section style="opacity: 1;">
+    <section style="opacity: 1;" ui-view="base">
       <!-- Add your site or application content here -->
-      <div class="sidebar">
-        <!-- SIDEBAR -->
-        <div ng-include="'components/sidebar/sidebar.html'"></div>
-      </div>
       <!-- BEGIN MAIN CONTENT -->
       <div class="main-content">
         <div class="topbar">
           <div ng-include="'components/navbar/navbar.html'"></div>
           <!-- TOPBAR -->
+        </div>
+
+        <div class="sidebar">
+          <!-- SIDEBAR -->
+          <div ng-include="'components/sidebar/sidebar.html'"></div>
         </div>
         <div class="at-view-slide-in-left page-content" id="" ui-view >
           <!-- PAGE CONTENT -->

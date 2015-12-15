@@ -1,0 +1,36 @@
+.mobile-view .with-margin {
+  margin: 0 2em;
+}
+.mobile-view .picker__date-display div {
+    text-align: center !important;
+}
+
+.mobile-view header.header::after  {
+  content: '';
+  background: #DDDDDD;
+  height: 1px;
+  display: block;
+  margin-top: 1em;
+}
+.mobile-view header.header {
+  /* width: 37rem; */
+  font-size: 1.5rem;
+}
+
+footer.actions {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer.actions>a.btn {
+    position: relative;
+    right: 1.5em;
+    bottom: 1em;
+    float: right;
+    /* line-height: initial; */
+}
+
+.with-margin footer.actions>a.btn {
+  right: 3em;
+}

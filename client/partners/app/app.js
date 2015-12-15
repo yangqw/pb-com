@@ -19,6 +19,17 @@ angular.module('caregiversComApp', [
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
 
+    // add a global headless state
+    //
+    $stateProvider
+    .state('headless', {
+      url: '/headless',
+      views: {
+        'base': {
+          template: "<div class=\"mobile-view\" ui-view><a ui-sref=\"headless.adjust-availiabilty\">Adjust Availiabilty</a></br><a ui-sref=\"headless.request-for-backup\">Request for Backup</a></br><a ui-sref=\"headless.full-review\">Full Review</a></div>"
+        }
+      }
+    })
   })
 
   .run(function($stormpath){
@@ -29,7 +40,6 @@ angular.module('caregiversComApp', [
         loginState: 'login'
     });
   })
-  
   .factory('$exceptionHandler', function () {
     return function (exception) {
       if (window.location.port == 9334){

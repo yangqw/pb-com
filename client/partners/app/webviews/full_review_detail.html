@@ -1,0 +1,19 @@
+<div class="col s12 m8">
+  <div class="card-panel grey lighten-5" style="margin: initial;box-shadow:initial;">
+    <div class="rate">
+      <i ng-repeat="star in [1,2,3,4,5]" ng-class="star <= review.score ? 'mdi-toggle-star' : 'mdi-toggle-star-outline'"></i><span>{{review.score}}/5 stars</span>
+    </div>
+    <div class="time">{{review.created_at.format('ll')}} (after {{review.since_hire || 2}} months of care)</div>
+    <div class="content">"{{review.content}}"</div>
+    <div class="my-reply">
+      <div class="input-field col s12">
+        <textarea ng-model="frdCtrl.reply" placeholder="Type your reply.." id="reply-field" class="materialize-textarea"></textarea>
+        <!-- <label for="reply-field">Type your reply..</label> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="actions">
+  <a class="waves-effect waves-light btn teal lighten-2" ng-click="frdCtrl.reply2Review();">Save</a>
+</footer>

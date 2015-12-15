@@ -1,0 +1,25 @@
+<div class="with-margin">
+<header class="header">
+  <p>Keep your availability broad to attract more clients</p>
+</header>
+<section class="days-available">
+  <header>Days Available</header>
+  <ul class="days">
+    <li ng-repeat="(day, info) in avaCtrl.availibiltyInfo.days" ng-bind="info.display" ng-class="{active: info.status}" ng-click="avaCtrl.toggleDay(day);"></li>
+  </ul>
+</section>
+
+<section class="hours-per-week" >
+  <ul id="dropdown2" class="dropdown-content">
+    <li ng-repeat="option in avaCtrl.hoursPerWeek"><a href="#!" ng-bind="option.desc" ng-click="avaCtrl.selectHoursPerWeek(option);"></a></li>
+  </ul>
+  <header class="">
+    <i class="mdi-action-schedule"></i><span>Hours per Week</span>
+  </header>
+  <div class="hours" data-activates="dropdown2" ng-bind="avaCtrl.hoursPerWeekDesc">
+  </div>
+</section>
+<footer class="actions">
+  <a class="waves-effect waves-light btn teal lighten-2" ng-click="avaCtrl.savePartner();">Save</a>
+</footer>
+</div>

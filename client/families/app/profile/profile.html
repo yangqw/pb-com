@@ -1,22 +1,24 @@
-  <div class="">
+  <div class="container profile">
     <div class="header">
-      <h2>{{user.surname}}'s'<strong> PROFILE</strong>
+      <h2>{{user.surname}}'s<strong> PROFILE</strong>
       </h2>
     </div>
 
     <div class="row">
-      <div class="col-md-6">
-        <div class="card small">
-          <div class="card-title">
-            <h3><i class="mdi-action-favorite" style="font-size: 2em;"></i>Name & Address</h3>
-            <div class="ripple-wrapper"></div>
-          </div>
-          <hr style="margin: 0!important;">
+      <div class="col-md-6 col m6 s12">
+        <div class="card">
           <div class="card-content">
-            <div class="col-xs-12">
-              <i class="mdi-maps-location-history" style="font-size: 8em;"></i>
-              <h4 class="" style="margin-left: 100px; margin-top: -80px;">{{user.fullName}}</h4>
-              <h4 class="" style="margin-left: 100px; ">555 5th Ave, Austin, TX 78555</h4>
+            <div class="card-title">
+              <h3>Name & Address</h3>
+              <div class="ripple-wrapper"></div>
+            </div>
+            <hr style="margin: 0!important;">
+            <div class="row">
+              <i class="mdi-maps-location-history card-left"></i>
+              <div class="col s11 card-right">
+                <h4 class="" style="">{{user.fullName}}</h4>
+                <h4 class="" style="">555 5th Ave, Austin, TX 78555</h4>
+              </div>
             </div>
           </div>
           <div class="card-action">
@@ -25,32 +27,41 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="card small">
-          <div class="card-title">
-            <h3><i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>Presonal Details</h3>
-          </div>
-          <hr style="margin: 0!important;">
+      <div class="col-md-6 col m6 s12">
+        <div class="card ">
           <div class="card-content">
-            <div class="col-xs-12" style="">
-              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
-              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Smoker?</h5>
-              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">No</h5>
+            <div class="card-title">
+              <h3>Presonal Details</h3>
+              <div class="ripple-wrapper"></div>
             </div>
-            <div class="col-xs-12">
-              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
-              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Pet?</h5>
-              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">No</h5>
+            <hr style="margin: 0!important;">
+            <div class="row" style="">
+              <i class="mdi-action-face-unlock card-left"></i>
+              <div class="col s11 card-right">
+                <h5 class="" style="">Smoker?</h5>
+                <h5 class="" style="">No</h5>
+              </div>
             </div>
-            <div class="col-xs-12">
-              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
-              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Languages</h5>
-              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">English</h5>
+            <div class="row">
+              <i class="mdi-action-face-unlock card-left"> </i>
+              <div class="col s11 card-right">
+                <h5 class="" style="">Pet?</h5>
+                <h5 class="" style="">No</h5>
+              </div>
             </div>
-            <div class="col-xs-12">
-              <i class="mdi-action-face-unlock" style="font-size: 3em;"></i>
-              <h5 class="" style="margin-left: 50px; margin-top: -30px;">Bio & Special Needs</h5>
-              <h5 class="" style="margin-left: 50px; margin-top: -10px; color: grey;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam maximus turpis vitae diam lobortis egestas. Morbi id sollicitudin risus. Sed sed tempor elit. Nunc dignissim, mi eu elementum tempor.</h5>
+            <div class="row">
+              <i class="mdi-action-face-unlock card-left"></i>
+              <div class="col s11 card-right">
+                <h5 class="" style="">Languages</h5>
+                <h5 class="" style="">English</h5>
+              </div>
+            </div>
+            <div class="row">
+              <i class="mdi-action-face-unlock card-left"></i>
+              <div class="col s11 card-right">
+                <h5 class="" style="">Bio & Special Needs</h5>
+                <h5 class="" style="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam maximus turpis vitae diam lobortis egestas. Morbi id sollicitudin risus. Sed sed tempor elit. Nunc dignissim, mi eu elementum tempor.</h5>
+              </div>
             </div>
           </div>
           <div class="card-action">
@@ -60,17 +71,25 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-          <div class="card small payment">
-            <div class="card-title">
-              <h3>
-                <i class="mdi-action-credit-card" style="font-size:2em;"></i>Payment Method
-              </h3>
-            </div>
-            <hr style="margin: 0!important;">
+        <div class="col-md-12 col m12 s12">
+          <div class="card payment">
             <div class="card-content" style="height: 351px;">
-              <div class="payment-method" ng-if="hasCreditCard">{{ cardInfo.brand}} **** **** **** {{cardInfo.last4}}</div>
-              <div class="payment-method" ng-if="!hasCreditCard">No Payment Method</div>
+
+              <div class="card-title">
+                <h3>
+                  Payment Method
+                </h3>
+              </div>
+              <hr style="margin: 0!important;">
+
+              <div class="row">
+                <i class="mdi-action-credit-card card-left"></i>
+                <div class="col s11 card-right" style="padding-top: 1em;">
+                  <div class="payment-method" ng-if="hasCreditCard">{{ cardInfo.brand}} **** **** **** {{cardInfo.last4}}</div>
+                  <div class="payment-method" ng-if="!hasCreditCard">No Payment Method</div>
+                </div>
+              </div>
+
             </div>
             <div class="card-action">
               <a href="#" class="activator" ng-if="hasCreditCard">EDIT</a>
@@ -79,7 +98,7 @@
             <div class="card-reveal">
                 <span class="card-title">
                   Edit Payment Method
-                  <i class="mdi-navigation-close f-right"></i>
+                  <i class="mdi-navigation-close f-right" style="float:right;"></i>
                 </span>
               <div class="card-content">
                 <form class="form-horizontal" stripe:form="saveCustomer">
@@ -151,7 +170,7 @@
                   <script src="assets/js/creditcardjs-v0.10.12.min.js"></script>
 
                   <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-4">
+                    <div class="col-sm-offset-4 col-sm-4 col col-s4 offset-s4">
                       <p class="alert alert-danger" ng-show="error" ng-bind="error"></p>
                       <button type="submit" class="btn btn-primary" ng-disabled="creating">Submit Payment Info</button>
                     </div>
@@ -159,7 +178,7 @@
                 </form>
 
                 <div class="row">
-                  <div class="col-xs-12">
+                  <div class="col-xs-12 offset-s12">
                     <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="acceptedMsg">
                       <button type=button class=close data-dismiss=alert aria-label=Close>
                         <span aria-hidden=true>&times;</span>

@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-aws-s3');
   var path = require('path');
   var modRewrite = require('connect-modrewrite');
   var serveStatic = require('serve-static');
@@ -24,16 +23,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    aws_s3: {
-      production: {
-      options: {
-        bucket: site + '.caregivers.com',
-      },
-        files: [
-          {expand: true, cwd: 'www', src: ['**'], dest: '/'}
-        ]
-      }
-    },
     client: {
       base: siteFolder + "/app",
       port: clientPort,
@@ -51,7 +40,14 @@ module.exports = function (grunt) {
       dist: {
         src: [siteFolder + '/app/app.js', siteFolder + '/app/**/*.js', 'client/components/**/*.js', '!' + siteFolder + '/app/**/*.spec.js'],
         dest: destinationFolder + '/js/app.js'
-      }
+      },
+      css: {
+        src: ['client/assets/css/*.css', siteFolder + '/assets/stylesheets/*.css', siteFolder + '/app/**/*.css'],
+        dest: destinationFolder + '/css/all.css',
+        options: {
+          separator: ''
+        }
+      },
     },
 
   // grunt.loadNpmTasks 'grunt-contrib-copy'
@@ -83,7 +79,7 @@ module.exports = function (grunt) {
       css_global: {
         expand: true,
         cwd: 'client/assets/',
-        src: ['css/**/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css', 'fonts/*'],
+        src: ['css/vendors/*.css', 'plugins/**/**/**/*.css', 'plugins/**/**/*.css', 'fonts/*'],
         dest: destinationFolder + '/assets/stylesheets'
       },
       css: {
@@ -141,14 +137,19 @@ module.exports = function (grunt) {
     },
 
     // clent www
-    clean: [destinationFolder + '/js/*', destinationFolder + '/css/*', destinationFolder + '/vendor/*', destinationFolder + '/assets/images/*'],
+    clean: [destinationFolder + '/js/*', destinationFolder + '/assets/stylesheets/*',  destinationFolder + '/css/*', destinationFolder + '/vendor/*', destinationFolder + '/assets/images/*'],
 
     // Automatically inject Bower components into the app
     wiredep: {
       target: {
         src: destinationFolder + '/index.html',
         ignorePath: '../client/',
-        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/']
+        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/'],
+        "overrides": {
+          "moment": {
+            "main": "min/moment-with-locales.js"
+          }
+        }
       }
     },
 
@@ -209,18 +210,40 @@ module.exports = function (grunt) {
             destinationFolder + '/js/app.js',
             destinationFolder + '/js/*.js',
             destinationFolder + '/assets/js/**/*.js',
-            destinationFolder + '/assets/stylesheets/**/*.css'
+            destinationFolder + '/assets/stylesheets/**/*.css',
+            destinationFolder + '/css/*.css'
           ]
         }
       },
+      css: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/'+destinationFolder, '');
+            return '<link rel="stylesheet" href="' + filePath + '">';
+          },
+          template: 'client/index.html',
+        },
+        files: {
+          src: [
+            destinationFolder + '/assets/stylesheets/**/*.css'
+          ]
+        }
+      }
     },
     watch: {
       options: {
         livereload: true,
       },
       dev: {
-        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', siteFolder + '/assets/stylesheets/*.css', 'client/components/**/*.js', 'client/components/**/*.html'],
+        files: [siteFolder + '/app/**/*.js', siteFolder + '/app/**/*.html', 'env/*.js', 'client/components/**/*.js', 'client/components/**/*.html'],
         tasks: ['copy:devEnv', 'concat:dist', 'ngtemplates:main'],
+      },
+      devCss: {
+        files: ['client/assets/css/**/*.css', siteFolder + '/assets/stylesheets/**/*.css', siteFolder + '/app/**/*.css'],
+        tasks: ['concat:css'],
+        options: {
+          reload: true
+        }
       },
       configFiles: {
         files: [ 'Gruntfile.js'],
@@ -238,7 +261,8 @@ module.exports = function (grunt) {
     'copy:js_global',
     'copy:js',
     'copy:css_global',
-    'copy:css',
+    // 'copy:css',
+    'copy:index',
     'copy:prodEnv',
     'concat:dist',
     'ngtemplates:main',
@@ -252,16 +276,18 @@ module.exports = function (grunt) {
     'copy:js_global',
     'copy:js',
     'copy:css_global',
-    'copy:css',
+    // 'copy:css',
+    'copy:index',
     'copy:stagingEnv',
     'concat:dist',
+    'concat:css',
     'ngtemplates:main',
     'injector:scripts_and_css',
     'wiredep:target',
   ])
 
   grunt.registerTask('deploy:prod', function () {
-    grunt.task.run(['build:prod', 'aws_s3']);
+    grunt.task.run(['build:prod']);
   });
 
   grunt.registerTask('build:dev', [
@@ -270,10 +296,11 @@ module.exports = function (grunt) {
     'copy:js_global',
     'copy:js',
     'copy:css_global',
-    'copy:css',
+    // 'copy:css',
     'copy:index',
     'copy:devEnv',
     'concat:dist',
+    'concat:css',
     'ngtemplates:main',
     'injector:scripts_and_css',
     'wiredep:target',
@@ -283,10 +310,8 @@ module.exports = function (grunt) {
     'clean',
     'copy:bower',
     'build:dev',
-    // 'configureProxies:server',
     'connect:server',
-    'watch:dev',
-    'watch:configFiles',
+    'watch',
   ]);
 
   grunt.loadNpmTasks('grunt-contrib-watch');

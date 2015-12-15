@@ -16,4 +16,14 @@ angular.module('caregiversComApp')
       return RegExp(route).test($location.path());
     }
   };
+
+  var vm = this
+
+  vm.init = function() {
+    $(".button-collapse").sideNav({
+      closeOnClick: true
+    });
+  }
+
+  vm.init();
 })
