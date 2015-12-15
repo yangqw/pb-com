@@ -28,7 +28,7 @@ angular.module('caregiversComApp')
           sessionData.remain --;
           //console.log(sessionData.remain);
           if (sessionData.remain <= 5){
-            $("#session-modal").modal('hide');
+            $("#session-modal").closeModal();
 
             $auth.endSession().then(function(){
               $rootScope.$broadcast('$notLoggedin');
@@ -40,11 +40,11 @@ angular.module('caregiversComApp')
             return;
           }
           else if (sessionData.remain <= 10){
-            if ($("#term-modal").hasClass('in')){
-              $("#term-modal").modal('hide');
+            if ($('#term-modal').css('display') === "block") {
+              $('#term-modal').closeModal();
             }
-            if (!$("#session-modal").hasClass('in')){
-              $("#session-modal").modal({'backdrop': 'static', 'keyboard': false});
+            if ($("#session-modal").css('display') === "none"){
+              $("#session-modal").openModal({dismissible: false});
             }
           }
         }, 1000);

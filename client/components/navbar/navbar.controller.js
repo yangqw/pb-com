@@ -23,7 +23,7 @@ angular.module('caregiversComApp')
       $scope.acceptStripeToS().then(function(){
         $scope.updateSpUser().then(function(){
           $scope.processMsg = 'Thanks for your accepting terms of services...';
-          $timeout(function(){$('#term-modal').modal('hide');}, 3000);
+          $timeout(function(){$('#term-modal').closeModal();}, 3000);
         });
       });
     }
@@ -80,12 +80,10 @@ angular.module('caregiversComApp')
 
       $auth.endSession().then(function(){
         $state.go('login');
-        $(".modal").modal('hide');
-        $(".modal-backdrop").remove();
+        $(".modal").closeModal();
       }).catch(function(){
         $state.go('login');
-        $(".modal").modal('hide');
-        $(".modal-backdrop").remove();
+        $(".modal").closeModal();
       });
     };
 
@@ -116,7 +114,7 @@ angular.module('caregiversComApp')
           && $user.currentUser.stripeToken
           && $user.currentUser.stripeToS === undefined){
             if (angular.equals($state.current.name, "login")){$state.go('main');}
-            else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
+            else {$("#term-modal").openModal({dismissible: false})}
           }
         }
       }).catch(function(error){

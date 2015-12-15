@@ -19,7 +19,7 @@ angular.module('caregiversComApp')
     };
     $scope.acceptTos = function() {
       $scope.toS = true;
-      $('#tos-modal').modal('hide');
+      $('#tos-modal').closeModal();
     }
 
     if (!$user || !$user.currentUser) {

@@ -74,7 +74,7 @@ angular.module('caregiversComApp')
         && angular.isDefined($user.currentUser.stripeToken)
         && angular.isUndefined($user.currentUser.stripeToS)){
           if (angular.equals($state.current.name, "login")){$state.go('main');}
-          else {$("#term-modal").modal({'backdrop': 'static', 'keyboard': false});}
+          else {$("#term-modal").openModal({dismissible: false});}
         }
       }
 
@@ -140,7 +140,7 @@ angular.module('caregiversComApp')
 
     });
 
-    var accessToken = $cookies.get('access_token');
+    var accessToken = $cookies.get('access_token') || $location.search().accessToken;
     if (accessToken) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
         $http.defaults.headers.common.withCredentials = true;
