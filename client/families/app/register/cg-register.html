@@ -35,26 +35,26 @@
           <small>Your password must be at least 8 characters, contain 1 uppercase, 1 lowercase, and 1 numeric value. Example: Password1</small>
         </div>
       </div>
-      <div class="form-group">
-        <input type="checkbox"  class="col-xs-12 col-sm-2" ng-model="formModel.tosAccepted" ng-disabled="creating">
-        <div class="col-xs-12 col-sm-8">
-          <div>
-            I have read and consented to the CareGivers <a href="http://www.caregivers.com/terms-of-use" target="_blank">Terms of Use</a> and <a href="http://www.caregivers.com/privacy-policy" target="_blank">Privacy Policy</a>.
-          </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col s12 m8 push-m2" input-field>
+            <input type="checkbox" class="filled-in col-xs-12 col-sm-2" id="checkTos" ng-model="formModel.tosAccepted" ng-disabled="creating">
+            <label for="checkTos"> I have read and consented to the CareGivers <a href="http://www.caregivers.com/terms-of-use" target="_blank">Terms of Use</a> and <a href="http://www.caregivers.com/privacy-policy" target="_blank">Privacy Policy</a>.</label>
         </div>
 
       </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-8">
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8 col s8 push-s2">
           <p class="alert alert-danger" ng-show="error" ng-bind="error | uselessSpInfo"></p>
           <p class="alert alert-success" ng-show="emailExists">
             If you are the guy who own this email CareGivers account. Please <a ui-sref="login">Login Now</a>.
           </p>
-          <p class="alert alert-success" ng-show="shouldAcceptTos">
+          <p class="alert alert-info" ng-show="shouldAcceptTos">
             You need accept the terms of use.
           </p>
-          <button type="submit" class="btn btn-primary" ng-disabled="creating">Register</button>
         </div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-primary" ng-disabled="creating" style="display:block; margin: 0 auto;">Register</button>
       </div>
     </form>
   </div>
