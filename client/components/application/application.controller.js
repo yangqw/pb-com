@@ -2,11 +2,15 @@
 //Base controller, one purpose is going to set access_token to http headers
 //And customize Stormpath broadcast events
 angular.module('caregiversComApp')
-  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user, $q, $rootScope, $state, Stormpath, $auth, Killbill, Contact, $location) {
+  .controller('ApplicationCtrl', function ($scope, $http, $cookies, $user , $q, $rootScope, $state, Stormpath, $auth, Killbill, Contact, $location) {
     //console.log('ApplicationCtrl')
     $rootScope.Authorized = false;
     $rootScope.debugMode = false;
     $rootScope.location = null;
+    
+    var vm = this;
+
+    vm.hasAcckessToken = !!$location.search().accessToken;
 
     /**
      * @rootScope Stormpath listener
@@ -34,9 +38,12 @@ angular.module('caregiversComApp')
       && !angular.equals($state.current.name, "logout")
       && !angular.equals($state.current.name, "signup")
       && !angular.equals($state.current.name, "register")
+      && !$state.current.name.startsWith("headless")
       && !angular.equals($state.current.name, "main")){
+        if (!vm.hasAcckessToken) {
           $state.go('login');
         }
+      }
     });
 
     /**
@@ -142,8 +149,9 @@ angular.module('caregiversComApp')
 
     var accessToken = $cookies.get('access_token') || $location.search().accessToken;
     if (accessToken) {
-        $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
-        $http.defaults.headers.common.withCredentials = true;
+      accessToken = accessToken.replace(/%2E/g, ".")
+      $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+      $http.defaults.headers.common.withCredentials = true;
     }
 
     if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
@@ -151,7 +159,7 @@ angular.module('caregiversComApp')
         $rootScope.location = response;
       });
     }
-
+    $user.cachedUserOp = null;
     $user.get().then(function(user){
       Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $rootScope.$broadcast('$authenticated');

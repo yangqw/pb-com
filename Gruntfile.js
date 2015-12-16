@@ -148,7 +148,13 @@ module.exports = function (grunt) {
         "overrides": {
           "moment": {
             "main": "min/moment-with-locales.js"
-          }
+          },
+          // "stormpath-sdk-angularjs" : {
+          //   "main": [
+          //     "dist/stormpath-sdk-angularjs.js",
+          //     "dist/stormpath-sdk-angularjs.tpls.js"
+          //   ],
+          // }
         }
       }
     },

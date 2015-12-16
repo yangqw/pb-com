@@ -28,6 +28,9 @@ angular.module('caregiversComApp', [
         'base': {
           template: "<div class=\"mobile-view\" ui-view><a ui-sref=\"headless.adjust-availiabilty\">Adjust Availiabilty</a></br><a ui-sref=\"headless.request-for-backup\">Request for Backup</a></br><a ui-sref=\"headless.full-review\">Full Review</a></div>"
         }
+      },
+      sp: {
+        authenticate: false
       }
     })
   })
