@@ -207,13 +207,28 @@ grunt build:staging --site=families
 ```
 
 ### Webview
+
 * to test request for backup page, user must login first, then directly go to this link: http://partners-staging.caregivers.com/headless/request-for-backup	
 * to test review page, user must login first, then directly go to this link: http://partners-staging.caregivers.com/headless/full-review
 * to test editable availability page, user must login first, then directly go to this link: http://partners-staging.caregivers.com/headless/availiabilty/edit
-* for mobile development, request above urls with authorisation headers, this way can bypass user login process,
 
+#### For Mobile Developers
+there are two ways to carry access_token to bypass login process
 
+* add accessToken as query params in url, for example
 
+```
+http://localhost:9334/headless/full-review?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9%2EeyJzdWIiOiIyTk1DTkVJQUZJNDczQkExOU1DWE04VlYyIiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3Rvcm1wYXRoLmNvbS92MS9hcHBsaWNhdGlvbnMvMUlpNVNJY1FzOWFORzlIbUY3anB2SiIsImV4cCI6MTQ1MDE4ODM0MCwiaWF0IjoxNDUwMTcwMzQwfQ_-xTe882421L%2E5DW1xi2jxKYjn0zoBtZJ5g3zxFcC8J0
+```
 
+please notice that since there is dot(.) in accessToken, we have to encode access token, and replace . to %2E to make sure browser can parse correct route
 
+* add header when request url, I test that using firefox with extension called "ModifyHeaders"
+
+simply add another header options in ModifyHeaders
+
+```
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxWUpER080VE1PVkwzV0Q2OUJUUEk2TEtEIiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3Rvcm1wYXRoLmNvbS92MS9hcHBsaWNhdGlvbnMvMUlpNVNJY1FzOWFORzlIbUY3anB2SiIsImV4cCI6MTQ1MDI4NjYxMCwiaWF0IjoxNDUwMjY4NjEwfQ.bVr6C2BPXg9Nvhd1lrOpiHmaPQlA3BNPtxfNS5saCVo
+```
+and then access url
 
