@@ -206,6 +206,11 @@ grunt build:staging --site=families
 . ./.dep_staging_families.sh
 ```
 
+### Webview
+* to test request for backup page, user must login first, then directly go to this link: http://partners-staging.caregivers.com/headless/request-for-backup	
+* to test review page, user must login first, then directly go to this link: http://partners-staging.caregivers.com/headless/full-review
+* to test editable availability page, user must login first, then directly go to this link: http://partners-staging.caregivers.com/headless/availiabilty/edit
+* for mobile development, request above urls with authorisation headers, this way can bypass user login process,
 
 
 
