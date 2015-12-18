@@ -69,7 +69,8 @@ angular.module('caregiversComApp')
       }).error(function(error){
         $rootScope.posting = false;
         $rootScope.processMsg = null;
-        $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+        console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'))
+        $rootScope.verifyMsg = "There is an error when creating stripe account";
       });
     }
     $scope.configStripe = function() {
@@ -97,7 +98,8 @@ angular.module('caregiversComApp')
         }).error(function(error){
           $rootScope.posting = false;
           $rootScope.processMsg = null;
-          $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+          console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'))
+          $rootScope.verifyMsg = "there is an error when config your strip account to tenant"
         });
     }
     $scope.verifyingBankAccount = function(){

@@ -47,8 +47,8 @@ angular.module('caregiversComApp')
       }).error(function(error){
         $scope.posting = false;
         $scope.processMsg = null;
-        $scope.verifyMsg = "Error while post " + url + " : " + (error && error.error && error.error.message || 'XHR Error');
-
+        console.log("Error while post " + url + " : " + (error && error.error && error.error.message || 'XHR Error'));
+        $scope.verifyMsg = "Accept stripe terms of service failed"
         Raygun.send(new Error($scope.verifyMsg));
         op.reject();
       });
@@ -70,7 +70,8 @@ angular.module('caregiversComApp')
       }).error(function(error){
         $scope.posting = false;
         $scope.processMsg = null;
-        $scope.verifyMsg = "Error while post " + url + " : " + error;
+        console.log("Error while post " + url + " : " + error)
+        $scope.verifyMsg = "There is an when update user info"
         op.reject();
       });
 
