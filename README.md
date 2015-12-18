@@ -6,6 +6,9 @@ In this project we use [Angular.js](https://angularjs.org/), [Materializecss](ht
 
 for more detail, please check bower.json file
 
+## Note for Developers
+  our works are based on `staging`, so please create branch base on staging branch, the master branch is not always up to date
+
 ## project structure
 
 ```bash
