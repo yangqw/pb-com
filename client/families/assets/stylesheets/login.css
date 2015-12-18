@@ -191,7 +191,7 @@
   }
 }
 
-@media (min-width: 380px) and (max-width: 767px){
+@media (min-width: 480px) and (max-width: 767px){
   .container {
     width: calc(100% - 60px);
     padding: 0;
@@ -262,17 +262,17 @@
   }
 }
 
-@media (max-width: 379px){
+@media (max-width: 479px){
   .container {
-    width: calc(100% - 30px);
+    width: calc(100% - 60px);
     padding: 0;
     background-color: #fafafa;
   }
 
   .logo_image_sign_in{
-    background-image: url("../../assets/images/CareGiversLogo_176.png")!important;
-    width: 174px!important;
-    height: 40px!important;
+    background-image: url("../../assets/images/CareGiversLogo_320.png")!important;
+    width: 320px!important;
+    height: 73px!important;
     margin: 0 auto!important;
     margin-top: 76px!important;
   }
