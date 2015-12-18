@@ -4,9 +4,9 @@
   angular.module('caregiversComApp')
   .controller('AdjustAvailibiltyCtrl', AdjustAvailibiltyCtrl);
 
-  AdjustAvailibiltyCtrl.$inject = ['$scope', 'filterFilter', "Partner", '$user'];
+  AdjustAvailibiltyCtrl.$inject = ['$scope', 'filterFilter', "Partner", '$user', '$state'];
 
-  function AdjustAvailibiltyCtrl($scope, filterFilter, Partner, $user) {
+  function AdjustAvailibiltyCtrl($scope, filterFilter, Partner, $user, $state) {
     var vm = this;
     vm.partner = {};
 
@@ -74,7 +74,9 @@
       }
       vm.partner.availability = days.join(',')
       vm.partner.availabilityHours = vm.hoursPerWeekDesc
-      vm.partner.$save()
+      vm.partner.$save(function() {
+        $state.go('headless.adjust-availiabilty-done')
+      })
     }
 
     vm.toggleDay = toggleDay;

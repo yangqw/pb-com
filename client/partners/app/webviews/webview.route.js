@@ -8,6 +8,10 @@ angular.module('caregiversComApp')
         templateUrl: 'partners/app/webviews/adjust-availiabilty.html',
         controller: 'AdjustAvailibiltyCtrl as avaCtrl'
       })
+      .state('headless.adjust-availiabilty-done', {
+        url: '/availiabilty/done',
+        templateUrl: 'partners/app/webviews/adjust-availiabilty-done.html',
+      })
       .state('headless.request-for-backup', {
         url: '/request-for-backup',
         templateUrl: 'partners/app/webviews/request-for-backup.html',
