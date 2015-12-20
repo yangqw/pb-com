@@ -1,7 +1,8 @@
-'use strict';
+(function(){
+  'use strict';
 
-angular.module('caregiversComApp')
-  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout, Stormpath, $auth) {
+  angular.module('caregiversComApp')
+  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout, Stormpath, $auth, Event) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -31,14 +32,14 @@ angular.module('caregiversComApp')
       var op = $q.defer();
       if (!$user.currentUser.stripeAccountId
         || $user.currentUser.stripeToS === true)
-        {op.resolve();return op.promise;}
+      {op.resolve();return op.promise;}
 
       $scope.verifyMsg = null;
       $scope.processMsg = 'Accepting strip terms of services...';
       var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
-        + $user.currentUser.stripeAccountId;
+      + $user.currentUser.stripeAccountId;
       var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
-        + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
+      + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
       $http.post(url, postData).success(function(response){
         $user.currentUser.stripeToS = true;
         $scope.processMsg = 'Successfully accepted strip terms of services.';
@@ -105,18 +106,26 @@ angular.module('caregiversComApp')
     var accessToken = $cookies.get('access_token');
     var isPartnerDomain = angular.equals(CareGiverEnv.spGroupName, 'PARTNERS');
 
+    Event.on('notification.error', function(event, message){
+      $rootScope.verifyMsg = message.message;
+    })
+
+    Event.on('notification.info', function(event, message){
+      $rootScope.processMsg = message.message;
+    })
+
     //
     //
-    $rootScope.$on('application.authorized', function() {
+    Event.on('application.authorized', function() {
       $user.get().then(function(user){
         //console.log('The current user is', user);
         if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
           if ($user.currentUser.stripeAccountId
-          && $user.currentUser.stripeToken
-          && $user.currentUser.stripeToS === undefined){
-            if (angular.equals($state.current.name, "login")){$state.go('main');}
-            else {$("#term-modal").openModal({dismissible: false})}
-          }
+              && $user.currentUser.stripeToken
+            && $user.currentUser.stripeToS === undefined){
+              if (angular.equals($state.current.name, "login")){$state.go('main');}
+              else {$("#term-modal").openModal({dismissible: false})}
+            }
         }
       }).catch(function(error){
         console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
@@ -124,3 +133,4 @@ angular.module('caregiversComApp')
       });
     })
   });
+})();

@@ -19,6 +19,7 @@
     "Contact",
     "$location",
     "notificationService",
+    "Event"
   ]
 
   function ApplicationCtrl(
@@ -34,7 +35,8 @@
     Killbill,
     Contact,
     $location,
-    notificationService
+    notificationService,
+    Event
   ) {
     //console.log('ApplicationCtrl')
     $rootScope.debugMode = false;
@@ -43,7 +45,6 @@
     var vm = this;
 
     vm.hasAcckessToken = !!$location.search().accessToken;
-    notificationService.error("this is my error")
 
     /**
      * @rootScope Stormpath listener

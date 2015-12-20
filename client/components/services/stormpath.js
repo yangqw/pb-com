@@ -1,15 +1,38 @@
+(function(){
 'use strict';
 //Global Stormpath Services for both domain useage
 angular.module('caregiversComApp')
-.service('Stormpath',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user",
-  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user){
+.service('Stormpath', Session)
+
+  Session.$inject = [
+    "$window", 
+    "$rootScope",
+    "$q",
+    "$http",
+    "$state",
+    "$cookieStore",
+    "$interval",
+    "$auth",
+    "$user"
+  ]
+
+  function Session(
+    $window,
+    $rootScope,
+    $q,
+    $http,
+    $state,
+    $cookieStore,
+    $interval,
+    $auth,
+    $user
+  ){
     var sessionData = {
       "remain": -1
     };
     var fightTimer = undefined;
-    var self;
 
-    return self = {
+    return {
       resetFight: function(seconds){
         sessionData.remain = seconds;
       },
@@ -74,4 +97,4 @@ angular.module('caregiversComApp')
 
     };
   }
-]);
+})()
