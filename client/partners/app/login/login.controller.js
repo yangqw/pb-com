@@ -48,6 +48,30 @@ angular.module('caregiversComApp')
       if (!$user.currentUser.email || !$user.currentUser.partnerId) return;
       Tenant.create($scope.creatStripeAccountOrVerifyAccount);
 
+      $rootScope.posting = true;
+      $rootScope.processMsg = "Seems this is your first login, let\'s create a tenant first, a moment please...";
+      var url = CareGiverEnv.server.host_kb + '/billing/tenants';
+      var config = {
+        headers: {'X-Killbill-ApiKey': $user.currentUser.email}
+      };
+      $http.post(url, {}, config).success(function() {
+        $rootScope.processMsg = "Tenant has been created sucessfully.";
+
+        $user.currentUser.kbTenant = true;
+        var update_user_url = CareGiverEnv.server.host + '/api/users/update';
+        $http.post(update_user_url, $user.currentUser
+        ).success(function(user) {
+          console.log("Tag at current user.kbTenant:" + $user.currentUser.kbTenant);
+          if (!$user.currentUser.stripeAccountId) $scope.createStripeAccount();
+          else if (!$user.currentUser.kbStripe) $scope.configStripe();
+          else $scope.verifyingBankAccount();
+        });
+      }).error(function(error) {
+        $rootScope.posting = false;
+        $rootScope.processMsg = null;
+        $log.debug(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'));
+        $rootScope.verifyMsg = "Error while creating Killbill Tenants"
+      });
     };
     $scope.createStripeAccount = function() {
       $rootScope.posting = true;
@@ -153,7 +177,7 @@ angular.module('caregiversComApp')
         console.log("Impossible for a partner who does not have a partnerId");
       }
       else{
-        if ($rootScope.isAutoLogin){debugger
+        if ($rootScope.isAutoLogin){
           $scope.verifySignupToken($user.currentUser.partnerId).then(function(response){
             if (!response || !response.data || !response.data.email
               || !response.data.token || response.data.tokenUsed == true){

@@ -37,7 +37,6 @@
     notificationService
   ) {
     //console.log('ApplicationCtrl')
-    $rootScope.Authorized = false;
     $rootScope.debugMode = false;
     $rootScope.location = null;
 
@@ -57,7 +56,6 @@
       $cookies.remove('access_token');
 
       $user.currentUser = false;
-      $rootScope.Authorized = false;
       Stormpath.stopFight();
     });
 
@@ -67,17 +65,21 @@
      * If any router directive without Loggedin status, just redirect them to login page
      */
     $rootScope.$on('$notLoggedin', function(e){
-      $rootScope.Authorized = false;
-      if (!angular.equals($state.current.name, "login")
-          && !angular.equals($state.current.name, "logout")
-        && !angular.equals($state.current.name, "signup")
-        && !angular.equals($state.current.name, "register")
-        && !$state.current.name.startsWith("headless")
-        && !angular.equals($state.current.name, "main")){
-          if (!vm.hasAcckessToken) {
-            $state.go('login');
-          }
+      var routesDontAuthenticate = [
+        "login",
+        "logout",
+        "signup",
+        "register",
+        "headless",
+        "main"
+      ]
+      if (routesDontAuthenticate.indexOf($state.current.name.split(".")[0]) >= 0) {
+        return
+      } else {
+        if (!vm.hasAcckessToken) {
+          $state.go('login');
         }
+      }
     });
 
     /**
@@ -100,8 +102,7 @@
      * 3. Get user's expires remaining in seconds and trigger Strompath filght for session timeout
      */
     $rootScope.$on('$currentUser', function(e, user){
-      $rootScope.Authorized = true;
-
+      Event.broadcast("application.authorized", {user: user})
       var isSameGroup = angular.isDefined(user.groups)
       && angular.isArray(user.groups) && user.groups.length == 1
       && user.groups[0].name === CareGiverEnv.spGroupFullName;
@@ -203,7 +204,6 @@
       $rootScope.$broadcast('$notLoggedin');
       return;
     });
-
 
   }
 })()

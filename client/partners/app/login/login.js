@@ -6,6 +6,9 @@ angular.module('caregiversComApp')
       .state('login', {
         url: '/login',
         templateUrl: 'partners/app/login/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        sp: {
+          authenticate: false
+        }
       });
   });

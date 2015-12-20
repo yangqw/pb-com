@@ -106,8 +106,8 @@ angular.module('caregiversComApp')
     var isPartnerDomain = angular.equals(CareGiverEnv.spGroupName, 'PARTNERS');
 
     //
-
-    if ($rootScope.Authorized === true) {
+    //
+    $rootScope.$on('application.authorized', function() {
       $user.get().then(function(user){
         //console.log('The current user is', user);
         if (angular.equals(CareGiverEnv.spGroupName, 'PARTNERS')){
@@ -122,5 +122,5 @@ angular.module('caregiversComApp')
         console.log('Error while getting user ' + (accessToken ? ('with access token: ' + accessToken) : ': '), error);
         $rootScope.$broadcast(STORMPATH_CONFIG.NOT_LOGGED_IN_EVENT);
       });
-    }
+    })
   });
