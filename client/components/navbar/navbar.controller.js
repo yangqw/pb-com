@@ -2,7 +2,42 @@
   'use strict';
 
   angular.module('caregiversComApp')
-  .controller('NavbarCtrl', function ($scope, $http, $location, $rootScope, $cookies, $user, $state, $q, $timeout, Stormpath, $auth, Event) {
+  .controller('NavbarCtrl', NavbarCtrl)
+
+
+  NavbarCtrl.$inject = [
+    "$scope",
+    "$http",
+    "$location",
+    "$rootScope",
+    "$cookies",
+    "$user",
+    "$state",
+    "$q",
+    "$timeout",
+    "Stormpath",
+    "$auth",
+    "Event",
+    "translate",
+  ]
+
+  function NavbarCtrl(
+    $scope,
+    $http,
+    $location,
+    $rootScope,
+    $cookies,
+    $user,
+    $state,
+    $q,
+    $timeout,
+    Stormpath,
+    $auth,
+    Event,
+    translate
+  ){
+
+  // function NavbarCtrl($scope, $http, $location, $rootscope, $cookies, $user, $state, $q, $timeout, stormpath, $auth, event, translate){
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -23,7 +58,7 @@
       $scope.posting = true;
       $scope.acceptStripeToS().then(function(){
         $scope.updateSpUser().then(function(){
-          $scope.processMsg = 'Thanks for your accepting terms of services...';
+          $scope.processMsg = translate.user.terms_of_service.success
           $timeout(function(){$('#term-modal').closeModal();}, 3000);
         });
       });
@@ -35,21 +70,21 @@
       {op.resolve();return op.promise;}
 
       $scope.verifyMsg = null;
-      $scope.processMsg = 'Accepting strip terms of services...';
+      $scope.processMsg = translate.stripe.terms_of_service.posting
       var url = CareGiverEnv.server.host_kb +  '/billing/stripe-accounts/'
       + $user.currentUser.stripeAccountId;
       var postData = "tos_acceptance[date]=" + Math.floor(Date.now()/1000)
       + "&&tos_acceptance[ip]=" + $rootScope.location.ip;
       $http.post(url, postData).success(function(response){
         $user.currentUser.stripeToS = true;
-        $scope.processMsg = 'Successfully accepted strip terms of services.';
+        $scope.processMsg = translate.stripe.terms_of_service.success
 
         op.resolve();
       }).error(function(error){
         $scope.posting = false;
         $scope.processMsg = null;
         console.log("Error while post " + url + " : " + (error && error.error && error.error.message || 'XHR Error'));
-        $scope.verifyMsg = "Accept stripe terms of service failed"
+        $scope.verifyMsg = translate.stripe.terms_of_service.error
         Raygun.send(new Error($scope.verifyMsg));
         op.reject();
       });
@@ -72,7 +107,7 @@
         $scope.posting = false;
         $scope.processMsg = null;
         console.log("Error while post " + url + " : " + error)
-        $scope.verifyMsg = "There is an when update user info"
+        $scope.verifyMsg = translate.user.update.error
         op.reject();
       });
 
@@ -132,5 +167,5 @@
         $rootScope.$broadcast(STORMPATH_CONFIG.NOT_LOGGED_IN_EVENT);
       });
     })
-  });
+  };
 })();
