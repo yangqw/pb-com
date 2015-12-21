@@ -2,6 +2,7 @@
   .container {
     width: 1140px;
     padding:0;
+    max-height: 996px;
     background-color: #fafafa;
   }
 
@@ -47,7 +48,8 @@
     width: 554px;
     height: 126px;
     margin: 0 auto;
-    margin-top:71px;
+    margin-top:142.5px;
+    margin-bottom: 142.5px;
   }
 
   .sign_in_footer {
@@ -56,8 +58,8 @@
     width:100%;
     height:728px;
     display: block;
-    position: fixed;
-    top: 197px;
+    position: relative;
+    top: -535px;
   }
 
   .forgot {
@@ -90,7 +92,7 @@
     font-size: 14px;
     text-align: center;
     position: relative;
-    top: 70px;
+    top: 50px;
   }
 }
 
@@ -98,6 +100,7 @@
   .container {
     width: calc(100% - 140px);
     padding:0;
+    max-height: 996px;
     background-color: #fafafa;
   }
 
@@ -144,17 +147,18 @@
     width: 554px;
     height: 126px;
     margin: 0 auto;
-    margin-top:71px;
+    margin-top: 142.5px;
+    margin-bottom: 142.5px;
   }
 
   .sign_in_footer {
     background-image: url("../../assets/images/BandCurves_1140.png");
     background-repeat: no-repeat;
-    width: calc(100% - 140px);
+    /*width: calc(100% - 140px);*/
     height:728px;
     display: block;
-    position: fixed;
-    top: 197px;
+    position: relative;
+    top: -535px;
   }
 
   .forgot {
@@ -187,7 +191,7 @@
     font-size: 14px;
     text-align: center;
     position: relative;
-    top: 70px;
+    top: 50px;
   }
 }
 
@@ -295,7 +299,7 @@
 
   .sign_in_footer {
     background-image: url("../../assets/images/BandCurves_480.png");
-    width:calc(100% + 60px);
+    width:calc(100% + 45px);
     height:204px;
     display: block;
     margin-left:-30px;
@@ -336,4 +340,8 @@
 .terms_policy {
   color: #3FA294!important;
   text-decoration: none!important;
+}
+
+.pull-right {
+  float: right!important;
 }
