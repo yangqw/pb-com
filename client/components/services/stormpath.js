@@ -13,7 +13,8 @@ angular.module('caregiversComApp')
     "$cookieStore",
     "$interval",
     "$auth",
-    "$user"
+    "$user",
+    "translate"
   ]
 
   function Session(
@@ -25,7 +26,8 @@ angular.module('caregiversComApp')
     $cookieStore,
     $interval,
     $auth,
-    $user
+    $user,
+    translate
   ){
     var sessionData = {
       "remain": -1
@@ -88,7 +90,8 @@ angular.module('caregiversComApp')
         }).error(function(error){
           $rootScope.posting = false;
           $rootScope.processMsg = null;
-          $rootScope.verifyMsg = "Error while post " + url + " : " + error;
+          console.log("Error while post " + url + " : " + error);
+          $rootScope.verifyMsg = translate.user.update.error;
           op.reject();
         });
 

@@ -1,8 +1,8 @@
 'use strict';
 //Global Killbill Services for both domain useage
 angular.module('caregiversComApp')
-.service('Killbill',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath", "$timeout",
-  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath, $timeout){
+.service('Killbill',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath", "$timeout", "translate",
+  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath, $timeout, translate){
 
     var self;
 
@@ -13,7 +13,7 @@ angular.module('caregiversComApp')
         if (!$user.currentUser.contactId) {op.reject();return op.promise;}
 
         $rootScope.posting = true;
-        $rootScope.processMsg = "Retrieve your info...";
+        $rootScope.processMsg = translate.killbill.get.posting;
         $rootScope.verifyMsg = null;
         var url = CareGiverEnv.server.host_kb + '/billing/accounts?externalKey=' + $user.currentUser.contactId;
         $http.get(url).success(function(response){
@@ -23,7 +23,7 @@ angular.module('caregiversComApp')
 
             $rootScope.posting = false;
             $rootScope.processMsg = null;
-            $rootScope.verifyMsg = "Error while getting AccountID from killbill :" + response.message;
+            $rootScope.verifyMsg = translate.killbill.get.success + response.message;
             op.reject();
           }
           else{
@@ -36,7 +36,8 @@ angular.module('caregiversComApp')
         }).error(function(error){
           $rootScope.posting = false;
           $rootScope.processMsg = null;
-          $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+          console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'))
+          $rootScope.verifyMsg = translate.killbill.get.error;
           op.reject();
         });
 
@@ -50,7 +51,7 @@ angular.module('caregiversComApp')
         if (!$user.currentUser.email || !$user.currentUser.contactId) {op.reject();return op.promise;}
 
         $rootScope.posting = true;
-        $rootScope.processMsg = "Setting up a Killbill account for you, a moment please...";
+        $rootScope.processMsg = translate.killbill.create.posting;
         $rootScope.verifyMsg = null;
         var url = CareGiverEnv.server.host_kb + '/billing/accounts';
         var data = {
@@ -60,7 +61,7 @@ angular.module('caregiversComApp')
           "currency": "USD"
         };
         $http.post(url, data).success(function() {
-          $rootScope.processMsg = "Killbill account has been created sucessfully.";
+          $rootScope.processMsg = translate.killbill.create.success;
 
           self.getKbAccount().then(function(){
             Stormpath.updateSpUser().then(function(){
@@ -72,7 +73,8 @@ angular.module('caregiversComApp')
         }).error(function(error) {
           $rootScope.posting = false;
           $rootScope.processMsg = null;
-          $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+          console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'));
+          $rootScope.verifyMsg = translate.killbill.create.error;
           op.reject();
         });
 

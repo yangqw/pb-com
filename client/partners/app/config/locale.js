@@ -18,8 +18,18 @@ var en = {
     posting: "Seems this is your first login, let\'s setup contact profile for you, a moment please...",
     success: "Contact profile has been created sucessfully.",
     error: "There is an error when create contact"
-
-
+  },
+  killbill: {
+    get: {
+      posting: "Retrieve your info...",
+      success: "Error while getting AccountID from killbill :",
+      error: "Can not get killbill account"
+    },
+    create: {
+      posting: "Setting up a Killbill account for you, a moment please...",
+      success: "Killbill account has been created sucessfully.",
+      error: "There is an error when create killbill"
+    }
   }
 }
 
