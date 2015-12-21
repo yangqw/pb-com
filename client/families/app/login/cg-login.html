@@ -1,44 +1,83 @@
-<div class=row style="margin-top: 50px;">
-  <div class="">
-    <form class="form-horizontal" ng-hide="accepted">
-      <div class="row">
-        <div class="input-field col s12 m8 push-m2" style="" input-field>
-          <input class="" type="email" id="spEmail" ng-model="formModel.username" placeholder="Email" ng-disabled="posting" style="">
-          <label for="spEmail" class="">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12 m8 push-m2" input-field>
-          <label for=spPassword class="col-xs-12 col-sm-2 control-label">Password</label>
-          <input type="password" class=form-control id=spPassword ng-model=formModel.password placeholder=Password ng-disabled=posting style="">
-        </div>
-      </div>
-      <div class="row">
-        <a ui-sref="passwordResetRequest" class="col pull-m2 right-align" style="float:right;">Forgot?</a>
-      </div>
-      <div class="row">
-        <div class="col s12 m8 push-m2">
-          <p class="alert alert-danger" ng-show=errorMsg ng-bind=errorMsg></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m8 push-m3">
-          <button class="btn btn-primary" style="" ng-click="fbLogin()" ng-disabled=posting>Connect with Facebook</button>
-          <button class="btn btn-primary" style="" ng-click="submit()" ng-disabled=posting>LOG IN</button>
-        </div>
-      </div>
-    </form>
+<div>
+  <div class="caption">
+    <span class="title">Sign In</span>
   </div>
+
+  <div class="sign_in_section">
+    <form class=form-horizontal ng-hide=accepted ng-submit=submit()>
+
+      <span class="input input--nao">
+        <input class="input__field input__field--nao" type="text" id="spUsername" ng-model=formModel.username ng-disabled=posting >
+        <label class="input__label input__label--nao" for="spUsername">
+          <span class="input__label-content input__label-content--nao">Email</span>
+        </label>
+        <svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+        </svg>
+      </span>
+
+      <span class="input input--nao">
+        <input class="input__field input__field--nao" type="password" id="spPassword"  ng-model=formModel.password ng-disabled=posting >
+        <label class="input__label input__label--nao" for="spPassword">
+          <span class="input__label-content input__label-content--nao">Password</span>
+        </label>
+        <svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+        </svg>
+      </span>
+
+      <a ui-sref=passwordResetRequest class="pull-right terms_policy forgot">Forgot?</a>
+      <div style="clear:both"></div>
+      <button type="submit" class="sign_in_button pull-right" ng-disabled="posting">Sign In</button>
+      <!--<div class="form-group">-->
+        <!--<div class="col-sm-offset-4 col-sm-4">-->
+          <!--<p class=text-danger ng-show=errorMsg ng-bind=errorMsg></p>-->
+
+        <!--</div>-->
+      <!--</div>-->
+    </form>
+    <div style="clear: both"></div>
+    <div class="announcement">
+      By logging in, you agree to our <a href="http://www.caregivers.com/terms-of-use/" target="_blank" class="terms_policy">Terms</a><span class="terms_policy"> & </span><a href="http://www.caregivers.com/privacy-policy/" target="_blank" class="terms_policy">Privacy</a><span class="terms_policy"> Policy</span>
+    </div>
+  </div>
+
 </div>
 
-<div class=row style="">
-  <div class="col-sm-offset-2 col-xs-12 col-sm-8">
-    <p class="alert alert-info alert-dismissible text-center fade in" ng-show="posting" ng-bind="processMsg">
-      <button type=button class=close data-dismiss=alert aria-lable=Close>
-        <span aria-hidden=true>&times;</span>
-      </button>
-    </p>
-    <p class="alert alert-success" ng-show="accepted && !posting && processMsg" ng-bind="processMsg"></p>
-    <p class="alert alert-danger" ng-show="accepted && !posting && verifyMsg" ng-bind="verifyMsg"></p>
-  </div>
-</div>
+<script src="../../assets/js/classie.js"></script>
+<script>
+  (function() {
+
+    if (!String.prototype.trim) {
+      (function() {
+        // Make sure we trim BOM and NBSP
+        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+        String.prototype.trim = function() {
+          return this.replace(rtrim, '');
+        };
+      })();
+    }
+
+    [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+      // in case the input is already filled..
+      if( inputEl.value.trim() !== '' ) {
+        classie.add( inputEl.parentNode, 'input--filled' );
+      }
+
+      // events:
+      inputEl.addEventListener( 'focus', onInputFocus );
+      inputEl.addEventListener( 'blur', onInputBlur );
+    } );
+
+    function onInputFocus( ev ) {
+      classie.add( ev.target.parentNode, 'input--filled' );
+    }
+
+    function onInputBlur( ev ) {
+      if( ev.target.value.trim() === '' ) {
+        classie.remove( ev.target.parentNode, 'input--filled' );
+      }
+    }
+  })();
+</script>
+

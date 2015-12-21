@@ -1,30 +1,347 @@
-/* Form */
-input.form-control {height: 34px;}
-input.form-control,textarea.form-control{border-bottom:1px solid #ededed}
-input.form-control{border:0;background-image:linear-gradient(#0097a7,#0097a7),linear-gradient(#d2d2d2,#d2d2d2)}
-.form-control:focus{background-color:transparent!important;border:none}
-input.form-control.form-white, input.form-control.form-white:hover { border:none;background-image: none;}
-input.form-control.form-white:focus {border:none; background-image: linear-gradient(#0097a7,#0097a7),linear-gradient(#d2d2d2,#d2d2d2);}
-input.form-control.form-dark, input.form-control.form-dark:hover { border: 0;background-color:transparent !important; background-image: linear-gradient(#0097a7,#0097a7),linear-gradient(#121212,#121212);}
-input.form-control.form-dark:focus {background-color:transparent !important;border:none;}
+@media (min-width: 1281px){
+  .container {
+    width: 1140px;
+    padding:0;
+    max-height: 996px;
+    background-color: #fafafa;
+  }
 
+  .sign_in_form {
+    width: 480px;
+    height: 415px;
+    display: block;
+    left: 50%;
+    position: relative;
+    margin-left: -240px;
+    margin-top: 120px;
+    box-shadow: 0px 0px 4px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 1px #E0DCDC;
+    z-index: 4;
+  }
+  .sign_in_form .caption {
+    width:100%;
+    height:80px;
+    background-color: #21304E;
+    border-top-left-radius: 2px;
+    border-top-right-radius:2px;
+  }
+  .sign_in_form .caption .title {
+    color: white;
+    font-size: 24px;
+    margin-left: 30px;
+    padding-top: 23px;
+    display: block;
+  }
 
-.form-control {
-  border: 0;
-  background-image: linear-gradient(#0097a7, #0097a7), linear-gradient(#d2d2d2, #d2d2d2);
-  background-size: 0 2px, 100% 1px;
-  background-repeat: no-repeat;
-  background-position: center bottom, center calc(100% - 1px);
-  background-color: transparent;
-  background-color: rgba(0, 0, 0, 0);
-  transition: background 0 ease-out;
+  .sign_in_form .sign_in_section {
+    background: #FAFAFA;
+    height: 335px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius:2px;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_554.png");
+    width: 554px;
+    height: 126px;
+    margin: 0 auto;
+    margin-top:142.5px;
+    margin-bottom: 142.5px;
+  }
+
+  .sign_in_footer {
+    background-image: url("../../assets/images/BandCurves_1140.png");
+    background-repeat: no-repeat;
+    width:100%;
+    height:728px;
+    display: block;
+    position: relative;
+    top: -535px;
+  }
+
+  .forgot {
+    position: relative;
+    top: -2em;
+    right: 30px;
+    font-size:16px;
+    z-index: 10;
+  }
+
+  .sign_in_button {
+    width: 136px;
+    height:44px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+    text-transform: uppercase;
+    color:white;
+    box-shadow: none;
+    border: 0;
+    outline: none;
+    margin-top:5px;
+    margin-right: 30px;
+    padding: 0;
+    background-color: #3FA294;
+  }
+
+  .announcement {
+    color: #90857B;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    top: 50px;
+  }
 }
-.form-control::-webkit-input-placeholder {
-  color: #bdbdbd;
+
+@media (min-width: 768px) and (max-width: 1280px){
+  .container {
+    width: calc(100% - 140px);
+    padding:0;
+    max-height: 996px;
+    background-color: #fafafa;
+  }
+
+  .sign_in_form {
+    width: 480px;
+    height: 415px;
+    display: block;
+    left: 50%;
+    position: relative;
+    margin-left: -240px;
+    margin-top: 120px;
+    box-shadow: 0px 0px 4px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 1px #E0DCDC;
+    z-index: 4;
+  }
+
+  .sign_in_form .caption {
+    width:100%;
+    height:80px;
+    background-color: #21304E;
+    border-top-left-radius: 2px;
+    border-top-right-radius:2px;
+  }
+  .sign_in_form .caption .title {
+    color: white;
+    font-size: 24px;
+    margin-left: 30px;
+    padding-top: 23px;
+    display: block;
+  }
+
+  .sign_in_form .sign_in_section {
+    background: #FAFAFA;
+    height: 335px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius:2px;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_554.png");
+    width: 554px;
+    height: 126px;
+    margin: 0 auto;
+    margin-top: 142.5px;
+    margin-bottom: 142.5px;
+  }
+
+  .sign_in_footer {
+    background-image: url("../../assets/images/BandCurves_1140.png");
+    background-repeat: no-repeat;
+    /*width: calc(100% - 140px);*/
+    height:728px;
+    display: block;
+    position: relative;
+    top: -535px;
+  }
+
+  .forgot {
+    position: relative;
+    top: -2em;
+    right: 30px;
+    font-size:16px;
+    z-index: 10;
+  }
+
+  .sign_in_button {
+    width: 136px;
+    height:44px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+    text-transform: uppercase;
+    color:white;
+    box-shadow: none;
+    border: 0;
+    outline: none;
+    margin-top:5px;
+    margin-right: 30px;
+    padding: 0;
+    background-color: #3FA294;
+  }
+
+  .announcement {
+    color: #90857B;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    top: 50px;
+  }
 }
-.form-control::-moz-placeholder {
-  color: #bdbdbd;
+
+@media (min-width: 380px) and (max-width: 767px){
+  .container {
+    width: calc(100% - 60px);
+    padding: 0;
+    background-color: #fafafa;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_320.png")!important;
+    width: 320px!important;
+    height: 73px!important;
+    margin: 0 auto!important;
+    margin-top: 76px!important;
+  }
+
+  .sign_in_form {
+    margin-top: 137px;
+    text-align: left;
+  }
+
+  .caption {
+    color: #3A3431;
+    font-size: 21px;
+  }
+
+  .input--nao {
+    margin-left:0px!important;
+    padding-top: 45px!important;
+    width: 100%!important;
+  }
+
+  .sign_in_footer {
+    background-image: url("../../assets/images/BandCurves_480@2x.png");
+    width:calc(100% + 60px);
+    height:280px;
+    display: block;
+    margin-left:-30px;
+  }
+
+  .forgot {
+    position: relative;
+    top: -3em;
+    font-size:16px;
+    z-index: 10;
+  }
+
+  .sign_in_button {
+    width: 136px;
+    height:44px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+    text-transform: uppercase;
+    color:white;
+    box-shadow: none;
+    border: 0;
+    outline: none;
+    margin-top:-1px;
+    padding: 0;
+    background-color: #3FA294;
+  }
+
+  .announcement {
+    color: #90857B;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    top: 268px;
+  }
 }
-.form-control:-ms-input-placeholder {
-  color: #bdbdbd;
+
+@media (max-width: 379px){
+  .container {
+    width: calc(100% - 30px);
+    padding: 0;
+    background-color: #fafafa;
+  }
+
+  .logo_image_sign_in{
+    background-image: url("../../assets/images/CareGiversLogo_176.png")!important;
+    width: 174px!important;
+    height: 40px!important;
+    margin: 0 auto!important;
+    margin-top: 76px!important;
+  }
+
+  .sign_in_form {
+    margin-top: 137px;
+    text-align: left;
+  }
+
+  .caption {
+    color: #3A3431;
+    font-size: 21px;
+  }
+
+  .input--nao {
+    margin-left:0px!important;
+    padding-top: 45px!important;
+    width: 100%!important;
+  }
+
+  .sign_in_footer {
+    background-image: url("../../assets/images/BandCurves_480.png");
+    width:calc(100% + 45px);
+    height:204px;
+    display: block;
+    margin-left:-30px;
+  }
+
+  .forgot {
+    position: relative;
+    top: -3em;
+    font-size:16px;
+    z-index: 10;
+  }
+
+  .sign_in_button {
+    width: 136px;
+    height:44px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+    text-transform: uppercase;
+    color:white;
+    box-shadow: none;
+    border: 0;
+    outline: none;
+    margin-top:-1px;
+    padding: 0;
+    background-color: #3FA294;
+  }
+
+  .announcement {
+    color: #90857B;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    top: 194px;
+  }
+}
+
+.terms_policy {
+  color: #3FA294!important;
+  text-decoration: none!important;
+}
+
+.pull-right {
+  float: right!important;
 }
