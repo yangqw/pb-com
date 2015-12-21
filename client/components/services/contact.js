@@ -1,8 +1,8 @@
 'use strict';
 //Global Killbill Services for both domain useage
 angular.module('caregiversComApp')
-.service('Contact',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath",
-  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath){
+.service('Contact',["$window", "$rootScope", "$q", "$http", "$state", "$cookieStore", "$interval", "$auth", "$user", "Stormpath", "translate",
+  function($window, $rootScope, $q, $http, $state, $cookieStore, $interval, $auth, $user, Stormpath, translate){
 
     var self;
 
@@ -31,7 +31,7 @@ angular.module('caregiversComApp')
         if (!$user.currentUser.email) {op.reject();return op.promise;}
 
         $rootScope.posting = true;
-        $rootScope.processMsg = "Seems this is your first login, let\'s setup contact profile for you, a moment please...";
+        $rootScope.processMsg = translate.contact.posting;
         $rootScope.verifyMsg = null;
         var url = CareGiverEnv.server.host + '/contacts';
         var data = {
@@ -41,7 +41,7 @@ angular.module('caregiversComApp')
         };
         $http.post(url, data).success(function(response) {
           $user.currentUser.contactId = response.content._id;
-          $rootScope.processMsg = "Contact profile has been created sucessfully.";
+          $rootScope.processMsg = translate.contact.success;
 
           Stormpath.updateSpUser().then(function(){
             console.log("Update ContactId and tag at current user.contactId :" + $user.currentUser.contactId);
@@ -51,7 +51,8 @@ angular.module('caregiversComApp')
         }).error(function(error) {
           $rootScope.posting = false;
           $rootScope.processMsg = null;
-          $rootScope.verifyMsg = ("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error');
+          console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'))
+          $rootScope.verifyMsg = translate.contact.error
           op.reject();
         });
 

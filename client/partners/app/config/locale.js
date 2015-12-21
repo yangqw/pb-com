@@ -13,6 +13,13 @@ var en = {
     "terms_of_service": {
       success: "Thanks for your accepting terms of services..."
     }
+  },
+  contact: {
+    posting: "Seems this is your first login, let\'s setup contact profile for you, a moment please...",
+    success: "Contact profile has been created sucessfully.",
+    error: "There is an error when create contact"
+
+
   }
 }
 
