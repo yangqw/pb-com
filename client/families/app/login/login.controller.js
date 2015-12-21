@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('caregiversComApp')
-  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Killbill, Contact, Stormpath) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Killbill, Contact, Stormpath, translate) {
     $scope.errorMsg = null;
     $rootScope.verifyMsg = null;
     $rootScope.accepted = false; //Authorization was accepted or not
@@ -47,11 +47,11 @@ angular.module('caregiversComApp')
       $rootScope.processMsg = null;
 
       if (!$user.currentUser.stripeToken) {
-        $rootScope.processMsg = 'Sucessfully login, let\'s go to set up your payment now...';
+        $rootScope.processMsg = translate.payment.notExist.posting;
         $timeout(function(){ $state.go('account')}, 3000);
       }
       else{
-        $rootScope.processMsg = 'Sucessfully login, fun time...';
+        $rootScope.processMsg = translate.payment.posting;
         $timeout(function(){ $state.go('main'); }, 3000);
       }
 
@@ -77,7 +77,7 @@ angular.module('caregiversComApp')
       if (!isSameGroup){
         $rootScope.posting = false;
         $rootScope.processMsg = null;
-        $rootScope.verifyMsg = "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now..";
+        $rootScope.verifyMsg = translate.group.notBelong;
 
         $timeout(function(){
           $rootScope.accepted = false;

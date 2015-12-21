@@ -30,6 +30,15 @@ var en = {
       success: "Killbill account has been created sucessfully.",
       error: "There is an error when create killbill"
     }
+  },
+  payment: {
+    notExist: {
+      posting: "sucessfully login, let\'s go to set up your payment now..."
+    },
+    posting: "Sucessfully login, fun time..."
+  },
+  group: {
+    notBelong: "Ouch, incorrect group belongs, please contact administrator to fix this. Automatically logout now.."
   }
 }
 
