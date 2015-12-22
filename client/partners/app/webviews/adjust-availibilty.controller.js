@@ -22,7 +22,9 @@
         Partner.get({id: user.partnerId},function(partner) {
           vm.partner = partner;
           var key;
-          var availables = partner.availability.split(',');
+          var availiabilty = partner.availiabilty;
+
+          var availables = availability ? availability.split(',') : [];
           for (key in vm.availibiltyInfo.days) {
             if (availables.indexOf(key) >= 0) {
               vm.availibiltyInfo.days[key].status = true
