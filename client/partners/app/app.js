@@ -9,7 +9,8 @@ angular.module('caregiversComApp', [
   'stormpath',
   'stormpath.templates',
   'stripe',
-  'ezfb'
+  'ezfb',
+  'ui.materialize'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
