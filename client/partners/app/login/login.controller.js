@@ -15,7 +15,8 @@ angular.module('caregiversComApp')
   "Stormpath",
   "Tenant",
   "translate",
-  function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Stormpath, Tenant, translate) {
+  "$log",
+  function ($scope, $http, $cookies, $user, $state, ezfb, $auth, $q, $rootScope, $timeout, Stormpath, Tenant, translate, $log) {
     $scope.errorMsg = null;
     $rootScope.verifyMsg = null;
     $rootScope.accepted = false; //Authorization was accepted or not
