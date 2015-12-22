@@ -22,7 +22,7 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="caregiversComApp" ng-controller="ApplicationCtrl" class="sidebar-top fixed-topbar fixed-sidebar theme-sdtl color-default">
+  <body ng-app="caregiversComApp" ng-controller="ApplicationCtrl as appCtrl" class="sidebar-top fixed-topbar fixed-sidebar theme-sdtl color-default">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -31,12 +31,12 @@
       <!-- Add your site or application content here -->
       <!-- BEGIN MAIN CONTENT -->
       <div class="main-content">
-        <div class="topbar">
+        <div class="topbar" ng-show="appCtrl.visible.navbar">
           <div ng-include="'components/navbar/navbar.html'"></div>
           <!-- TOPBAR -->
         </div>
 
-        <div class="sidebar">
+        <div class="sidebar" ng-show="appCtrl.visible.sidebar">
           <!-- SIDEBAR -->
           <div ng-include="'components/sidebar/sidebar.html'"></div>
         </div>
@@ -45,7 +45,7 @@
         </div>
       </div>
         <!-- END MAIN CONTENT -->
-      <div ng-include="'components/footer/footer.html'"></div>
+      <div ng-include="'components/footer/footer.html'" ng-show="appCtrl.visible.footer"></div>
     </section>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

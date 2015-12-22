@@ -19,7 +19,8 @@
     "Contact",
     "$location",
     "notificationService",
-    "Event"
+    "Event",
+    "visibleService"
   ]
 
   function ApplicationCtrl(
@@ -36,7 +37,8 @@
     Contact,
     $location,
     notificationService,
-    Event
+    Event,
+    visibleService
   ) {
     //console.log('ApplicationCtrl')
     $rootScope.debugMode = false;
@@ -45,7 +47,7 @@
     var vm = this;
 
     vm.hasAcckessToken = !!$location.search().accessToken;
-
+    vm.visible = visibleService.visible;
     /**
      * @rootScope Stormpath listener
      *
