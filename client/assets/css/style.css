@@ -13233,3 +13233,25 @@ nav .brand-logo {
 .text-left {
   text-align: left;
 }
+
+
+/* NavBar */
+#user-settings {
+  left: 541.469px;
+}
+#user-settings .profile {
+  width: 191px;
+  height: 7em;
+}
+
+#user-settings .profile span {
+  line-height: 3em;
+}
+#user-settings .profile span > i {
+  font-size: 1em;
+  display: inline;
+  line-height: 3em;
+  position: relative;
+  top: 3px;
+  padding-right: 10px;
+}

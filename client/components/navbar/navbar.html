@@ -1,16 +1,10 @@
 <div ng-controller="NavbarCtrl">
   <!-- Dropdown Structure -->
   <ul id="user-settings" class="dropdown-content" >
-    <li if-user ng-class="{active: isActive('/profile')}">
+    <li if-user ng-class="{active: isActive('/profile')}" class="profile">
       <a href="#" ui-sref="profile">
         <!-- <i class="mdi-maps-location-history"></i> -->
-        <span>{{user.surname}}'s Profile</span>
-      </a>
-    </li>
-    <li if-user ng-class="{active: isActive('/account')}">
-      <a href="#" ui-sref="account">
-        <!-- <i class="mdi-av-recent-actors"></i> -->
-        <span>My Account</span>
+        <span><i class="material-icons">settings</i>{{user.surname}}'s Profile</span>
       </a>
     </li>
     <li role="separator" class="divider"></li>
