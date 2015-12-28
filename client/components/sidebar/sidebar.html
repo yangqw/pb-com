@@ -27,7 +27,7 @@
         <li if-user class="profile">
 
           <img src="/assets/images/Avatar_Female_Copy@2x.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-          <span>Hi, {{ user.surname }}<i class="material-icons" ui-sref="profile">settings</i></span>
+          <span>Hi, {{ user.surname }}<a ui-sref="profile"><i class="material-icons" style="color: white;">settings</i></a></span>
         </li>
         <!-- <li style="height:64px;"> -->
         <!--   <a ui-sref="main" class="brand-logo">sdfsdf</a> -->
@@ -47,7 +47,7 @@
         <li if-user ng-class="{active: isActive('/time-sheet')}" ng-if="hasTimeSheet">
           <a ui-sref="time-sheet.list"><span>Time Sheet</span></a>
         </li>
-        <div if-user class="sidebar-footer">
+          <div if-user class="sidebar-footer">
           <a href="#">Contact & FAQ</a>
           <a ui-sref="main" cg-logout>Sign Out</a>
         </div>

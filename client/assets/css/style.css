@@ -82,6 +82,10 @@ nav .brand-logo {
   padding-right: 10px;
 }
 
+.side-nav {
+  height: 100% !important;
+}
+
 .side-nav li.profile {
   background: linear-gradient(90deg, #46A193, #282854);
   position: relative;
@@ -101,7 +105,7 @@ nav .brand-logo {
   padding-left: 15px;
 }
 
-.side-nav li.profile > span > i {
+.side-nav li.profile > span > a > i {
   position: absolute;
   right: 15px;
   bottom: 0px;
@@ -109,10 +113,11 @@ nav .brand-logo {
 }
 
 .side-nav .sidebar-footer {
-  position: fixed;
-  bottom: 15px;
+  position: absolute;
+  bottom: 20px;
   left: 0;
   padding-left: 15px;
+
 }
 
 .side-nav .sidebar-footer a {
