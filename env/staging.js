@@ -10,7 +10,7 @@ window.CareGiverEnv = {
       "CHANGE_PASSWORD_ENDPOINT" : '/api/users/reset_password',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
-    "host": "http://api-proxy.caregiversstagingstack.justinsaul.svc.tutum.io:9100",
+    "host": "https://staging-services.caregivers.com",
     "host_kb": "https://gw.caregivers.com"//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
   },
 
