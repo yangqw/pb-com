@@ -179,14 +179,38 @@ and host will be served at **http://localhost:9334**
 ## Features
 
 ### Family Site
-* family register
-* login/logout
-* view profile
-* show timesheet (fake data)
+
+#### family register (/register)
+
+* register logic is located in file `client/families/app/register/cg-register-form.directive.js`, by calling $user.create, request will be send to 
+```
+http://api-proxy.caregiversstagingstack.justinsaul.svc.tutum.io:9100/api/users/register`
+```, the backend api server will call stormpath and create an stormpath account for user
+
+* once new user set up, user will be redirect to user login page and try autologin user
+
+#### family login (/login)
+
+* the login logic is in `client/families/app/login/login.controller.js`. people can login with facebook account or stormpath account. there are few steps after user login.
+	1. create contact if user dont have contactId 
+	2. create killbill account if user dont have killbill account
+	3. create stripe account if user dont have stripe token
+
+#### family profile (/profile)
+
+#### family timesheet (/timesheet)
 
 ### Partner Site
-* login/logout
-* view billing info
+partner site only can login user, person will get invitation email and by clicking the link to login
+
+#### partner login (/login)
+* there are few steps when user first login, the process is a little different from family
+	1. update partnerId, set partner token used flag to true
+	2. create killbill tenant account if there is no kbTenant set
+	3. create stripe account if there is no stripeAccountId set
+	
+	
+#### partner billing info (/profile)
 
 
 
@@ -235,4 +259,3 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxWUpER080
 ```
 and then access url
 
-merp
