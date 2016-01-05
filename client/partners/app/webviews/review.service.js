@@ -10,6 +10,10 @@ angular.module('caregiversComApp')
     reply: {
       method: "POST",
       url: host + "/reviews/:id/reply"
+    },
+    submitBackup: {
+      method: "POST",
+      url: host + "/partner-management/backup/request"
     }
   })
 }])
