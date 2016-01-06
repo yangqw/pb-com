@@ -33,8 +33,6 @@
         console.log($stateParams.id);
         //this.id = $stateParams.id;
    //  $user.get().then(function(user) {
-      console.log(user.access_token);
-     
       Review.submitBackup({id: $stateParams.id}, backupData, function(response) {
           console.log(response);
       })
