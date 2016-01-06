@@ -13,7 +13,7 @@ angular.module('caregiversComApp')
         templateUrl: 'partners/app/webviews/adjust-availiabilty-done.html',
       })
       .state('headless.request-for-backup', {
-        url: '/request-for-backup/:id',
+        url: '/request-for-backup',
         templateUrl: 'partners/app/webviews/request-for-backup.html',
         controller: 'RequestForBackupCtrl as rCtrl'
       })
