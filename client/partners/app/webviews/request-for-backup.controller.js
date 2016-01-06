@@ -42,12 +42,15 @@
         else{          
           $http.defaults.headers.common.Authorization = 'Bearer ' + user.access_token;
           token = $http.defaults.headers.common.Authorization;
-          console.log(token)
+          console.log(token);
           $http.defaults.headers.common.withCredentials = true;
         }
-        Backup.submit(backupData, {token: token}, function(response) {
+     /*   Backup.submit(backupData, {token: token}, function(response) {
         console.log('response', response);
-      })
+      })*/
+        console.log('token ', token);
+        Backup.submitBackup(token, backupData);
+        debugger;
     })
       console.log('saved', backupData);
     }
