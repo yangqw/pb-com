@@ -35,7 +35,7 @@
      $user.get().then(function(user) {
       console.log(user.access_token);
      
-      Review.submitBackup({id: user.access_token}, backupData, function(response) {
+      Review.submitBackup({id: $stateParams.id}, backupData, function(response) {
           console.log(response);
       })
     })
