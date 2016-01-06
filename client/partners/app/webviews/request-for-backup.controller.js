@@ -32,13 +32,13 @@
       //console.log($stateParams.id);
         console.log($stateParams.id);
         //this.id = $stateParams.id;
-     $user.get().then(function(user) {
+   //  $user.get().then(function(user) {
       console.log(user.access_token);
      
       Review.submitBackup({id: $stateParams.id}, backupData, function(response) {
           console.log(response);
       })
-    })
+   // })
       console.log('saved', backupData);
     }
     vm.saveBackup = saveBackup;
