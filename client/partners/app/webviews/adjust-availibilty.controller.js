@@ -12,9 +12,9 @@
 
     vm.hoursPerWeek = [
       {desc: '24 hours', id: 0},
-      // {desc: '20 or fewer hours', id: 0},
-      // {desc: '21 - 34 hours', id: 1},
-      // {desc: '35+ hours', id: 2},
+       {desc: '20 or fewer hours', id: 0},
+       {desc: '21 - 34 hours', id: 1},
+       {desc: '35+ hours', id: 2},
     ]
 
     var setPartner = function() {
