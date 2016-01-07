@@ -16,7 +16,8 @@
       var startDate = null;
       var endDate = null;
       if (vm.start) {
-        startDate = new Date(vm.start)
+        debugger;
+        startDate = new Date(vm.start).toISOString();
         vm.minDate = startDate.toISOString();
         if (vm.end) {
           endDate = new Date(vm.end)
@@ -42,15 +43,10 @@
         else{          
           $http.defaults.headers.common.Authorization = 'Bearer ' + user.access_token;
           token = $http.defaults.headers.common.Authorization;
-          console.log(token);
           $http.defaults.headers.common.withCredentials = true;
         }
-     /*   Backup.submit(backupData, {token: token}, function(response) {
-        console.log('response', response);
-      })*/
-        console.log('token ', token);
-        Backup.submitBackup(token, backupData);
-        debugger;
+        console.log('token: ', token);
+        Backup.submitBackup(token);
     })
       console.log('saved', backupData);
     }

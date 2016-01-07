@@ -1,17 +1,22 @@
 angular.module('caregiversComApp')
-.factory('Backup', ['$resource', function($resource, token) {
-  var host = CareGiverEnv.server.host
-  var host2 = CareGiverEnv.server.host_kb
-return {
-  submitBackup: function (token, backup) {
-    return $resource(host2 + '/v1/partner-management/backup/request',{},{
-      submit: {
-          method: 'POST',
-          headers: { 'Autorization': token},
-          data: backup
-      }
+.factory('Backup', ['$resource', '$http', function(
+  $resource,
+  $http
+) {
+  var host = CareGiverEnv.server.host;
+  var host2 = CareGiverEnv.server.host_kb;
+  return {
+    submitBackup: function (token) {
+        $http({
 
-      })
+          url : "https://staging-services.caregivers.com/partner-management/backup/request",
+          method : 'POST',
+          headers : {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type' : 'application/json',    
+                'Authorization': token
+          }
+        });
     }
-};
-}])
+  };
+}]);
