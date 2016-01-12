@@ -19,11 +19,12 @@
 
     var setPartner = function() {
       $user.get().then(function(user) {
+        debugger
         Partner.get({id: user.partnerId},function(partner) {
           vm.partner = partner;
           var key;
-          var availiabilty = partner.availiabilty;
-
+          debugger
+          var availability = partner.availability;
           var availables = availability ? availability.split(',') : [];
           for (key in vm.availibiltyInfo.days) {
             if (availables.indexOf(key) >= 0) {
