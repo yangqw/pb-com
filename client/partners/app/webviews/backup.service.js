@@ -14,7 +14,8 @@ angular.module('caregiversComApp')
           headers : {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type' : 'application/json',
-                'Authorization': token
+                'Authorization': token,
+                'Access-Control-Allow-Credentials': 'true'
           }
         });
     }
