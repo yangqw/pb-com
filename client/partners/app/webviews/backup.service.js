@@ -9,11 +9,11 @@ angular.module('caregiversComApp')
     submitBackup: function (token) {
         $http({
 
-          url : "https://staging-services.caregivers.com/partner-management/backup/request",
+          url : "https://api.caregivers.com/stage/v1/partner-management/backup/request",
           method : 'POST',
           headers : {
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type' : 'application/json',    
+                'Content-Type' : 'application/json',
                 'Authorization': token
           }
         });

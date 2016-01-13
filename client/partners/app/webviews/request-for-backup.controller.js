@@ -31,23 +31,23 @@
 
       var backupData = this;
       var token = "";
-        $user.get().then(function(user) {
+        //$user.get().then(function(user) {
 
         var accessToken = $cookies.get('access_token') || $location.search().accessToken;
         if (accessToken) {
-          accessToken = accessToken.replace(/%2E/g, ".")
+          accessToken = accessToken.replace(/[.]/g, "%2E")
           $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
           token = $http.defaults.headers.common.Authorization;
           $http.defaults.headers.common.withCredentials = true;
         }
-        else{          
+        else{
           $http.defaults.headers.common.Authorization = 'Bearer ' + user.access_token;
           token = $http.defaults.headers.common.Authorization;
           $http.defaults.headers.common.withCredentials = true;
         }
         console.log('token: ', token);
         Backup.submitBackup(token);
-    })
+    //})
       console.log('saved', backupData);
     }
     vm.saveBackup = saveBackup;
