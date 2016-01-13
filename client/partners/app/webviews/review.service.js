@@ -1,6 +1,7 @@
 angular.module('caregiversComApp')
 .factory('Review', ['$resource', function($resource) {
   var host = CareGiverEnv.server.host
+  var host2 = CareGiverEnv.server.host_kb
   return $resource(host + '/reviews/:id',{id: '@_id'},{
     query: {
       method: "GET",

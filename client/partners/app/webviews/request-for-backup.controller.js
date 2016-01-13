@@ -4,18 +4,20 @@
   angular.module('caregiversComApp')
   .controller('RequestForBackupCtrl', RequestForBackupCtrl);
 
-  RequestForBackupCtrl.$inject = ['$scope', 'filterFilter'];
+  RequestForBackupCtrl.$inject = ['$scope', 'filterFilter','Review', 'Backup','$stateParams', '$user', '$http', '$cookies', '$location'];
 
-  function RequestForBackupCtrl($scope, filterFilter) {
+  function RequestForBackupCtrl($scope, filterFilter,Review, Backup, $stateParams, $user, $http, $cookies, $location) {
     var vm = this;
     vm.start = null;
     vm.end = null;
+    vm.notes = null;
 
     vm.onSet = function() {
       var startDate = null;
       var endDate = null;
       if (vm.start) {
-        startDate = new Date(vm.start)
+        debugger;
+        startDate = new Date(vm.start).toISOString();
         vm.minDate = startDate.toISOString();
         if (vm.end) {
           endDate = new Date(vm.end)
@@ -25,5 +27,29 @@
         }
       }
     }
+    var saveBackup = function() {
+
+      var backupData = this;
+      var token = "";
+        $user.get().then(function(user) {
+
+        var accessToken = $cookies.get('access_token') || $location.search().accessToken;
+        if (accessToken) {
+          accessToken = accessToken.replace(/%2E/g, ".")
+          $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+          token = $http.defaults.headers.common.Authorization;
+          $http.defaults.headers.common.withCredentials = true;
+        }
+        else{          
+          $http.defaults.headers.common.Authorization = 'Bearer ' + user.access_token;
+          token = $http.defaults.headers.common.Authorization;
+          $http.defaults.headers.common.withCredentials = true;
+        }
+        console.log('token: ', token);
+        Backup.submitBackup(token);
+    })
+      console.log('saved', backupData);
+    }
+    vm.saveBackup = saveBackup;
   }
 })()
