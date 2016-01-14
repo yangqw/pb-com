@@ -16,7 +16,6 @@
       var startDate = null;
       var endDate = null;
       if (vm.start) {
-        //debugger;
         startDate = new Date(vm.start).toISOString();
         vm.minDate = startDate.toISOString();
         if (vm.end) {
