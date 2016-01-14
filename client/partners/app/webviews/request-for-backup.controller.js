@@ -34,7 +34,7 @@
 
         var accessToken = $cookies.get('access_token') || $location.search().accessToken;
         if (accessToken) {
-          accessToken = accessToken.replace(/[.]/g, "%2E")
+          //accessToken = accessToken.replace(/[.]/g, "%2E")
           $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
           token = $http.defaults.headers.common.Authorization;
           $http.defaults.headers.common.withCredentials = true;
