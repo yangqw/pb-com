@@ -16,7 +16,7 @@
       var startDate = null;
       var endDate = null;
       if (vm.start) {
-        debugger;
+        //debugger;
         startDate = new Date(vm.start).toISOString();
         vm.minDate = startDate.toISOString();
         if (vm.end) {
@@ -46,7 +46,12 @@
           $http.defaults.headers.common.withCredentials = true;
         }
         console.log('token: ', token);
-        Backup.submitBackup(token);
+        var data = {
+          absenceStartDate: new Date(vm.start).toISOString(),
+          absenceEndDate: new Date(vm.end).toISOString(),
+          notes: vm.notes
+        };
+        Backup.submitBackup(token, data);
     //})
       console.log('saved', backupData);
     }

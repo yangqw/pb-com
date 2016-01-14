@@ -6,11 +6,12 @@ angular.module('caregiversComApp')
   var host = CareGiverEnv.server.host;
   var host2 = CareGiverEnv.server.host_kb;
   return {
-    submitBackup: function (token) {
+    submitBackup: function (token, data) {
         $http({
 
           url : "https://api.caregivers.com/stage/v1/partner-management/backup/request",
           method : 'POST',
+          data: data,
           headers : {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type' : 'application/json',
