@@ -11,7 +11,8 @@ window.CareGiverEnv = {
       "FORM_CONTENT_TYPE" : 'application/json',
     },
     "host": "https://staging-services.caregivers.com",
-    "host_kb": "https://gw.caregivers.com"//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
+    "host_kb": "https://gw.caregivers.com",//"http://internal-cg-killbill-production-elb-1051596223.us-east-1.elb.amazonaws.com/billing"
+    "host_gw": "https://api.caregivers.com/stage/v1"
   },
 
   "component":{
