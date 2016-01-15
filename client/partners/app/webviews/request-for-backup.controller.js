@@ -50,7 +50,7 @@
           notes: vm.notes
         };
         Backup.submitBackup(token, data).then(function(response) {
-          $state.go('headless.adjust-availiabilty-done');
+          $state.go('headless.request-for-backup-done');
         });
     //})
       console.log('saved', backupData);
