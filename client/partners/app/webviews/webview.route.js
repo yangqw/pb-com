@@ -27,4 +27,9 @@ angular.module('caregiversComApp')
         templateUrl: 'partners/app/webviews/full_review.html',
         controller: 'FullReviewCtrl as frCtrl'
       })
+      .state('headless.request-for-backup-done', {
+        url: '/request-for-backup/done',
+        templateUrl: 'partners/app/webviews/request-for-backup-done.html',
+        controller: 'RequestForBackupCtrl as rCtrl'
+      })
   });

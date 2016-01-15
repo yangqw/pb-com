@@ -4,9 +4,9 @@
   angular.module('caregiversComApp')
   .controller('RequestForBackupCtrl', RequestForBackupCtrl);
 
-  RequestForBackupCtrl.$inject = ['$scope', 'filterFilter','Review', 'Backup','$stateParams', '$user', '$http', '$cookies', '$location'];
+  RequestForBackupCtrl.$inject = ['$scope', 'filterFilter','Review', 'Backup','$stateParams', '$user', '$http', '$cookies', '$location', '$state'];
 
-  function RequestForBackupCtrl($scope, filterFilter,Review, Backup, $stateParams, $user, $http, $cookies, $location) {
+  function RequestForBackupCtrl($scope, filterFilter,Review, Backup, $stateParams, $user, $http, $cookies, $location, $state) {
     var vm = this;
     vm.start = null;
     vm.end = null;
@@ -30,11 +30,10 @@
 
       var backupData = this;
       var token = "";
-        //$user.get().then(function(user) {
+        //$user.get().then(function(user) { No need to get the user info
 
         var accessToken = $cookies.get('access_token') || $location.search().accessToken;
         if (accessToken) {
-          //accessToken = accessToken.replace(/[.]/g, "%2E")
           $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
           token = $http.defaults.headers.common.Authorization;
           $http.defaults.headers.common.withCredentials = true;
@@ -50,7 +49,9 @@
           absenceEndDate: new Date(vm.end).toISOString(),
           notes: vm.notes
         };
-        Backup.submitBackup(token, data);
+        Backup.submitBackup(token, data).then(function(response) {
+          $state.go('headless.adjust-availiabilty-done');
+        });
     //})
       console.log('saved', backupData);
     }

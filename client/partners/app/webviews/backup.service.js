@@ -7,19 +7,19 @@ angular.module('caregiversComApp')
   var host2 = CareGiverEnv.server.host_kb;
   return {
     submitBackup: function (token, data) {
-        $http({
+      return $http({
 
-          url : "https://api.caregivers.com/stage/v1/partner-management/backup/request",
-          method : 'POST',
-          data: data,
-          headers : {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type' : 'application/json',
-                'Authorization': token,
-                'Access-Control-Allow-Headers':'Content-Type',
-                'Access-Control-Allow-Credentials': 'true'
-          }
-        });
+        url : "https://api.caregivers.com/stage/v1/partner-management/backup/request",
+        method : 'POST',
+        data: data,
+        headers : {
+              'Access-Control-Allow-Origin': '*',
+              'Content-Type' : 'application/json',
+              'Authorization': token,
+              'Access-Control-Allow-Headers':'Content-Type',
+              'Access-Control-Allow-Credentials': 'true'
+        }
+      });
     }
   };
 }]);
