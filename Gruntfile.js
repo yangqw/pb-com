@@ -3,10 +3,10 @@ module.exports = function (grunt) {
   var modRewrite = require('connect-modrewrite');
   var serveStatic = require('serve-static');
   var validSites = [
-    {name: 'families', port: 9333},
-    {name: 'partners', port: 9334}
+    {name: 'families', port: 8333},
+    {name: 'partners', port: 8334}
   ];
-  var clientPort = 9333;
+  var clientPort = 8333;
   var site = 'families';
 
   for (var s in validSites) {

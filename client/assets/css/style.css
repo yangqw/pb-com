@@ -4,12 +4,20 @@
   display: inline-flex;
 }
 nav .brand-logo {
-  background: url(/assets/images/cg-logo-555px.png) no-repeat;
-  width: 159px;
+  background: url(/assets/images/Tai_Ping_logo.svg) no-repeat;
+  width: 100px;
   background-size: 100%;
-  background-position: 0 13px;
-  height: 60px;
+  background-position: 0 -25px;
+  height: 55px;
   left: 14px;
+}
+nav .brand-slogon {
+  background: url(/assets/images/House_of_Tai_Ping_logo.svg) no-repeat;
+  width: 450px;
+  background-size: 100%;
+  background-position: 0 -200px;
+  height: 55px;
+  left: 150px;
 }
 
 /* .topbar .nav-wrapper { */
@@ -17,7 +25,7 @@ nav .brand-logo {
 /* } */
 
 @media only screen and (max-width: 992px) {
-  nav .brand-logo {
+  nav .brand-logo,  nav .brand-slogon{
     transform: initial;
     -webkit-transform: initial;
     -moz-transform: initial;

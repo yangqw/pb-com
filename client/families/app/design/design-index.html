@@ -1,0 +1,107 @@
+<div class="container design list">
+  <div class="row">
+
+    <div class="col-md-6 col m6 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+            <!-- <div class="img" style="display: block; margin: 0 auto; height: 25px; background: transparent url('/assets/images/House_of_Tai_Ping_logo.svg') no-repeat scroll 0px -100px / 100% auto;"></div> -->
+            <h3 class="card-title center-align">Register design</h3>
+            <div class="row">
+              <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+                <p class="alert alert-success" ng-show="created && !enabled">{{designGdn}} has been registered.</p>
+                <p class="alert alert-success" ng-show="created && enabled && !authenticating">{{designGdn}} has been registered.  <a ui-sref="login">Login Now</a>.</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+                <p class="alert alert-success" ng-show="error && creating" ng-bind=error></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-offset-1 col-xs-12">
+                <form class="form-horizontal" ng-hide="created && !authenticating" ng-submit="register()">
+                  <div class="row">
+                    <div class="col s12 m8 push-m2" input-field>
+                      <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Path</label>
+                      <input class="form-control" type="text" id="spFileName" ng-model="registerModel.URL" placeholder="Please input File Path" ng-disabled="creating">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <button type="submit" class="btn btn-primary" ng-disabled="creating || registerModel.URL === ''" style="display:block; margin: 0 auto;">Register</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m6 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          <h3 class="card-title center-align">Generate DES file</h3>
+          <div class="row">
+            <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+              <p class="alert alert-success" ng-show="generated && !enabled">
+                DES file has been generated, get it from <a href="{{desFile|resUrlParser}}" target="_blank">here</a>.
+
+                Or <a href="#" ng-click="back2Generate()">Back</a>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+              <p class="alert alert-success" ng-show="error && generating" ng-bind=error></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-offset-1 col-xs-12">
+              <form class="form-horizontal" ng-hide="generated && !authenticating" ng-submit="generate()">
+                <div class="row">
+                  <div class="col s12 m8 push-m2" input-field>
+                    <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Path</label>
+                    <input class="form-control" type="text" id="spFileName" ng-model="generateModel.URL" placeholder="Please input File Path" ng-disabled="creating">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <button type="submit" class="btn btn-primary" ng-disabled="generating || generateModel.URL === ''" style="display:block; margin: 0 auto;">Generate</button>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m12 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          <span class="card-title">
+            Available design list
+          </span>
+
+          <table class="table table-dynamic">
+            <thead>
+                <tr>
+                    <th>GND</th>
+                    <th>Name</th>
+                    <th>TpcFilePath</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in designs">
+                  <td>{{data.DESIGN_SUM_TBL.GDN}}</td>
+                  <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">{{data.DESIGN_SUM_TBL.DesignName}}</a></td>
+                  <td>{{data.DESIGN_SUM_TBL.TpcFilePath}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,6 +1,21 @@
 'use strict';
 
 angular.module('caregiversComApp')
+  .filter('resUrlParser', function(){
+    return function(input){
+      input = input || '';
+      var out = input;
+
+      var imgServerUrl = CareGiverEnv.server.host_img + '/';
+      var idxOfImgServerUrl = input.indexOf(imgServerUrl);
+      if (idxOfImgServerUrl >= 0){
+        // var idxOfRemain = input.indexOf(":", idxOfSpStatement + spStatement.length)
+        // out = input.substring(idxOfRemain + 1);
+      }
+      else out = imgServerUrl + out;//.replaceAll('\\', '/');
+      return out;
+    };
+  })
   .filter('uselessSpInfo', function(){
     return function(input){
       input = input || '';

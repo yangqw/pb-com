@@ -1,8 +1,8 @@
 <!-- <div class="container"> -->
 <div class="row">
   <div class="col-sm-offset-2 col-xs-12 col-sm-8">
-    <p class="alert alert-success" ng-show="created && !enabled">Your account has been created.  Please check your email for a verification link.</p>
-    <p class="alert alert-success" ng-show="created && enabled && !authenticating">Your account has been created.  <a ui-sref="login">Login Now</a>.</p>
+    <p class="alert alert-success" ng-show="created && !enabled">Your design has been registered.</p>
+    <p class="alert alert-success" ng-show="created && enabled && !authenticating">Your design has been registered.  <a ui-sref="login">Login Now</a>.</p>
   </div>
 </div>
 <div class="row">
@@ -10,49 +10,11 @@
     <form class="form-horizontal" ng-hide="created && !authenticating" ng-submit="submit()">
       <div class="row">
         <div class="col s12 m8 push-m2" input-field>
-          <label for="spFirstName" class="col-xs-12 col-sm-2 control-label">First Name</label>
-          <input class="form-control" type="text" id="spFirstName" ng-model="formModel.givenName" placeholder="First Name" ng-disabled="creating">
+          <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Path</label>
+          <input class="form-control" type="text" id="spFileName" ng-model="formModel.URL" placeholder="Please input File Path" ng-disabled="creating">
         </div>
       </div>
-      
-      <div class="row">
-        <div class="col s12 m8 push-m2" input-field>
-          <label for="spLastName" class="col-xs-12 col-sm-2 control-label">Last Name</label>
-          <input class="form-control" type="text" id="spLastName" ng-model="formModel.surname" placeholder="Last Name" ng-disabled="creating">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m8 push-m2" input-field>
-          <label for="spEmail" class="col-xs-12 col-sm-2 control-label">Email</label>
-          <input class="form-control" type="email" id="spEmail" ng-model="formModel.email" placeholder="Email" ng-disabled="creating">
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col s12 m8 push-m2" input-field>
-          <label for="spPassword" class="col-xs-12 col-sm-2 control-label">Password</label>
-          <input type="password" class="form-control" id="spPassword" ng-model="formModel.password" placeholder="Password" ng-disabled="creating">
-          <small>Your password must be at least 8 characters, contain 1 uppercase, 1 lowercase, and 1 numeric value. Example: Password1</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col s12 m8 push-m2" input-field>
-            <input type="checkbox" class="filled-in col-xs-12 col-sm-2" id="checkTos" ng-model="formModel.tosAccepted" ng-disabled="creating">
-            <label for="checkTos"> I have read and consented to the CareGivers <a href="http://www.caregivers.com/terms-of-use" target="_blank">Terms of Use</a> and <a href="http://www.caregivers.com/privacy-policy" target="_blank">Privacy Policy</a>.</label>
-        </div>
 
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-2 col-sm-8 col s8 push-s2">
-          <p class="alert alert-danger" ng-show="error" ng-bind="error | uselessSpInfo"></p>
-          <p class="alert alert-success" ng-show="emailExists">
-            If you are the guy who own this email CareGivers account. Please <a ui-sref="login">Login Now</a>.
-          </p>
-          <p class="alert alert-info" ng-show="shouldAcceptTos">
-            You need accept the terms of use.
-          </p>
-        </div>
-      </div>
       <div class="row">
         <button type="submit" class="btn btn-primary" ng-disabled="creating" style="display:block; margin: 0 auto;">Register</button>
       </div>

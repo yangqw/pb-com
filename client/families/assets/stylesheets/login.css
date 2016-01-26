@@ -3,7 +3,6 @@
     width: 1140px;
     padding:0;
     max-height: 996px;
-    background-color: #fafafa;
   }
 
   .sign_in_form {
@@ -101,7 +100,6 @@
     width: calc(100% - 140px);
     padding:0;
     max-height: 996px;
-    background-color: #fafafa;
   }
 
   .sign_in_form {

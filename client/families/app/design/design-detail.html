@@ -1,0 +1,238 @@
+
+<div class="container design detail" style="max-height: 2600px;">
+  <div class="card" style="background-color: #F5F5F5;">
+    <div class="card-content">
+        <div class="img" style="display: block; margin: 0 auto; height: 50px; background: transparent url('/assets/images/House_of_Tai_Ping_logo.svg') no-repeat scroll 250px -250px / 50% auto;"></div>
+        <h3 class="card-title center-align">Design details of <b>{{design.DESIGN_SUM_TBL.DesignName}}<b></h3>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-6 col m12 s12">
+        <div class="card" style="background-color: #F5F5F5;">
+          <div class="card-content">
+            <div class="card-title">
+              DESIGN_SUMMARY
+              <div class="ripple-wrapper"></div>
+            </div>
+            <hr style="margin: 0!important;">
+            <div class="row">
+              <div class="col s6 line-bottom">
+                GDN<h5 class="" style="">{{design.DESIGN_SUM_TBL.GDN}}</h5>
+              </div>
+              <div class="col s6 line-bottom">
+                TpcFilePath
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.TpcFilePath}}</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6 line-bottom">
+                Name / Title / DesignDescription
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.DesignName}} / {{design.DESIGN_SUM_TBL.DesignTitle}} / {{design.DESIGN_SUM_TBL.DesignDescription}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                # / Revision#
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.DesignNumber}} / {{design.DESIGN_SUM_TBL.DesignRevisionNumber}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                ConfigureRepeat?
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.ConfigureRepeat}}</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s3 line-bottom">
+                Dpu X/Y/Uint
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.DpuX}} / {{design.DESIGN_SUM_TBL.DpuY}} / {{design.DESIGN_SUM_TBL.DpuUint}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                #OfColors/ #OfColorsUsed
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.OfColors}} / {{design.DESIGN_SUM_TBL.OfColorsUsed}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                Quality
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.Quality}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                Repeat
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.Repeat}}</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s3 line-bottom">
+                Royalty Design/Designer/Pct
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.RoyaltyDesign}} / {{design.DESIGN_SUM_TBL.RoyaltyDesigner}} / {{design.DESIGN_SUM_TBL.RoyaltyPct}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                Weight/Width/Length
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.Weight}} / {{design.DESIGN_SUM_TBL.Width}} / {{design.DESIGN_SUM_TBL.Length}}</h5>
+              </div>
+              <div class="col s3 line-bottom">
+                UOMCode
+                <h5 class="" style="">{{design.DESIGN_SUM_TBL.UOMCode}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col m8 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          DESIGN_POS_TBL
+          <table class="table table-dynamic">
+            <thead>
+                <tr>
+                    <th>Color</th>
+                    <th>CutOrLoop</th>
+                    <th>Description</th>
+                    <th>HiOrLo</th>
+                    <th>Pile(D/H/W)</th>
+                    <th>Position</th>
+                    <th>Twod%</th>
+                    <th>YarnType</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in design.DESIGN_POS_TBL">
+                    <td>{{data.ColorCode}} / {{data.ColorName}}</td>
+                    <td>{{data.CutOrLoop}}</td>
+                    <td>{{data.Description}}</td>
+                    <td>{{data.HiOrLo}}</td>
+                    <td>{{data.PileDensity}} / {{data.PileHeight}} / {{data.PileWeight}}</td>
+                    <td>{{data.Position}}</td>
+                    <td>{{data.TwodPercentage}}</td>
+                    <td>{{data.YarnType}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m4 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          DESIGN_TRT_TBL
+          <table class="table table-dynamic">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Instructions</th>
+                    <th>Name</th>
+                    <th>Treatment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in design.DESIGN_TRT_TBL">
+                    <td>{{data.Description}}</td>
+                    <td>{{data.Instructions}}</td>
+                    <td>{{data.Name}}</td>
+                    <td>{{data.Treatment}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m4 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          DESIGN_INST_TBL
+          <table class="table table-dynamic">
+            <thead>
+                <tr>
+                    <th>Instruction</th>
+                    <th>Instructions</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in design.DESIGN_INST_TBL">
+                    <td>{{data.Instruction}}</td>
+                    <td>{{data.Instructions}}</td>
+                    <td>{{data.Name}}</td>
+                    <td>{{data.Type}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="card col-md-6 col m12 s12">
+      <div class="card-title">
+        Thumbnail at full size
+        <div class="ripple-wrapper"></div>
+      </div>
+      <div class="card-image">
+        <img style="width:800px!important;" src="{{design.DESIGN_SUM_TBL.FullImage|resUrlParser}}">
+        <span class="card-title" style="top: 0px;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col m4 s12">
+      <div class="card">
+        <div class="card-title">
+          Thumbnail 75
+          <div class="ripple-wrapper"></div>
+        </div>
+        <div class="card-image">
+          <img style="width: 75px!important" src="{{design.DESIGN_SUM_TBL.Thumbnail_75|resUrlParser}}">
+          <span class="card-title" style="top: 0px;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m8 s12">
+      <div class="card">
+        <div class="card-title">
+          Thumbnail 300
+          <div class="ripple-wrapper"></div>
+        </div>
+        <div class="card-image">
+          <img style="width: 300px!important" src="{{design.DESIGN_SUM_TBL.Thumbnail_300|resUrlParser}}">
+          <span class="card-title" style="top: 0px;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col m4 s12">
+      <div class="card">
+        <div class="card-title">
+          Thumbnail 100
+          <div class="ripple-wrapper"></div>
+        </div>
+        <div class="card-image">
+          <img style="width: 100px!important"  src="{{design.DESIGN_SUM_TBL.Thumbnail_100|resUrlParser}}">
+          <span class="card-title" style="top: 0px;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m8 s12">
+      <div class="card">
+        <div class="card-title">
+          Thumbnail 200
+          <div class="ripple-wrapper"></div>
+        </div>
+        <div class="card-image">
+          <img style="width: 200px!important" src="{{design.DESIGN_SUM_TBL.Thumbnail_200|resUrlParser}}">
+          <span class="card-title" style="top: 0px;"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

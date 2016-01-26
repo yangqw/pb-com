@@ -73,6 +73,8 @@
         "logout",
         "signup",
         "register",
+        "design",
+        "time-sheet",
         "headless",
         "main"
       ]
@@ -199,6 +201,32 @@
     }
     $user.cachedUserOp = null;
     $user.get().then(function(user){
+      // user = {
+      //   "contactId":"e202a0cba0124d839176342776c7e36d",
+      //   "modifiedAt":"2015-11-23T16:34:21.683Z",
+      //   "givenName":"cg2","fullName":"cg2 cg2",
+      //   "groups":[{
+      //     "createdAt":"2015-10-08T09:43:49.889Z",
+      //     "modifiedAt":"2015-10-20T10:31:17.470Z",
+      //     "name":"CG_FAMILIES",
+      //     "description":null,"href":"https://api.stormpath.com/v1/groups/BEPUSki86n0koXCSa1Yu5",
+      //     "status":"ENABLED"}],
+      //   "customData":{"href":"https://api.stormpath.com/v1/accounts/o9twoiNhuwDVBAvygjXfZ/customData"},
+      //   "directory":{"href":"https://api.stormpath.com/v1/directories/7TdBaM5kYAwcaUYcQXFDOe"},
+      //   "kbAccount":true,
+      //   "access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzSjRFM0ZPWEYzUjhPNkhHOE5ZM1NFTTRYIiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3Rvcm1wYXRoLmNvbS92MS9hcHBsaWNhdGlvbnMvMUlpNVNJY1FzOWFORzlIbUY3anB2SiIsImV4cCI6MTQ1MzIwNjI2NiwiaWF0IjoxNDUzMTg4MjY2fQ.GRYK2y9bLWZFLlEtCT30qT2DUlu7FqV8fFU5UbWGfBA",
+      //   "createdAt":"2015-10-27T15:55:34.833Z",
+      //   "stripeToken":"tok_17AFmCBzJz3ams9OZM8D4Qj8",
+      //   "surname":"cg2","middleName":null,"href":"https://api.stormpath.com/v1/accounts/o9twoiNhuwDVBAvygjXfZ",
+      //   "id":"o9twoiNhuwDVBAvygjXfZ","expires_in":1453206266,"email":"p2@cg.com",
+      //   "tenant":{"href":"https://api.stormpath.com/v1/tenants/1I6QncFY2JBM7lesEFhNdl"},
+      //   "username":"p2@cg.com","status":"ENABLED","emailVerificationToken":null,
+      //   "applications":[{
+      //     "name":"CareGivers","description":"Main user management.",
+      //     "href":"https://api.stormpath.com/v1/applications/1Ii5SIcQs9aNG9HmF7jpvJ",
+      //     "status":"ENABLED"}]
+      // };
+      // $user.currentUser = user;
       Raygun.setUser($user.currentUser.id, false, $user.currentUser.email, $user.currentUser.givenName, $user.currentUser.fullName, $user.currentUser.id);
       $rootScope.$broadcast('$authenticated');
     })

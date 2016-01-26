@@ -4,14 +4,18 @@ window.CareGiverEnv = {
       "REGISTER_URI" : '/api/users/register',
       "EMAIL_VERIFICATION_ENDPOINT" : '/api/users/emailVerification',
       "AUTHENTICATION_ENDPOINT" : '/api/users/oauth/token',
-      "CURRENT_USER_URI" : '/api/users/current',
-      "DESTROY_SESSION_ENDPOINT" : '/api/users/logout',
+      "CURRENT_USER_URI" : '/api/users/current',//'/default/ANNEXJ.REGISTER_DESIGN'
+      "DESTROY_SESSION_ENDPOINT" : '/api/users/logout',//'/default/ANNEXJ.REGISTER_DESIGN'
       "FORGOT_PASSWORD_ENDPOINT" : '/api/users/forget_password',
       "CHANGE_PASSWORD_ENDPOINT" : '/api/users/reset_password',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
     "host": "http://localhost:9100",
-    "host_kb": "https://gw.caregivers.com"
+    "host_kb": "https://gw.caregivers.com",
+    // "host_pb": "http://resource-dev.taipingcarpets.com:8282/index.php/api",
+    // "host_img": "http://resource-dev.taipingcarpets.com:8282"
+    "host_pb": "http://192.168.2.57/index.php/api",
+    "host_img": "http://192.168.2.57"
   },
 
   "component":{

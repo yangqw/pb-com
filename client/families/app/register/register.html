@@ -1,9 +1,182 @@
   <div class="container" style="max-width: 670px; min-height: 475px; padding-top: 2em;">
     <div class="card" style="background-color: #F5F5F5;">
       <div class="card-content">
-          <img class="img" src="assets/images/cg-logo-555px.png" style="display: block; margin: 0 auto;">
-          <h3 class="card-title center-align">Registration</h3>
+          <div class="img" style="display: block; margin: 0 auto; height: 200px; background: transparent url('/assets/images/House_of_Tai_Ping_logo.svg') no-repeat scroll 0px -200px / 100% auto;"></div>
+          <h3 class="card-title center-align">Register Your Design</h3>
           <div cg-registration-form autoLogin="true" post-login-state="profile" template-url="families/app/register/cg-register.html"></div>
       </div>
     </div>
+  </div>
+
+  <div class="container" ng-show="created && !enabled" style="min-width: 670px; min-height: 475px; padding-top: 2em;">
+    <div class="card" style="background-color: #F5F5F5;">
+      <div class="card-content">
+        <div class="card-title">
+          <h3>DESIGN_SUMMARY</h3>
+          <div class="ripple-wrapper"></div>
+        </div>
+        <hr style="margin: 0!important;">
+        <div class="row">
+          <div class="row">
+            <div class="col s6 card-right">
+              <h3 class="card-title" style="">GDN</h3>
+              <h5 class="" style="">{{design.DESIGN_SUM_TBL.GDN}}</h5>
+            </div>
+            <div class="col s6 card-right">
+              <h3 class="card-title" style="">TpcFilePath</h3>
+              <h5 class="" style="">{{design.DESIGN_SUM_TBL.TpcFilePath}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6 card-right">
+              <h3 class="card-title" style="">DesignName/Title</h3>
+              <h5 class="" style="">{{design.DESIGN_SUM_TBL.DesignName}} / {{design.DESIGN_SUM_TBL.DesignTitle}}</h5>
+            </div>
+            <div class="col s6 card-right">
+              <h3 class="card-title" style="">DesignNumber/RevisionNumber</h3>
+              <h5 class="" style="">{{design.DESIGN_SUM_TBL.DesignNumber}} / {{design.DESIGN_SUM_TBL.DesignRevisionNumber}}</h5>
+            </div>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">ConfigureRepeat?</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.ConfigureRepeat}}</h5>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">DesignDescription</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.DesignDescription}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">DpuUint</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.DpuUint}}</h5>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">DpuX/DpuY</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.DpuX}} / {{design.DESIGN_SUM_TBL.DpuY}}</h5>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">OfColors/OfColorsUsed</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.OfColors}} / {{design.DESIGN_SUM_TBL.OfColorsUsed}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">Quality</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.Quality}}</h5>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">Repeat</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.Repeat}}</h5>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">RoyaltyDesign/Designer/Pct</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.RoyaltyDesign}} / {{design.DESIGN_SUM_TBL.RoyaltyDesigner}} / {{design.DESIGN_SUM_TBL.RoyaltyPct}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">UOMCode</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.UOMCode}}</h5>
+          </div>
+          <div class="col s3 card-right">
+            <h3 class="card-title" style="">Weight/Width/Length</h3>
+            <h5 class="" style="">{{design.DESIGN_SUM_TBL.Weight}} / {{design.DESIGN_SUM_TBL.Width}} / {{design.DESIGN_SUM_TBL.Length}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background-color: #F5F5F5;">
+      <div class="card-content">
+        <h4 class="list-group-item-heading">DESIGN_INST_TBL</h4>
+        <table class="table table-dynamic">
+          <thead>
+              <tr>
+                  <th>Instruction</th>
+                  <th>Instructions</th>
+                  <th>Name</th>
+                  <th>Type</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="data in design.DESIGN_INST_TBL">
+                  <td>{{data.Instruction}}</td>
+                  <td>{{data.Instructions}}</td>
+                  <td>{{data.Name}}</td>
+                  <td>{{data.Type}}</td>
+              </tr>
+          </tbody>
+        </table>
+        <!-- <div class="list group-item-text row" ng-repeat="data in day.data">
+          <div class="col-sm-4 col s4">{{data.name}}</div>
+          <div class="col-sm-4 col s4">{{data.start}} - {{data.end}}</div>
+          <div class="col-sm-4 col s4" style="text-align: end;">{{data.elapse}}</div>
+        </div>
+      </div> -->
+      </div>
+    </div>
+
+    <div class="card" style="background-color: #F5F5F5;">
+      <div class="card-content">
+        <h4 class="list-group-item-heading">DESIGN_POS_TBL</h4>
+        <table class="table table-dynamic">
+          <thead>
+              <tr>
+                  <th>ColorCode</th>
+                  <th>ColorName</th>
+                  <th>CutOrLoop</th>
+                  <th>Description</th>
+                  <th>HiOrLo</th>
+                  <th>PileDensity</th>
+                  <th>PileHeight</th>
+                  <th>PileWeight</th>
+                  <th>Position</th>
+                  <th>TwodPercentage</th>
+                  <th>YarnType</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="data in design.DESIGN_POS_TBL">
+                  <td>{{data.ColorCode}}</td>
+                  <td>{{data.ColorName}}</td>
+                  <td>{{data.CutOrLoop}}</td>
+                  <td>{{data.Description}}</td>
+                  <td>{{data.HiOrLo}}</td>
+                  <td>{{data.PileDensity}}</td>
+                  <td>{{data.PileHeight}}</td>
+                  <td>{{data.PileWeight}}</td>
+                  <td>{{data.Position}}</td>
+                  <td>{{data.TwodPercentage}}</td>
+                  <td>{{data.YarnType}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="background-color: #F5F5F5;">
+      <div class="card-content">
+        <h4 class="list-group-item-heading">DESIGN_TRT_TBL</h4>
+        <table class="table table-dynamic">
+          <thead>
+              <tr>
+                  <th>Description</th>
+                  <th>Instructions</th>
+                  <th>Name</th>
+                  <th>Treatment</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="data in design.DESIGN_TRT_TBL">
+                  <td>{{data.Description}}</td>
+                  <td>{{data.Instructions}}</td>
+                  <td>{{data.Name}}</td>
+                  <td>{{data.Treatment}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>

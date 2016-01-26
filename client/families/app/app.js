@@ -18,28 +18,28 @@ angular.module('caregiversComApp', [
 
     $locationProvider.html5Mode(true);
 
-    $httpProvider.defaults.useXDomain = true;
-    $httpProvider.defaults.withCredentials = true;
+    //$httpProvider.defaults.useXDomain = true;
+    //$httpProvider.defaults.withCredentials = true;
 
   })
 
   .run(function($stormpath){
     $stormpath.uiRouter({
-        autoRedirect: true,
+        autoRedirect: false,
         //defaultPostLoginState: 'main',
         //forbiddenState: 'forbidden',
         loginState: 'login'
     });
   })
 
-  .factory('$exceptionHandler', function () {
-    return function (exception) {
-      if (window.location.port == 9333){
-        throw exception;
-      }
-      else {
-        Raygun.send(exception);
-      }
-    }
-  })
+  // .factory('$exceptionHandler', function () {
+  //   return function (exception) {
+  //     if (window.location.port == 9333){
+  //       throw exception;
+  //     }
+  //     else {
+  //       Raygun.send(exception);
+  //     }
+  //   }
+  // })
 })()

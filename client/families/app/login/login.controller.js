@@ -90,11 +90,11 @@ angular.module('caregiversComApp')
       }
 
       Contact.createContact().then(function(){
-        Killbill.createKbAccount().then(function(){
-          Killbill.getKbAccount().then(function(){
+        //Killbill.createKbAccount().then(function(){
+          //Killbill.getKbAccount().then(function(){
             $scope.verifyingPayment();
-          });
-        });
+          //});
+        //});
       });
 
     });
