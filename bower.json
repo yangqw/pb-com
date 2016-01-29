@@ -18,7 +18,8 @@
     "raygun4js": "v2.0.3",
     "materialize": "~0.97.3",
     "moment": "~2.10.6",
-    "angular-materialize": "*"
+    "angular-materialize": "*",
+    "angular-file-upload": "~2.2.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

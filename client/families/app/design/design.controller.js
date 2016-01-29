@@ -5,7 +5,69 @@ angular.module('caregiversComApp')
     var vm = this;
     vm.a = "a";
   })
-  .controller('DesignCtrl', function ($scope, $http, $timeout) {
+  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader) {
+    var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + '/default/upload'});
+
+    // FILTERS
+    uploader.filters.push({
+        name: 'customFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+
+    // CALLBACKS
+    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function(fileItem) {
+        //console.info('onAfterAddingFile', fileItem);
+    };
+    uploader.onAfterAddingAll = function(addedFileItems) {
+        //console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function(item) {
+        //console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function(fileItem, progress) {
+        //console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function(progress) {
+        //console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        console.info('onSuccessItem', fileItem, response, status, headers);
+        debugger;
+        if (!response || response.RETCODE !== "S"|| !response.DATA){
+          fileItem.isError = true;
+          fileItem.error = response.ERRBUF || response.RETMSG || 'XHR Error';
+          return;
+        }
+
+        fileItem.isError = false;
+        fileItem.error = null;
+
+        $scope.registerModel.URL = CareGiverEnv.server.host_root + "/" + response.DATA;
+        $scope.generateModel.URL = CareGiverEnv.server.host_root + "/" + response.DATA;
+
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      debugger;
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+        console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function() {
+        console.info('onCompleteAll');
+    };
+
+    $scope.uploader = uploader;
+    console.info('uploader', $scope.uploader);
+
     $scope.designs = [];
     var url = CareGiverEnv.server.host_pb + '/default/List';
     $http.get(url).success(function(response){
@@ -28,6 +90,9 @@ angular.module('caregiversComApp')
       $scope.error = null;
       $scope.designGdn = "";
       var url = CareGiverEnv.server.host_pb + '/default/ANNEXJ.REGISTER_DESIGN';
+      // if ($scope.registerModel.URL.indexOf(CareGiverEnv.server.host_root) < 0){
+      //   $scope.registerModel.URL = CareGiverEnv.server.host_root + "\\" + $scope.registerModel.URL
+      // }
       $http.post(url, $scope.registerModel).success(function(response){
         if (!response || response.RETCODE !== "S" || !response.DATA){
           $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -43,6 +108,7 @@ angular.module('caregiversComApp')
         $scope.creating = false;
         $scope.designs.unshift(response.DATA);
         $scope.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
+        $rootScope.currentDesign = response.DATA;
 
         $timeout(function(){
           $scope.created = false;
@@ -97,8 +163,8 @@ angular.module('caregiversComApp')
       $scope.desFile = "";
     };
   })
-  .controller('DesignDetailCtrl', function ($scope, $stateParams, $http) {
-    $scope.design = {};
+  .controller('DesignDetailCtrl', function ($rootScope, $scope, $stateParams, $http) {
+    $scope.design = $rootScope.currentDesign;
     var url = CareGiverEnv.server.host_pb + '/default/GDN?GDN=' + $stateParams.gdn;
     $http.get(url).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){

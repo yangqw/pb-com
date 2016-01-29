@@ -13,9 +13,10 @@ window.CareGiverEnv = {
     "host": "http://localhost:9100",
     "host_kb": "https://gw.caregivers.com",
     // "host_pb": "http://resource-dev.taipingcarpets.com:8282/index.php/api",
-    // "host_img": "http://resource-dev.taipingcarpets.com:8282"
+    // "host_img": "http://resource-dev.taipingcarpets.com:8282",
     "host_pb": "http://192.168.2.57/index.php/api",
-    "host_img": "http://192.168.2.57"
+    "host_img": "http://192.168.2.57",
+    "host_root": "C:/PB/www/PB/web",//C:\PB\tpcfiles\CX00658-2.tpc
   },
 
   "component":{

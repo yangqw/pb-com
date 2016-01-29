@@ -11,7 +11,8 @@ angular.module('caregiversComApp', [
   'stormpath.templates',
   'stripe',
   'ezfb',
-  'ui.materialize'
+  'ui.materialize',
+  'angularFileUpload'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
