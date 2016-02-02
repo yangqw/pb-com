@@ -31,16 +31,16 @@
       <!-- Add your site or application content here -->
       <!-- BEGIN MAIN CONTENT -->
       <div class="main-content">
-        <div class="topbar" ng-show="appCtrl.visible.navbar">
+        <div class="topbar" ng-show="appCtrl.visible.navbar" style="position: fixed; width: 100%; z-index: 800; top: 0px;">
           <div ng-include="'components/navbar/navbar.html'"></div>
           <!-- TOPBAR -->
         </div>
 
-        <div class="sidebar" ng-show="appCtrl.visible.sidebar">
+        <div class="sidebar" ng-show="appCtrl.visible.sidebar" style="position: fixed; width: 100%; z-index: 800; top: 56px;">
           <!-- SIDEBAR -->
           <div ng-include="'components/sidebar/sidebar.html'"></div>
         </div>
-        <div class="at-view-slide-in-left page-content" id="" ui-view >
+        <div class="at-view-slide-in-left page-content" id="" ui-view style="position: relative; top: 120px;">
           <!-- PAGE CONTENT -->
         </div>
       </div>
@@ -55,7 +55,7 @@
     <![endif]-->
     <!-- build:js({client,node_modules}) app/vendor.js -->
 
-      <script src="https://js.stripe.com/v2"></script>
+      <!-- <script src="https://js.stripe.com/v2"></script> -->
       <!-- bower:js -->
       <script src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular/angular.js"></script>

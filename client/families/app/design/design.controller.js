@@ -5,7 +5,8 @@ angular.module('caregiversComApp')
     var vm = this;
     vm.a = "a";
   })
-  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader) {
+
+  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus) {
     var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + '/default/upload'});
 
     // FILTERS
@@ -36,19 +37,20 @@ angular.module('caregiversComApp')
         //console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
-        debugger;
+        //console.info('onSuccessItem', fileItem, response, status, headers);
         if (!response || response.RETCODE !== "S"|| !response.DATA){
           fileItem.isError = true;
           fileItem.error = response.ERRBUF || response.RETMSG || 'XHR Error';
           return;
         }
 
+        fileItem.isTpc = fileItem.file.name.toLowerCase().endsWith(".tpc")
         fileItem.isError = false;
         fileItem.error = null;
-
-        $scope.registerModel.URL = CareGiverEnv.server.host_root + "/" + response.DATA;
-        $scope.generateModel.URL = CareGiverEnv.server.host_root + "/" + response.DATA;
+        fileItem.path = CareGiverEnv.server.host_asset_path + "/" + response.DATA;
+        fileItem.link = CareGiverEnv.server.host_asset_url + "/" + response.DATA;
+        $scope.registerModel.URL = fileItem.path;
+        $scope.generateModel.URL = fileItem.path;
 
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
@@ -66,7 +68,7 @@ angular.module('caregiversComApp')
     };
 
     $scope.uploader = uploader;
-    console.info('uploader', $scope.uploader);
+    //console.info('uploader', $scope.uploader);
 
     $scope.designs = [];
     var url = CareGiverEnv.server.host_pb + '/default/List';
@@ -162,8 +164,17 @@ angular.module('caregiversComApp')
       $scope.generated = false;
       $scope.desFile = "";
     };
+    $scope.setRegisterInput = function(input){
+      $scope.registerModel.URL = input;
+      focus('btnRegister');
+    }
+    $scope.setGenerateInput = function(input){
+      $scope.generateModel.URL = input;
+      focus('btnGenerate');
+    }
   })
-  .controller('DesignDetailCtrl', function ($rootScope, $scope, $stateParams, $http) {
+
+  .controller('DesignDetailCtrl', function ($rootScope, $scope, $stateParams, $http, $timeout) {
     $scope.design = $rootScope.currentDesign;
     var url = CareGiverEnv.server.host_pb + '/default/GDN?GDN=' + $stateParams.gdn;
     $http.get(url).success(function(response){
@@ -173,6 +184,7 @@ angular.module('caregiversComApp')
       }
 
       $scope.design = $.isArray(response.DATA) ? response.DATA[0] : response.DATA;
+      //$scope.$apply();
     }).error(function(error) {
       $scope.error = error;
       console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'));
@@ -180,6 +192,37 @@ angular.module('caregiversComApp')
       $scope.error = response;
     });
 
+    $scope.saveSummary = function(){
+      if (!$scope.design || !$scope.design.DESIGN_SUM_TBL) return;
+
+      $scope.saving = true;
+      $scope.error = null;
+      var url = CareGiverEnv.server.host_pb + '/default/update';
+      $http.post(url, $scope.design).success(function(response){
+        if (!response || response.RETCODE !== "S" || !response.DATA){
+          $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
+          $scope.saved = false;
+          $scope.saving = false;
+          return;
+        }
+        $scope.saved = true;
+        $scope.saving = false;
+
+        $timeout(function(){
+          $scope.saved = false;
+          $scope.saving = false;
+        }, 3000);
+
+      }).error(function(error) {
+        $scope.saving = false;
+        $scope.error = error;
+        console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'));
+      }).catch(function(response){
+        debugger;
+        $scope.saving = false;
+        $scope.error = response;
+      });
+    };
     $scope.months = {
       gdn: $stateParams.gdn,
       month: [

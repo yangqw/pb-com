@@ -3,16 +3,15 @@
 angular.module('caregiversComApp')
   .filter('resUrlParser', function(){
     return function(input){
-      input = input || '';
-      var out = input;
+      if (!input) return '';
 
-      var imgServerUrl = CareGiverEnv.server.host_img + '/';
+      input = input || '';
+      var out = input;//.replace(new RegExp(' ', 'g'), '');
+
+      var imgServerUrl = CareGiverEnv.server.host_asset_url + '/';
       var idxOfImgServerUrl = input.indexOf(imgServerUrl);
-      if (idxOfImgServerUrl >= 0){
-        // var idxOfRemain = input.indexOf(":", idxOfSpStatement + spStatement.length)
-        // out = input.substring(idxOfRemain + 1);
-      }
-      else out = imgServerUrl + out;//.replaceAll('\\', '/');
+      if (idxOfImgServerUrl >= 0){}
+      else out = imgServerUrl + out;
       return out;
     };
   })

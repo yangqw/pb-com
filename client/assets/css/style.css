@@ -153,3 +153,18 @@ nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
   left: 15px;
   color: #54AB9F;
 }
+
+/*.fixed-topbar .topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 240px;
+  z-index: 801;
+  z-index: 300;
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+}
+.sidebar-collapsed.fixed-topbar .topbar {
+  left: 50px;
+}*/

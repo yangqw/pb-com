@@ -25,7 +25,10 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in uploader.queue">
-                            <td><strong>{{ item.file.name }}</strong></td>
+                            <td>
+                              <strong ng-if="item.link == undefined">{{ item.file.name }}</strong>
+                              <a ng-if="item.link != undefined" href="{{item.link}}"><strong>{{ item.file.name }}</strong></a>
+                            </td>
                             <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
                             <td ng-show="uploader.isHTML5">
                                 <div class="progress" style="margin-bottom: 0;">
@@ -33,17 +36,30 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                <span ng-show="item.isSuccess">
+                                  <i class="glyphicon glyphicon-ok">Done
+                                    <sapn ng-show="item.isSuccess && item.isTpc">, put file path for
+                                    <a href="#" ng-click="setRegisterInput(item.path)">Register</a> , Or
+                                    <a href="#" ng-click="setGenerateInput(item.path)">Generate</a></span>
+                                  </i>
+                                </span>
                                 <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
                                 <span ng-show="item.isError"><i class="glyphicon glyphicon-remove">{{item.error}}</i></span>
                             </td>
                             <td nowrap>
-                                <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-hide=item.isSuccess ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                                     <span class="glyphicon glyphicon-upload"></span> Upload
                                 </button>
-                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-hide=item.isSuccess ng-disabled="!item.isUploading">
                                     <span class="glyphicon glyphicon-ban-circle"></span> Cancel
                                 </button>
+
+                                <!-- <button type="button" class="btn btn-warning btn-xs" ng-click="item.register()" ng-show="item.isSuccess && item.isTpc" ng-disabled="item.isRegisting">
+                                    <span class="glyphicon glyphicon-ban-circle"></span> Register
+                                </button>
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.generate()" ng-show="item.isSuccess && item.isTpc" ng-disabled="item.isGenerating">
+                                    <span class="glyphicon glyphicon-ban-circle"></span> Generate
+                                </button> -->
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
                                     <span class="glyphicon glyphicon-trash"></span> Remove
                                 </button>
@@ -99,12 +115,12 @@
                   <div class="row">
                     <div class="col s12 m8 push-m2" input-field>
                       <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Path</label>
-                      <input class="form-control" type="text" id="spFileName" ng-model="registerModel.URL" placeholder="Please input File Path" ng-disabled="creating">
+                      <input class="form-control" type="text" id="spFileName4Register" ng-model="registerModel.URL" placeholder="Please input File Path" ng-disabled="creating">
                     </div>
                   </div>
 
                   <div class="row">
-                    <button ng-click="register()" type="submit" class="btn btn-primary" ng-disabled="creating || registerModel.URL === ''" style="display:block; margin: 0 auto;">Register</button>
+                    <button id="btnRegister" ng-click="register()" type="submit" class="btn btn-primary" ng-disabled="creating || registerModel.URL === ''" style="display:block; margin: 0 auto;">Register</button>
                   </div>
                 </form>
               </div>
@@ -137,12 +153,12 @@
                 <div class="row">
                   <div class="col s12 m8 push-m2" input-field>
                     <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Path</label>
-                    <input class="form-control" type="text" id="spFileName" ng-model="generateModel.URL" placeholder="Please input File Path" ng-disabled="creating">
+                    <input class="form-control" type="text" id="spFileName4Generate" ng-model="generateModel.URL" placeholder="Please input File Path" ng-disabled="creating">
                   </div>
                 </div>
 
                 <div class="row">
-                  <button type="submit" class="btn btn-primary" ng-disabled="generating || generateModel.URL === ''" style="display:block; margin: 0 auto;">Generate</button>
+                  <button id="btnGenerate" type="submit" class="btn btn-primary" ng-disabled="generating || generateModel.URL === ''" style="display:block; margin: 0 auto;">Generate</button>
 
                 </div>
               </form>

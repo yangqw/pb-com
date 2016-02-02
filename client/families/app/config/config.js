@@ -29,11 +29,11 @@ angular.module('caregiversComApp')
         }
 
         // Init component of Stripe
-        if (CareGiverEnv.component.stripe
-        && CareGiverEnv.component.stripe.PUBLISHABLE_KEY
-        && Stripe && Stripe.setPublishableKey){
-          Stripe.setPublishableKey(CareGiverEnv.component.stripe.PUBLISHABLE_KEY);
-        }
+        // if (CareGiverEnv.component.stripe
+        // && CareGiverEnv.component.stripe.PUBLISHABLE_KEY
+        // && Stripe && Stripe.setPublishableKey){
+        //   Stripe.setPublishableKey(CareGiverEnv.component.stripe.PUBLISHABLE_KEY);
+        // }
 
         // Init component of ezfbProvider
         if (CareGiverEnv.component.ezfb

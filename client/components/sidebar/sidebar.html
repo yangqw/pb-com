@@ -67,9 +67,9 @@
       <li if-not-user ng-class="{active: isActive('/register')}">
         <a ui-sref="register" ng-show="isRegisterOpen"><span>Register</span></a>
       </li>
-      <li if-not-user ng-class="{active: isActive('/login')}">
+      <!-- <li if-not-user ng-class="{active: isActive('/login')}">
         <a ui-sref="login"><span>Login</span></a>
-      </li>
+      </li> -->
       <li if-user ng-class="{active: isActive('/time-sheet')}" ng-if="hasTimeSheet">
         <a ui-sref="time-sheet.list"><span>Time Sheet</span></a>
       </li>
