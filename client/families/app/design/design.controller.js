@@ -7,6 +7,7 @@ angular.module('caregiversComApp')
   })
 
   .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus) {
+
     var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + '/default/upload'});
 
     // FILTERS
@@ -44,14 +45,23 @@ angular.module('caregiversComApp')
           return;
         }
 
-        fileItem.isTpc = fileItem.file.name.toLowerCase().endsWith(".tpc")
+        var fileName = fileItem.file.name.toLowerCase();
+        fileItem.isTpc = fileName.match(/.tpc$/) || fileName.match(/.des$/)
+          || fileName.match(/.ill$/) || fileName.match(/.psd$/)
+          || fileName.match(/.tiff$/)|| fileName.match(/.tif$/);
         fileItem.isError = false;
         fileItem.error = null;
-        fileItem.path = CareGiverEnv.server.host_asset_path + "/" + response.DATA;
-        fileItem.link = CareGiverEnv.server.host_asset_url + "/" + response.DATA;
-        $scope.registerModel.URL = fileItem.path;
-        $scope.generateModel.URL = fileItem.path;
 
+        var isSessionId = !(response.DATA.indexOf('/') > -1 || response.DATA.indexOf('\\') > -1);
+        fileItem.path = isSessionId ? response.DATA : (CareGiverEnv.server.host_asset_path + "/" + response.DATA);
+        fileItem.link = isSessionId
+          ? (CareGiverEnv.server.host_pb + "/default/attachment?SessionID=" + response.DATA)
+          : (CareGiverEnv.server.host_asset_url + "/" + response.DATA);
+
+        if (fileItem.isTpc){
+          $scope.registerModel.URL = fileItem.path;
+          if (fileName.match(/.tpc$/)) $scope.generateModel.URL = fileItem.path;
+        }
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
       debugger;
@@ -91,10 +101,8 @@ angular.module('caregiversComApp')
       $scope.creating = true;
       $scope.error = null;
       $scope.designGdn = "";
+
       var url = CareGiverEnv.server.host_pb + '/default/ANNEXJ.REGISTER_DESIGN';
-      // if ($scope.registerModel.URL.indexOf(CareGiverEnv.server.host_root) < 0){
-      //   $scope.registerModel.URL = CareGiverEnv.server.host_root + "\\" + $scope.registerModel.URL
-      // }
       $http.post(url, $scope.registerModel).success(function(response){
         if (!response || response.RETCODE !== "S" || !response.DATA){
           $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -103,12 +111,22 @@ angular.module('caregiversComApp')
             $scope.created = false;
             $scope.creating = false;
             $scope.registerModel.URL = "";
-          }, 3000);
+          }, 10000);
           return;
         }
         $scope.created = true;
         $scope.creating = false;
-        $scope.designs.unshift(response.DATA);
+
+        var result = [];
+        angular.copy($scope.designs, result);
+        angular.forEach(result, function(value, key){
+          value.isNew = false;
+        });
+        response.DATA.isNew = true;
+        result.unshift(response.DATA);
+
+        $scope.designs = [];
+        angular.copy(result,$scope.designs);
         $scope.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
         $rootScope.currentDesign = response.DATA;
 
@@ -141,7 +159,7 @@ angular.module('caregiversComApp')
             $scope.generated = false;
             $scope.generating = false;
             $scope.generateModel.URL = "";
-          }, 3000);
+          }, 5000);
           return;
         }
 

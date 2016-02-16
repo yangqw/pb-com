@@ -10,261 +10,160 @@
   <div class="row">
     <div class="col-md-6 col m12 s12">
       <div class="card">
-        <div class="card-title">
-          Full size thumbnail
+        <div class="card-content">
+          <h3 class="card-title center-align line-bottom">DESIGN_SUMMARY</h3>
+          <div class="row">
+            <div class="col s6 line-bottom">
+              GDN<h5 class="" style="">{{design.DESIGN_SUM_TBL.GDN}}</h5>
+            </div>
+            <div class="col s6 line-bottom">
+              TpcFilePath
+              <h5 class="" style="">{{design.DESIGN_SUM_TBL.TpcFilePath}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              Name
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignName" placeholder="Please input name" ng-disabled="saving">
+            </div>
+            <div class="col s6">
+              Title
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignTitle" placeholder="Please input title" ng-disabled="saving">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              Description
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignDescription" placeholder="Please input description" ng-disabled="saving">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2">
+              #
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignNumber" placeholder="number" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Revision#
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignRevisionNumber" placeholder="revision number" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              UOMCode
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.UOMCode" placeholder="UOM" ng-disabled="saving">
+            </div>
+            <div class="col s3">
+              ConfigureRepeat?
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ConfigureRepeat" placeholder="Yes or no?" ng-disabled="saving">
+            </div>
+            <div class="col s3">
+              Repeat
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Repeat" placeholder="Yes or no?" ng-disabled="saving">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2">
+              Dpu X
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuX" placeholder="X" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Dpu Y
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuY" placeholder="Y" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Dpu Unit
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuUint" placeholder="Unit" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              #OfColors
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColors" placeholder="Colors" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              #OfColorsUsed
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColorsUsed" placeholder="Used colors" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Quality
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Quality" placeholder="Quality" ng-disabled="saving">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2">
+              Royalty Design
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesign" placeholder="Royalty Design" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Royalty Designer
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesigner" placeholder="Royalty Design" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Royalty Pct
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyPct" placeholder="Royalty Pct" ng-disabled="saving">
+            </div>
+
+            <div class="col s2">
+              Weight
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Weight" placeholder="Weight" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Width
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Width" placeholder="Width" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Length
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Length" placeholder="Length" ng-disabled="saving">
+            </div>
+
+          </div>
+
+          <div class="row">
+          </div>
+
+          <div class="row">
+            <div class="col s2">
+              <button id="btnSave" ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
+            </div>
+            <div class="col s10">
+              <p class="alert alert-success" ng-show="saved && !saving">Summary data has been updated.</p>
+              <p class="alert alert-danger" ng-show=error ng-bind=error></p>
+            </div>
+          </div>
         </div>
-        <div class="card-image" style="min-height:700px;">
-          <img class="activator" style="width:800px!important;" ng-src="{{design.DESIGN_SUM_TBL.FullImage|resUrlParser}}">
-          <span class="card-title" style="top: 0px;"></span>
-        </div>
+
         <div class="card-action">
-          <a href="#" class="activator">Summary of <b class="activator">{{design.DESIGN_SUM_TBL.DesignName}}</b></a>
+          <a href="#" class="activator">Thumbnails of <b class="activator">{{design.DESIGN_SUM_TBL.DesignName}}</b></a>
         </div>
         <div class="card-reveal">
           <span class="card-title">
-            DESIGN_SUMMARY
+            Full size
+            <i class="mdi-navigation-close f-right" style="float:left;"></i>
             <i class="mdi-navigation-close f-right" style="float:right;"></i>
           </span>
-          <div class="card-content">
-            <div class="row">
-              <div class="col s6 line-bottom">
-                GDN<h5 class="" style="">{{design.DESIGN_SUM_TBL.GDN}}</h5>
-              </div>
-              <div class="col s6 line-bottom">
-                TpcFilePath
-                <h5 class="" style="">{{design.DESIGN_SUM_TBL.TpcFilePath}}</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s6">
-                Name
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignName" placeholder="Please input name" ng-disabled="saving">
-              </div>
-              <div class="col s6">
-                Title
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignTitle" placeholder="Please input title" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                Description
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignDescription" placeholder="Please input description" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                #
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignNumber" placeholder="number" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Revision#
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignRevisionNumber" placeholder="revision number" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                UOMCode
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.UOMCode" placeholder="UOM" ng-disabled="saving">
-              </div>
-              <div class="col s3">
-                ConfigureRepeat?
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ConfigureRepeat" placeholder="Yes or no?" ng-disabled="saving">
-              </div>
-              <div class="col s3">
-                Repeat
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Repeat" placeholder="Yes or no?" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                Dpu X
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuX" placeholder="X" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Dpu Y
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuY" placeholder="Y" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Dpu Unit
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuUint" placeholder="Unit" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                #OfColors
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColors" placeholder="Colors" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                #OfColorsUsed
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColorsUsed" placeholder="Used colors" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Quality
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Quality" placeholder="Quality" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                Royalty Design
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesign" placeholder="Royalty Design" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Royalty Designer
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesigner" placeholder="Royalty Design" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Royalty Pct
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyPct" placeholder="Royalty Pct" ng-disabled="saving">
-              </div>
+          <div class="card-image" style="min-height:700px;">
+            <img style="width:800px!important;" ng-src="{{design.DESIGN_SUM_TBL.FullImage|resUrlParser}}">
 
-              <div class="col s2">
-                Weight
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Weight" placeholder="Weight" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Width
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Width" placeholder="Width" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Length
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Length" placeholder="Length" ng-disabled="saving">
-              </div>
-
+            <div class="col-md-6 col m1 s12">
+              75
+              <img style="width: 75px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_75|resUrlParser}}">
             </div>
 
-            <div class="row">
+            <div class="col-md-6 col m2 s12">
+              100
+              <img style="width: 100px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_100|resUrlParser}}">
             </div>
 
-            <div class="row">
-              <div class="col s2">
-                <button id="btnSave" ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
-              </div>
-              <div class="col s10">
-                <p class="alert alert-success" ng-show="saved && !saving">Summary data has been updated.</p>
-                <p class="alert alert-danger" ng-show=error ng-bind=error></p>
-              </div>
+            <div class="col-md-6 col m4 s12">
+              200
+              <img style="width: 200px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_200|resUrlParser}}">
+            </div>
+
+            <div class="col-md-6 col m4 s12">
+              300
+              <img style="width: 300px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_300|resUrlParser}}">
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- <div class="row">
-      <div class="col-md-6 col m12 s12">
-        <div class="card" style="background-color: #F5F5F5;">
-          <div class="card-content">
-            <div class="card-title">
-              DESIGN_SUMMARY
-              <div class="ripple-wrapper"></div>
-            </div>
-            <hr style="margin: 0!important;">
-            <div class="row">
-              <div class="col s6 line-bottom">
-                GDN<h5 class="" style="">{{design.DESIGN_SUM_TBL.GDN}}</h5>
-              </div>
-              <div class="col s6 line-bottom">
-                TpcFilePath
-                <h5 class="" style="">{{design.DESIGN_SUM_TBL.TpcFilePath}}</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s6">
-                Name
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignName" placeholder="Please input name" ng-disabled="saving">
-              </div>
-              <div class="col s6">
-                Title
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignTitle" placeholder="Please input title" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                Description
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignDescription" placeholder="Please input description" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                #
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignNumber" placeholder="number" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Revision#
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignRevisionNumber" placeholder="revision number" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                UOMCode
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.UOMCode" placeholder="UOM" ng-disabled="saving">
-              </div>
-              <div class="col s3">
-                ConfigureRepeat?
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ConfigureRepeat" placeholder="Yes or no?" ng-disabled="saving">
-              </div>
-              <div class="col s3">
-                Repeat
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Repeat" placeholder="Yes or no?" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                Dpu X
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuX" placeholder="X" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Dpu Y
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuY" placeholder="Y" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Dpu Unit
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuUint" placeholder="Unit" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                #OfColors
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColors" placeholder="Colors" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                #OfColorsUsed
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColorsUsed" placeholder="Used colors" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Quality
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Quality" placeholder="Quality" ng-disabled="saving">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                Royalty Design
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesign" placeholder="Royalty Design" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Royalty Designer
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesigner" placeholder="Royalty Design" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Royalty Pct
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyPct" placeholder="Royalty Pct" ng-disabled="saving">
-              </div>
-
-              <div class="col s2">
-                Weight
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Weight" placeholder="Weight" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Width
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Width" placeholder="Width" ng-disabled="saving">
-              </div>
-              <div class="col s2">
-                Length
-                <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Length" placeholder="Length" ng-disabled="saving">
-              </div>
-
-            </div>
-
-            <div class="row">
-              <button id="btnSave" ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
-
-            </div>
-          </div>
-        </div>
-      </div>
-  </div> -->
 
   <div class="row">
     <div class="col-md-6 col m8 s12">
@@ -356,7 +255,7 @@
   </div>
 
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md-6 col m4 s12">
       <div class="card">
         <div class="card-title">
@@ -411,6 +310,6 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 
 </div>
