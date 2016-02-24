@@ -13,7 +13,7 @@
         <div class="card-content">
           <h3 class="card-title center-align line-bottom">DESIGN_SUMMARY</h3>
           <div class="row">
-            <div class="col s6 line-bottom">
+            <div class="col s6 line-bottom" id="lblGnd">
               GDN<h5 class="" style="">{{design.DESIGN_SUM_TBL.GDN}}</h5>
             </div>
             <div class="col s6 line-bottom">
@@ -166,31 +166,31 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 col m8 s12">
+    <div class="col-md-6 col m12 s12">
       <div class="card" style="background-color: #F5F5F5;">
         <div class="card-content">
           DESIGN_POS_TBL
-          <table class="table table-dynamic">
+          <table class="table table-dynamic" id="tblPosition">
             <thead>
                 <tr>
-                    <th>Color</th>
+                    <th width=300>Color</th>
                     <th>CutOrLoop</th>
                     <th>Description</th>
                     <th>HiOrLo</th>
                     <th>Pile(D/H/W)</th>
-                    <th>Position</th>
+                    <th>Position#</th>
                     <th>Twod%</th>
                     <th>YarnType</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody ng-show=isPosLoaded>
                 <tr ng-repeat="data in design.DESIGN_POS_TBL">
                     <td>{{data.ColorCode}} / {{data.ColorName}}</td>
                     <td>{{data.CutOrLoop}}</td>
                     <td>{{data.Description}}</td>
                     <td>{{data.HiOrLo}}</td>
                     <td>{{data.PileDensity}} / {{data.PileHeight}} / {{data.PileWeight}}</td>
-                    <td>{{data.Position}}</td>
+                    <td>{{data.PositionNumber}}</td>
                     <td>{{data.TwodPercentage}}</td>
                     <td>{{data.YarnType}}</td>
                 </tr>
@@ -199,8 +199,11 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-6 col m4 s12">
+  <div class="row">
+
+    <div class="col-md-6 col m6 s12">
       <div class="card" style="background-color: #F5F5F5;">
         <div class="card-content">
           DESIGN_TRT_TBL
@@ -226,7 +229,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 col m4 s12">
+    <div class="col-md-6 col m6 s12">
       <div class="card" style="background-color: #F5F5F5;">
         <div class="card-content">
           DESIGN_INST_TBL
@@ -253,63 +256,5 @@
     </div>
 
   </div>
-
-
-  <!-- <div class="row">
-    <div class="col-md-6 col m4 s12">
-      <div class="card">
-        <div class="card-title">
-          Thumbnail 75
-          <div class="ripple-wrapper"></div>
-        </div>
-        <div class="card-image">
-          <img style="width: 75px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_75|resUrlParser}}">
-          <span class="card-title" style="top: 0px;"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6 col m8 s12">
-      <div class="card">
-        <div class="card-title">
-          Thumbnail 300
-          <div class="ripple-wrapper"></div>
-        </div>
-        <div class="card-image">
-          <img style="width: 300px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_300|resUrlParser}}">
-          <span class="card-title" style="top: 0px;"></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6 col m4 s12">
-      <div class="card">
-        <div class="card-title">
-          Thumbnail 100
-          <div class="ripple-wrapper"></div>
-        </div>
-        <div class="card-image">
-          <img style="width: 100px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_100|resUrlParser}}">
-          <span class="card-title" style="top: 0px;"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6 col m8 s12">
-      <div class="card">
-        <div class="card-title">
-          Thumbnail 200
-          <div class="ripple-wrapper"></div>
-        </div>
-        <div class="card-image">
-          <img style="width: 200px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_200|resUrlParser}}">
-          <span class="card-title" style="top: 0px;"></span>
-        </div>
-      </div>
-    </div>
-
-  </div> -->
 
 </div>

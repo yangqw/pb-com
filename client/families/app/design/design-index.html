@@ -16,11 +16,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th width="10%">Name</th>
-                            <th ng-show="uploader.isHTML5">Size</th>
-                            <th ng-show="uploader.isHTML5">Progress</th>
+                            <th style="width: 10%; min-width: 220px;">Name</th>
+                            <th style="width: 100px;" ng-show="uploader.isHTML5">Size</th>
+                            <th style="width: 20%; min-width: 220px;" ng-show="uploader.isHTML5">Progress</th>
                             <th>Status</th>
-                            <th>Actions</th>
+                            <th style="width: 30%; min-width: 280px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +35,7 @@
                                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
                                 </div>
                             </td>
-                            <td class="text-center">
+                            <td class="text-left">
                                 <span ng-show="item.isSuccess">
                                   <i class="glyphicon glyphicon-ok">Done
                                     <sapn ng-show="item.isSuccess && item.isTpc">, put file seesion id for
@@ -173,22 +173,22 @@
             Available design list
           </span>
 
-          <table class="table table-dynamic">
+          <table class="table dataTable display" role="grid" id="tblDesigns" cellspacing="0" width="100%">
             <thead>
-                <tr>
-                    <th>GDN</th>
-                    <th>Name</th>
-                    <th>Thumbnail</th>
-                    <!-- <th>TpcFilePath</th> -->
+                <tr role="row">
+                    <th width=160>Created</th>
+                    <th width=300>GDN</th>
+                    <th width=300>Name</th>
+                    <th width=100>Thumbnail</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody ng-show=isDsnLoaded>
                 <tr ng-repeat="data in designs">
-                  <td ng-show="{{data.isNew}}" style="color: red;">{{data.DESIGN_SUM_TBL.GDN}}</td>
-                  <td ng-hide="{{data.isNew}}">{{data.DESIGN_SUM_TBL.GDN}}</td>
+                  <td title='{{data.DESIGN_SUM_TBL.created_at * 1000 | date: "zone: Z"}}'>{{data.DESIGN_SUM_TBL.created_at * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}</td>
+                  <!-- <td ng-show="{{data.isNew}}" style="color: red;">{{data.DESIGN_SUM_TBL.GDN}}</td> -->
+                  <td>{{data.DESIGN_SUM_TBL.GDN}}</td>
                   <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">{{data.DESIGN_SUM_TBL.DesignName}}</a></td>
                   <td><img style="width: 25px!important; height: 25px!important;" ng-src="{{data.DESIGN_SUM_TBL.Thumbnail_75|resUrlParser}}"></td>
-                  <!-- <td>{{data.DESIGN_SUM_TBL.TpcFilePath}}</td> -->
                 </tr>
             </tbody>
           </table>

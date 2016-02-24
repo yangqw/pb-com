@@ -6,7 +6,7 @@ angular.module('caregiversComApp')
     vm.a = "a";
   })
 
-  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus) {
+  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus, $filter) {
 
     var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + '/default/upload'});
 
@@ -80,14 +80,23 @@ angular.module('caregiversComApp')
     $scope.uploader = uploader;
     //console.info('uploader', $scope.uploader);
 
-    $scope.designs = [];
+    $scope.designs = new Array();
+    $scope.dataTable = null;
     var url = CareGiverEnv.server.host_pb + '/default/List';
     $http.get(url).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){
         $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
+        $scope.dataTable = $("#tblDesigns").DataTable();
+        $scope.isDsnLoaded = true;
         return;
       }
       $scope.designs = !$.isArray(response.DATA) ? new Array(response.DATA) : response.DATA;
+
+      if ($scope.dataTable == null)
+      $timeout(function(){
+          $scope.dataTable = $("#tblDesigns").DataTable({"order": [0,"desc"]});
+          $scope.isDsnLoaded = true;
+      },1000);
     }).error(function(error) {
       $scope.error = error;
       console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'));
@@ -117,18 +126,28 @@ angular.module('caregiversComApp')
         $scope.created = true;
         $scope.creating = false;
 
-        var result = [];
-        angular.copy($scope.designs, result);
-        angular.forEach(result, function(value, key){
-          value.isNew = false;
-        });
-        response.DATA.isNew = true;
-        result.unshift(response.DATA);
-
-        $scope.designs = [];
-        angular.copy(result,$scope.designs);
+        // var result = [];
+        // angular.copy($scope.designs, result);
+        // angular.forEach(result, function(value, key){
+        //   value.isNew = false;
+        // });
+        if (angular.isArray(response.DATA) && response.DATA.length > 0) response.DATA = response.DATA[0];
+        // response.DATA.isNew = true;
+        // result.unshift(response.DATA);
+        //
+        // $scope.designs = [];
+        // angular.copy(result,$scope.designs);
         $scope.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
         $rootScope.currentDesign = response.DATA;
+
+        $timeout(function(){
+            $scope.dataTable.row.add( [
+              $filter('date')(response.DATA.DESIGN_SUM_TBL.created_at * 1000, 'dd/MMM/yyyy hh:mm a'),
+              response.DATA.DESIGN_SUM_TBL.GDN,
+              '<a href="/design/' + response.DATA.DESIGN_SUM_TBL.GDN + '" class="ng-binding" ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">' + response.DATA.DESIGN_SUM_TBL.DesignName + '</a>',
+              '<img style="width: 25px!important; height: 25px!important;" src="' + $filter('resUrlParser')(response.DATA.DESIGN_SUM_TBL.Thumbnail_75) + '">']
+            ).order( [ 0, 'desc' ] ).draw();
+        },1000);
 
         $timeout(function(){
           $scope.created = false;
@@ -202,6 +221,10 @@ angular.module('caregiversComApp')
       }
 
       $scope.design = $.isArray(response.DATA) ? response.DATA[0] : response.DATA;
+      $timeout(function(){
+          $("#tblPosition").DataTable({"order": [5,"asc"]});
+          $scope.isPosLoaded = true;
+      },1000);
       //$scope.$apply();
     }).error(function(error) {
       $scope.error = error;
