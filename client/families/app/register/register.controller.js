@@ -1,6 +1,25 @@
 'use strict';
 
 angular.module('caregiversComApp')
+  .filter('relativePathParser', function(){
+    return function(input){
+      if (!input) return '';
+
+      input = input || '';
+      var out = input;//.replace(new RegExp(' ', 'g'), '');
+
+      var assetServerPath = CareGiverEnv.server.host_asset_path;
+      var assetServerPath1 = CareGiverEnv.server.host_asset_path.replace(new RegExp('/', 'g'), '\\');
+      var idxOfAssetServerPath= input.indexOf(assetServerPath);
+      if (idxOfAssetServerPath < 0) idxOfAssetServerPath = input.indexOf(assetServerPath1);
+      if (idxOfAssetServerPath >= 0){
+        out = out.replace(assetServerPath, "");
+        out = out.replace(assetServerPath1, "");
+      }
+
+      return out;
+    };
+  })
   .filter('resUrlParser', function(){
     return function(input){
       if (!input) return '';

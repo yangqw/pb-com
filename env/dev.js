@@ -12,12 +12,12 @@ window.CareGiverEnv = {
     },
     "host": "http://localhost:9100",
     "host_kb": "https://gw.caregivers.com",
-    // "host_pb": "http://resource-dev.taipingcarpets.com:8282/index.php/api",
-    // "host_asset_url": "http://resource-dev.taipingcarpets.com:8282",
-    // "host_asset_path": "C:/PB/www/PB/web",
-    "host_pb": "http://192.168.2.57/index.php/api",
-    "host_asset_url": "http://192.168.2.57",
-    "host_asset_path": "D:/wwwroot/PB/web",
+    "host_pb": "http://resource-dev.taipingcarpets.com:8282/index.php/api",
+    "host_asset_url": "http://resource-dev.taipingcarpets.com:8282",
+    "host_asset_path": "C:/PB/www/PB/web",
+    // "host_pb": "http://192.168.2.57/index.php/api",
+    // "host_asset_url": "http://192.168.2.57",
+    // "host_asset_path": "D:/wwwroot/PB/web",
   },
 
   "component":{

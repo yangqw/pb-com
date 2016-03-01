@@ -222,8 +222,26 @@ angular.module('caregiversComApp')
 
       $scope.design = $.isArray(response.DATA) ? response.DATA[0] : response.DATA;
       $timeout(function(){
-          $("#tblPosition").DataTable({"order": [5,"asc"]});
+          $("#tblPosition").DataTable({
+            "order": [0,"asc"],
+            dom: "Bfrtip",
+            select: true
+          });
+
+          $("#tblTreatment").DataTable({
+            "order": [0,"asc"],
+            dom: "Bfrtip",
+            select: true
+          });
+
+          $("#tblInstruction").DataTable({
+            "order": [0,"asc"],
+            dom: "Bfrtip",
+            select: true
+          });
+
           $scope.isPosLoaded = true;
+
       },1000);
       //$scope.$apply();
     }).error(function(error) {

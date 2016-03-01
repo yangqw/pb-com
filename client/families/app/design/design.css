@@ -128,3 +128,10 @@
 .btn.btn-danger{
   background-color:#ff0000;
 }
+
+.no-margin{
+  margin: 0!important;
+}
+.h-in-rem1{
+  height: 1rem!important;
+}
