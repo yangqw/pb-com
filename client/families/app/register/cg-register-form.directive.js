@@ -14,7 +14,7 @@ function ($scope,$rootScope,$user,$auth,$location,$timeout,$state, $http) {
   $scope.submit = function(){
     $scope.creating = true;
     $scope.error = null;
-    var url = CareGiverEnv.server.host_pb + '/default/ANNEXJ.REGISTER_DESIGN';
+    var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.REGISTER_ENDPOINT;
     $http.post(url, $scope.formModel).success(function(response){
       $scope.created = true;
       $scope.creating = false;

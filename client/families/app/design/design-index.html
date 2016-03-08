@@ -184,7 +184,10 @@
             </thead>
             <tbody ng-show=isDsnLoaded>
                 <tr ng-repeat="data in designs">
-                  <td title='{{data.DESIGN_SUM_TBL.created_at * 1000 | date: "zone: Z"}}'>{{data.DESIGN_SUM_TBL.created_at * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}</td>
+                  <td title='{{data.DESIGN_SUM_TBL.created_at * 1000 | date: "zone: Z"}}'>
+                    <div ng-hide=true>{{data.DESIGN_SUM_TBL.created_at}}</div>
+                    {{data.DESIGN_SUM_TBL.created_at * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}
+                  </td>
                   <!-- <td ng-show="{{data.isNew}}" style="color: red;">{{data.DESIGN_SUM_TBL.GDN}}</td> -->
                   <td>{{data.DESIGN_SUM_TBL.GDN}}</td>
                   <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">{{data.DESIGN_SUM_TBL.DesignName}}</a></td>

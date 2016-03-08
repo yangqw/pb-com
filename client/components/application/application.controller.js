@@ -74,6 +74,7 @@
         "signup",
         "register",
         "design",
+        "file",
         "time-sheet",
         "headless",
         "main"

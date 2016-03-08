@@ -12,7 +12,9 @@ angular.module('caregiversComApp', [
   'stripe',
   'ezfb',
   'ui.materialize',
-  'angularFileUpload'
+  'angularFileUpload',
+  'jsonFormatter',
+  'cb.x2js'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');

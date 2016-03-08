@@ -1,0 +1,44 @@
+<div class="container fiel detail" style="max-height: 2600px;">
+  <div class="card" style="background-color: #F5F5F5;">
+    <div class="card-content">
+        <div class="img" style="display: block; margin: 0 auto; height: 50px; background: transparent url('/assets/images/House_of_Tai_Ping_logo.svg') no-repeat scroll 250px -250px / 50% auto;"></div>
+        <h3 class="card-title center-align">File raw data of <b>{{data.Name}}<b></h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col m12 s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            Header Thumb
+          </span>
+          <div class="card-image" style="min-height:140px;">
+
+            <div class="row">
+              <div class="col-md-6 col m6 s6">
+                <img style="width:80px!important;" data-ng-src="data:image/png;base64,{{data.Header.pdnImage.custom.thumb._png}}">
+                <json-formatter open=1 json="data.Header"></json-formatter>
+              </div>
+                <div class="col-md-6 col m6 s6">
+                  <img style="width:80px!important;" data-ng-src="data:image/png;base64,{{data.CustomHeaders.thumb._png}}">
+                  <json-formatter open=1 json="data.CustomHeaders"></json-formatter>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col m12 s12">
+      <div class="card">
+        <div class="card-content">
+          <json-formatter open=2 json="data.Raw"></json-formatter>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

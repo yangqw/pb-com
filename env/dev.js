@@ -4,20 +4,32 @@ window.CareGiverEnv = {
       "REGISTER_URI" : '/api/users/register',
       "EMAIL_VERIFICATION_ENDPOINT" : '/api/users/emailVerification',
       "AUTHENTICATION_ENDPOINT" : '/api/users/oauth/token',
-      "CURRENT_USER_URI" : '/api/users/current',//'/default/ANNEXJ.REGISTER_DESIGN'
-      "DESTROY_SESSION_ENDPOINT" : '/api/users/logout',//'/default/ANNEXJ.REGISTER_DESIGN'
+      "CURRENT_USER_URI" : '/api/users/current',
+      "DESTROY_SESSION_ENDPOINT" : '/api/users/logout',
       "FORGOT_PASSWORD_ENDPOINT" : '/api/users/forget_password',
       "CHANGE_PASSWORD_ENDPOINT" : '/api/users/reset_password',
       "FORM_CONTENT_TYPE" : 'application/json',
     },
+    "api_design":{
+      "LIST_ENDPOINT": '/design/List',
+      "GDN_ENDPOINT": '/design/GDN?GDN=',
+      "UPDATE_ENDPOINT": '/design/update',
+      "REGISTER_ENDPOINT": '/design/ANNEXJ.REGISTER_DESIGN',
+      "RAW_STRUCTURE_ENDPOINT": '/design/getstructure?SessionID='
+    },
+    "api_file":{
+      "LIST_ENDPOINT": '/file/list',
+      "UPLOAD_ENDPOINT": '/file/upload',
+      "DELETE_ENDPOINT": '/file/delete?SessionID=',
+      "ATTACHMENT_ENDPOINT": '/file/attachment?SessionID=',
+      "GENERATE_DES_ENDPOINT": '/file/ANNEXJ.GENERATE_DES?URL=',
+    },
     "host": "http://localhost:9100",
     "host_kb": "https://gw.caregivers.com",
-    "host_pb": "http://resource-dev.taipingcarpets.com:8282/index.php/api",
-    "host_asset_url": "http://resource-dev.taipingcarpets.com:8282",
-    "host_asset_path": "C:/PB/www/PB/web",
-    // "host_pb": "http://192.168.2.57/index.php/api",
-    // "host_asset_url": "http://192.168.2.57",
-    // "host_asset_path": "D:/wwwroot/PB/web",
+
+    "host_pb": "http://192.168.2.57/index.php/api",
+    "host_asset_url": "http://192.168.2.57",
+    "host_asset_path": "D:/wwwroot/PB/web",
   },
 
   "component":{

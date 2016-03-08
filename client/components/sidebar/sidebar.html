@@ -24,6 +24,9 @@
         <li if-not-user ng-class="{active: isActive('/design')}">
           <a ui-sref="design.list"><span>Design</span></a>
         </li>
+        <li if-not-user ng-class="{active: isActive('/file')}">
+          <a ui-sref="file.list"><span>File</span></a>
+        </li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
 

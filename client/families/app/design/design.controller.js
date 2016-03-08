@@ -8,7 +8,7 @@ angular.module('caregiversComApp')
 
   .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus, $filter) {
 
-    var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + '/default/upload'});
+    var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + CareGiverEnv.server.api_file.UPLOAD_ENDPOINT});
 
     // FILTERS
     uploader.filters.push({
@@ -55,7 +55,7 @@ angular.module('caregiversComApp')
         var isSessionId = !(response.DATA.indexOf('/') > -1 || response.DATA.indexOf('\\') > -1);
         fileItem.path = isSessionId ? response.DATA : (CareGiverEnv.server.host_asset_path + "/" + response.DATA);
         fileItem.link = isSessionId
-          ? (CareGiverEnv.server.host_pb + "/default/attachment?SessionID=" + response.DATA)
+          ? (CareGiverEnv.server.host_pb + CareGiverEnv.server.api_file.ATTACHMENT_ENDPOINT + response.DATA)
           : (CareGiverEnv.server.host_asset_url + "/" + response.DATA);
 
         if (fileItem.isTpc){
@@ -64,7 +64,6 @@ angular.module('caregiversComApp')
         }
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-      debugger;
       console.info('onErrorItem', fileItem, response, status, headers);
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
@@ -78,11 +77,10 @@ angular.module('caregiversComApp')
     };
 
     $scope.uploader = uploader;
-    //console.info('uploader', $scope.uploader);
 
     $scope.designs = new Array();
     $scope.dataTable = null;
-    var url = CareGiverEnv.server.host_pb + '/default/List';
+    var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.LIST_ENDPOINT;
     $http.get(url).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){
         $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -94,7 +92,7 @@ angular.module('caregiversComApp')
 
       if ($scope.dataTable == null)
       $timeout(function(){
-          $scope.dataTable = $("#tblDesigns").DataTable({"order": [0,"desc"]});
+          $scope.dataTable = $("#tblDesigns").DataTable({"order": [0,"desc"], dom: "Bfrtip"});
           $scope.isDsnLoaded = true;
       },1000);
     }).error(function(error) {
@@ -111,7 +109,7 @@ angular.module('caregiversComApp')
       $scope.error = null;
       $scope.designGdn = "";
 
-      var url = CareGiverEnv.server.host_pb + '/default/ANNEXJ.REGISTER_DESIGN';
+      var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.REGISTER_ENDPOINT;
       $http.post(url, $scope.registerModel).success(function(response){
         if (!response || response.RETCODE !== "S" || !response.DATA){
           $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -140,9 +138,9 @@ angular.module('caregiversComApp')
         $scope.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
         $rootScope.currentDesign = response.DATA;
 
-        $timeout(function(){
+        $timeout(function(){debugger;
             $scope.dataTable.row.add( [
-              $filter('date')(response.DATA.DESIGN_SUM_TBL.created_at * 1000, 'dd/MMM/yyyy hh:mm a'),
+              '<div class="ng-binding ng-hide" ng-hide="true">'+ response.DATA.DESIGN_SUM_TBL.created_at + '</div>' + $filter('date')(response.DATA.DESIGN_SUM_TBL.created_at * 1000, 'dd/MMM/yyyy hh:mm a'),
               response.DATA.DESIGN_SUM_TBL.GDN,
               '<a href="/design/' + response.DATA.DESIGN_SUM_TBL.GDN + '" class="ng-binding" ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">' + response.DATA.DESIGN_SUM_TBL.DesignName + '</a>',
               '<img style="width: 25px!important; height: 25px!important;" src="' + $filter('resUrlParser')(response.DATA.DESIGN_SUM_TBL.Thumbnail_75) + '">']
@@ -169,7 +167,7 @@ angular.module('caregiversComApp')
       $scope.generating = true;
       $scope.error = null;
       $scope.desFile = "";
-      var url = CareGiverEnv.server.host_pb + '/default/ANNEXJ.GENERATE_DES?URL=' + $scope.generateModel.URL;
+      var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_file.GENERATE_DES_ENDPOINT + $scope.generateModel.URL;
       $http.get(url).success(function(response){
         if (!response || response.RETCODE !== "S" || !response.DATA){
           $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -184,7 +182,7 @@ angular.module('caregiversComApp')
 
         $scope.generated = true;
         $scope.generating = false;
-        $scope.desFile = response.DATA;
+        $scope.desFile = response.DATA.RelativePath;
       }).error(function(error) {
         debugger;
         $scope.generating = false;
@@ -213,7 +211,7 @@ angular.module('caregiversComApp')
 
   .controller('DesignDetailCtrl', function ($rootScope, $scope, $stateParams, $http, $timeout) {
     $scope.design = $rootScope.currentDesign;
-    var url = CareGiverEnv.server.host_pb + '/default/GDN?GDN=' + $stateParams.gdn;
+    var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.GDN_ENDPOINT + $stateParams.gdn;
     $http.get(url).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){
         $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -256,7 +254,7 @@ angular.module('caregiversComApp')
 
       $scope.saving = true;
       $scope.error = null;
-      var url = CareGiverEnv.server.host_pb + '/default/update';
+      var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.UPDATE_ENDPOINT;
       $http.post(url, $scope.design).success(function(response){
         if (!response || response.RETCODE !== "S" || !response.DATA){
           $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';

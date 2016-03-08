@@ -1,0 +1,115 @@
+<div class="container design list" style="max-height: 3000px;">
+  <div class="row">
+
+    <div class="col-md-6 col m12 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          <div class="card-title">Available uploaded file list</div>
+
+          <table class="table dataTable display" role="grid" id="tblUploadedFile" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th width=160>Uploaded</th>
+                    <th width=80>Name</th>
+                    <th width=80>Tag</th>
+                    <th width=300>Status</th>
+                    <th width=300>Actions</th>
+                    <th ng-hide=true></th>
+                </tr>
+            </thead>
+            <tbody ng-show=isUploadedFileLoaded>
+                <tr ng-repeat="item in uploadedFiles">
+                  <td title='{{item.updated_at * 1000 | date: "zone: Z"}}'>
+                    <div ng-hide=true>{{item.updated_at}}</div>
+                    {{item.updated_at * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}
+                    <span ng-hide=true>{{item.SessionID}}</span>
+                  </td>
+                  <td>
+                    <strong ng-if="item.RelativePath == undefined">{{ item.FileName}}</strong>
+                    <a ng-if="item.RelativePath != undefined" href="{{item.RelativePath | resUrlParser}}"> <strong>{{ item.FileName }}</strong> </a>
+                  </td>
+                  <td class="text-left">{{item.Tag}}</td>
+                  <td class="text-left">
+                    <a ng-show="item.allowRegister" class="mdi-maps-location-history" title="Show raw in Json format" ui-sref="file.id({id: item.SessionID, name: item.FileName})"></a>
+                    <span ng-show="item.isSuccess">
+                      <i class="glyphicon glyphicon-ok">
+                        Design
+                        <a ui-sref="design.gdn({gdn: item.designGdn})"> {{item.designName}} </a>
+                        registered
+                      </i>
+                    </span>
+                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove">{{item.error}}</i></span>
+                  </td>
+                  <td nowrap>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="item.register()" ng-hide="item.isSuccess || !item.allowRegister" ng-disabled="!item.allowRegister || item.isSuccess || generating || creating">
+                        <span class="glyphicon glyphicon-upload"></span> REG
+                    </button>
+                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.generate()" ng-hide="item.isSuccess || !item.allowConvert" ng-disabled="!item.allowConvert || generating || creating">
+                        <span class="glyphicon glyphicon-ban-circle"></span> GEN
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()" ng-disabled="generating || creating">
+                        <span class="glyphicon glyphicon-trash"></span> RMV
+                    </button>
+                  </td>
+                  <td ng-hide=true>{{item.SessionID}}</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m12 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          <div class="card-title">Available generated DES list</div>
+
+          <table class="table dataTable display" role="grid" id="tblGeneratedFile" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th width=160>Generated</th>
+                    <th width=80>Name</th>
+                    <th width=300>Status</th>
+                    <th width=300>Actions</th>
+                </tr>
+            </thead>
+            <tbody ng-show=isGeneratedFileLoaded>
+                <tr ng-repeat="item in generatedFiles">
+                  <td title='{{item.updated_at * 1000 | date: "zone: Z"}}'>
+                    <div ng-hide=true>{{item.updated_at}}</div>
+                    {{item.updated_at * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}
+                    <span ng-hide=true>{{item.SessionID}}</span>
+                  </td>
+                  <td>
+                    <strong ng-if="item.RelativePath == undefined">{{ item.FileName}}</strong>
+                    <a ng-if="item.RelativePath != undefined" href="{{item.RelativePath | resUrlParser}}"><strong>{{ item.FileName }}</strong></a>
+                  </td>
+                  <td class="text-left">
+                    <span ng-show="item.isSuccess">
+                      <i class="glyphicon glyphicon-ok">
+                        Design
+                        <a ui-sref="design.gdn({gdn: item.designGdn})"> {{item.designName}} </a>
+                        registered
+                      </i>
+                    </span>
+                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove">{{item.error}}</i></span>
+                  </td>
+                  <td nowrap>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="item.register()" ng-hide="item.isSuccess || !item.allowRegister" ng-disabled="item.isSuccess || generating || creating">
+                        <span class="glyphicon glyphicon-upload"></span> REG
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()" ng-disabled="generating || creating">
+                        <span class="glyphicon glyphicon-trash"></span> RMV
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -319,6 +319,13 @@ module.exports = function (grunt) {
     'connect:server',
     'watch',
   ]);
+  grunt.registerTask('server:staging', [
+    'clean',
+    'copy:bower',
+    'build:staging',
+    'connect:server',
+    'watch',
+  ]);
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
