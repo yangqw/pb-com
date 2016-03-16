@@ -6,7 +6,7 @@ angular.module('caregiversComApp')
     vm.a = "a";
   })
 
-  .controller('FileCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus, $filter) {
+  .controller('FileCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus, $filter, process) {
     $scope.files = new Array();
     $scope.uploadedFiles = new Array();
     $scope.generatedFiles = new Array();
@@ -81,6 +81,7 @@ angular.module('caregiversComApp')
 
     };
 
+    $scope.ticket = process.requestTicket('file');
     var urlFile = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_file.LIST_ENDPOINT;
     $http.get(urlFile).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){
@@ -101,7 +102,11 @@ angular.module('caregiversComApp')
         return angular.isDefined(file.Type) && file.Type !== 'upload' && file.Type !== 'json';
       });
 
-      $timeout($scope.initDataTable,1000);
+      $timeout(function(){
+        if (process.isValidTicket($scope.ticket)) {
+          $scope.initDataTable();
+        }//else process.reduceTicketByName($scope.ticket.name);
+      },1000);
 
     }).error(function(error) {
       $scope.error = error;

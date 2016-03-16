@@ -6,7 +6,7 @@ angular.module('caregiversComApp')
     vm.a = "a";
   })
 
-  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus, $filter) {
+  .controller('DesignCtrl', function ($rootScope, $scope, $http, $timeout, FileUploader, focus, $filter, process) {
 
     var uploader = new FileUploader({url: CareGiverEnv.server.host_pb + CareGiverEnv.server.api_file.UPLOAD_ENDPOINT});
 
@@ -80,6 +80,8 @@ angular.module('caregiversComApp')
 
     $scope.designs = new Array();
     $scope.dataTable = null;
+
+    $scope.ticket = process.requestTicket('design');
     var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.LIST_ENDPOINT;
     $http.get(url).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){
@@ -92,8 +94,10 @@ angular.module('caregiversComApp')
 
       if ($scope.dataTable == null)
       $timeout(function(){
+        if (process.isValidTicket($scope.ticket)){
           $scope.dataTable = $("#tblDesigns").DataTable({"order": [0,"desc"], dom: "Bfrtip"});
           $scope.isDsnLoaded = true;
+        }
       },1000);
     }).error(function(error) {
       $scope.error = error;
