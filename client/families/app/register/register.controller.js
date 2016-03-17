@@ -1,6 +1,22 @@
 'use strict';
 
 angular.module('caregiversComApp')
+  .filter('fileNameParser', function(){
+    return function(input){
+      if (!input) return '';
+
+      input = input || '';
+      var out = input;//.replace(new RegExp(' ', 'g'), '');
+
+      var idxOfSeperator= input.lastIndexOf('\\');
+      if (idxOfSeperator < 0) idxOfSeperator = input.lastIndexOf('/');
+      if (idxOfSeperator >= 0){
+        out = out.substring(idxOfSeperator+1);
+      }
+
+      return out;
+    };
+  })
   .filter('relativePathParser', function(){
     return function(input){
       if (!input) return '';

@@ -15,6 +15,8 @@ angular.module('caregiversComApp')
     $scope.dtGeneratedFile = null;
 
     $scope.extentFileModel = function(v){
+      if (!v.FileName || angular.isUndefined(v.FileName) || v.FileName === '')
+        v.FileName = $filter('fileNameParser')(v.RelativePath);
       v.isUploaded = v.Type && v.Type.match(/^upload$/i);
       v.allowRegister = v.FileName && v.FileName.match(/.tpc|.des|.ill|.psd|.tiff|.tif$/i);
       v.allowConvert = v.isUploaded && v.allowRegister;
