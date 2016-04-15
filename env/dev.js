@@ -23,6 +23,7 @@ window.CareGiverEnv = {
       "DELETE_ENDPOINT": '/file/delete?SessionID=',
       "ATTACHMENT_ENDPOINT": '/file/attachment?SessionID=',
       "GENERATE_DES_ENDPOINT": '/file/ANNEXJ.GENERATE_DES?URL=',
+      "GENERATE_PAT_ENDPOINT": '/file/ANNEXJ.GENERATE_PAT?URL=',
     },
     "host": "http://localhost:9100",
     "host_kb": "https://gw.caregivers.com",

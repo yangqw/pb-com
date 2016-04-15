@@ -46,9 +46,7 @@ angular.module('caregiversComApp')
         }
 
         var fileName = fileItem.file.name.toLowerCase();
-        fileItem.isTpc = fileName.match(/.tpc$/) || fileName.match(/.des$/)
-          || fileName.match(/.ill$/) || fileName.match(/.psd$/)
-          || fileName.match(/.tiff$/)|| fileName.match(/.tif$/);
+        fileItem.isTpc = fileName.match(/.tpc|.des|.pat|.ill|.psd|.tiff|.tif$/i);
         fileItem.isError = false;
         fileItem.error = null;
 
@@ -128,26 +126,16 @@ angular.module('caregiversComApp')
         $scope.created = true;
         $scope.creating = false;
 
-        // var result = [];
-        // angular.copy($scope.designs, result);
-        // angular.forEach(result, function(value, key){
-        //   value.isNew = false;
-        // });
         if (angular.isArray(response.DATA) && response.DATA.length > 0) response.DATA = response.DATA[0];
-        // response.DATA.isNew = true;
-        // result.unshift(response.DATA);
-        //
-        // $scope.designs = [];
-        // angular.copy(result,$scope.designs);
         $scope.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
         $rootScope.currentDesign = response.DATA;
 
         $timeout(function(){debugger;
             $scope.dataTable.row.add( [
-              '<div class="ng-binding ng-hide" ng-hide="true">'+ response.DATA.DESIGN_SUM_TBL.created_at + '</div>' + $filter('date')(response.DATA.DESIGN_SUM_TBL.created_at * 1000, 'dd/MMM/yyyy hh:mm a'),
+              '<div class="ng-binding ng-hide" ng-hide="true">'+ response.DATA.DESIGN_SUM_TBL.CREATED_AT + '</div>' + $filter('date')(response.DATA.DESIGN_SUM_TBL.CREATED_AT * 1000, 'dd/MMM/yyyy hh:mm a'),
               response.DATA.DESIGN_SUM_TBL.GDN,
-              '<a href="/design/' + response.DATA.DESIGN_SUM_TBL.GDN + '" class="ng-binding" ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">' + response.DATA.DESIGN_SUM_TBL.DesignName + '</a>',
-              '<img style="width: 25px!important; height: 25px!important;" src="' + $filter('resUrlParser')(response.DATA.DESIGN_SUM_TBL.Thumbnail_75) + '">']
+              '<a href="/design/' + response.DATA.DESIGN_SUM_TBL.GDN + '" class="ng-binding" ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">' + response.DATA.DESIGN_SUM_TBL.ITEM_NAME + '</a>',
+              '<img style="width: 25px!important; height: 25px!important;" src="' + $filter('resUrlParser')(response.DATA.DESIGN_SUM_TBL.THUMBNAIL_75) + '">']
             ).order( [ 0, 'desc' ] ).draw();
         },1000);
 
@@ -167,11 +155,13 @@ angular.module('caregiversComApp')
 
     $scope.desFile = "";
     $scope.generateModel = (typeof $scope.generateModel==='object') ? $scope.generateModel : {URL:''};
-    $scope.generate = function(){
+    $scope.generate = function(type){
       $scope.generating = true;
       $scope.error = null;
       $scope.desFile = "";
-      var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_file.GENERATE_DES_ENDPOINT + $scope.generateModel.URL;
+      var url = CareGiverEnv.server.host_pb
+        + (type === 'PAT' ? CareGiverEnv.server.api_file.GENERATE_PAT_ENDPOINT : CareGiverEnv.server.api_file.GENERATE_DES_ENDPOINT)
+        + $scope.generateModel.URL;
       $http.get(url).success(function(response){
         if (!response || response.RETCODE !== "S" || !response.DATA){
           $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';
@@ -186,14 +176,14 @@ angular.module('caregiversComApp')
 
         $scope.generated = true;
         $scope.generating = false;
-        $scope.desFile = response.DATA.RelativePath;
+        if (type === 'PAT') $scope.patFile = response.DATA.RelativePath;
+        else $scope.desFile = response.DATA.RelativePath;
+
       }).error(function(error) {
-        debugger;
         $scope.generating = false;
         $scope.error = error;
         console.log(("Error while post " + url + ":") + (error && (error.causeMessage || error.message) || 'XHR Error'));
       }).catch(function(response){
-        debugger;
         $scope.generating = false;
         $scope.error = response;
       });
@@ -202,6 +192,7 @@ angular.module('caregiversComApp')
       $scope.generateModel.URL = "";
       $scope.generated = false;
       $scope.desFile = "";
+      $scope.patFile = "";
     };
     $scope.setRegisterInput = function(input){
       $scope.registerModel.URL = input;
@@ -227,13 +218,21 @@ angular.module('caregiversComApp')
           $("#tblPosition").DataTable({
             "order": [0,"asc"],
             dom: "Bfrtip",
-            select: true
+            select: true,
+            scrollY: 260,
+            scrollX: true,
+            scrollCollapse: true,
+            scroller: true
           });
 
           $("#tblTreatment").DataTable({
             "order": [0,"asc"],
             dom: "Bfrtip",
-            select: true
+            select: true,
+            scrollY: 260,
+            scrollX: true,
+            scrollCollapse: true,
+            scroller: true
           });
 
           $("#tblInstruction").DataTable({

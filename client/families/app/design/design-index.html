@@ -93,7 +93,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 col m6 s12">
+    <div class="col-md-6 col m4 s12">
       <div class="card" style="background-color: #F5F5F5;">
         <div class="card-content">
             <h3 class="card-title center-align">Register design</h3>
@@ -127,13 +127,13 @@
       </div>
     </div>
 
-    <div class="col-md-6 col m6 s12">
+    <div class="col-md-6 col m4 s12">
       <div class="card" style="background-color: #F5F5F5;">
         <div class="card-content">
           <h3 class="card-title center-align">Generate DES file</h3>
           <div class="row">
             <div class="col-sm-offset-2 col-xs-12 col-sm-8">
-              <p class="alert alert-success" ng-show="generated && !enabled">
+              <p class="alert alert-success" ng-show="generated && !enabled && desFile && desFile.length > 0">
                 DES file has been generated, get it from <a href="{{desFile|resUrlParser}}" target="_blank">here</a>.
 
                 Or <a href="#" ng-click="back2Generate()">Back</a>
@@ -147,7 +147,46 @@
           </div>
           <div class="row">
             <div class="col-sm-offset-1 col-xs-12">
-              <form class="form-horizontal" ng-hide="generated && !authenticating" ng-submit="generate()">
+              <form class="form-horizontal" ng-hide="generated && !authenticating && desFile && desFile.length > 0" ng-submit="generate()">
+                <div class="row">
+                  <div class="col s12 m8 push-m2" input-field>
+                    <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Session ID</label>
+                    <input class="form-control" type="text" id="spFileName4Generate" ng-model="generateModel.URL" placeholder="Please input File Session ID" ng-disabled="creating">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <button id="btnGenerate" type="submit" class="btn btn-primary" ng-disabled="generating || generateModel.URL === ''" style="display:block; margin: 0 auto;">Generate</button>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col m4 s12">
+      <div class="card" style="background-color: #F5F5F5;">
+        <div class="card-content">
+          <h3 class="card-title center-align">Generate PAT file</h3>
+          <div class="row">
+            <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+              <p class="alert alert-success" ng-show="generated && !enabled && patFile && patFile.length > 0">
+                PAT file has been generated, get it from <a href="{{patFile|resUrlParser}}" target="_blank">here</a>.
+
+                Or <a href="#" ng-click="back2Generate('PAT')">Back</a>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+              <p class="alert alert-danger" ng-show="error && generating" ng-bind=error></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-offset-1 col-xs-12">
+              <form class="form-horizontal" ng-hide="generated && !authenticating && patFile && patFile.length > 0" ng-submit="generate('PAT')">
                 <div class="row">
                   <div class="col s12 m8 push-m2" input-field>
                     <label for="spFileName" class="col-xs-12 col-sm-2 control-label">File Session ID</label>
@@ -184,14 +223,14 @@
             </thead>
             <tbody ng-show=isDsnLoaded>
                 <tr ng-repeat="data in designs">
-                  <td title='{{data.DESIGN_SUM_TBL.created_at * 1000 | date: "zone: Z"}}'>
-                    <div ng-hide=true>{{data.DESIGN_SUM_TBL.created_at}}</div>
-                    {{data.DESIGN_SUM_TBL.created_at * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}
+                  <td title='{{data.DESIGN_SUM_TBL.CREATED_AT * 1000 | date: "zone: Z"}}'>
+                    <div ng-hide=true>{{data.DESIGN_SUM_TBL.CREATED_AT}}</div>
+                    {{data.DESIGN_SUM_TBL.CREATED_AT * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}
                   </td>
                   <!-- <td ng-show="{{data.isNew}}" style="color: red;">{{data.DESIGN_SUM_TBL.GDN}}</td> -->
                   <td>{{data.DESIGN_SUM_TBL.GDN}}</td>
-                  <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">{{data.DESIGN_SUM_TBL.DesignName}}</a></td>
-                  <td><img style="width: 25px!important; height: 25px!important;" ng-src="{{data.DESIGN_SUM_TBL.Thumbnail_75|resUrlParser}}"></td>
+                  <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">{{data.DESIGN_SUM_TBL.ITEM_NAME}}</a></td>
+                  <td><img style="width: 25px!important; height: 25px!important;" ng-src="{{data.DESIGN_SUM_TBL.THUMBNAIL_75|resUrlParser}}"></td>
                 </tr>
             </tbody>
           </table>

@@ -3,7 +3,7 @@
   <div class="card" style="background-color: #F5F5F5;">
     <div class="card-content">
         <div class="img" style="display: block; margin: 0 auto; height: 50px; background: transparent url('/assets/images/House_of_Tai_Ping_logo.svg') no-repeat scroll 250px -250px / 50% auto;"></div>
-        <h3 class="card-title center-align">Design details of <b>{{design.DESIGN_SUM_TBL.DesignName}}<b></h3>
+        <h3 class="card-title center-align">Design details of <b>{{design.DESIGN_SUM_TBL.ITEM_NAME}}<b></h3>
     </div>
   </div>
 
@@ -19,98 +19,98 @@
             </div>
             <div class="col s6 line-bottom">
               TpcFilePath
-              <h6 class="" style="">{{design.DESIGN_SUM_TBL.TpcFilePath | relativePathParser}}</h6>
+              <h6 class="" style="">{{design.DESIGN_SUM_TBL.TPC_FILE_PATH | relativePathParser}}</h6>
             </div>
           </div>
           <div class="row">
             <div class="col s6">
               Name
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignName" placeholder="Please input name" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_NAME" placeholder="Please input name" ng-disabled="saving">
             </div>
             <div class="col s6">
               Title
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignTitle" placeholder="Please input title" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_TITLE" placeholder="Please input title" ng-disabled="saving">
             </div>
           </div>
           <div class="row">
             <div class="col s12">
               Description
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignDescription" placeholder="Please input description" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DESCRIPTION" placeholder="Please input description" ng-disabled="saving">
             </div>
           </div>
           <div class="row">
             <div class="col s2">
               #
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignNumber" placeholder="number" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEMM_NUMBER" placeholder="number" ng-disabled="saving">
             </div>
             <div class="col s2">
               Revision#
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DesignRevisionNumber" placeholder="revision number" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.REVISION_NUMBER" placeholder="revision number" ng-disabled="saving">
             </div>
             <div class="col s2">
               UOMCode
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.UOMCode" placeholder="UOM" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.UOM_CODE" placeholder="UOM" ng-disabled="saving">
             </div>
             <div class="col s3">
               ConfigureRepeat?
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ConfigureRepeat" placeholder="Yes or no?" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.CONFIGURE_REPEAT" placeholder="Yes or no?" ng-disabled="saving">
             </div>
             <div class="col s3">
               Repeat
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Repeat" placeholder="Yes or no?" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.REPEAT" placeholder="Yes or no?" ng-disabled="saving">
             </div>
           </div>
           <div class="row">
             <div class="col s2">
               Dpu X
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuX" placeholder="X" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DPUX" placeholder="X" ng-disabled="saving">
             </div>
             <div class="col s2">
               Dpu Y
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuY" placeholder="Y" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DPUY" placeholder="Y" ng-disabled="saving">
             </div>
             <div class="col s2">
               Dpu Unit
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DpuUint" placeholder="Unit" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DPUUNIT" placeholder="Unit" ng-disabled="saving">
             </div>
             <div class="col s2">
               #OfColors
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColors" placeholder="Colors" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NUMBER_OF_COLORS" placeholder="Colors" ng-disabled="saving">
             </div>
             <div class="col s2">
               #OfColorsUsed
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NumberOfColorsUsed" placeholder="Used colors" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.NUMBER_OF_COLORS_USED" placeholder="Used colors" ng-disabled="saving">
             </div>
             <div class="col s2">
               Quality
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Quality" placeholder="Quality" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.QUALITY" placeholder="Quality" ng-disabled="saving">
             </div>
           </div>
           <div class="row">
             <div class="col s2">
               Royalty Design
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesign" placeholder="Royalty Design" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ROYALTY_DESIGN" placeholder="Royalty Design" ng-disabled="saving">
             </div>
             <div class="col s2">
               Royalty Designer
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyDesigner" placeholder="Royalty Design" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ROYALTY_DESIGNER" placeholder="Royalty Designer" ng-disabled="saving">
             </div>
             <div class="col s2">
               Royalty Pct
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.RoyaltyPct" placeholder="Royalty Pct" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ROYALTY_PCT" placeholder="Royalty Pct" ng-disabled="saving">
             </div>
 
             <div class="col s2">
               Weight
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Weight" placeholder="Weight" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_WEIGHT" placeholder="Weight" ng-disabled="saving">
             </div>
             <div class="col s2">
               Width
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Width" placeholder="Width" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_WIDTH" placeholder="Width" ng-disabled="saving">
             </div>
             <div class="col s2">
               Length
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.Length" placeholder="Length" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_LENGTH" placeholder="Length" ng-disabled="saving">
             </div>
 
           </div>
@@ -120,7 +120,7 @@
 
           <div class="row">
             <div class="col s2">
-              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
+              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.ITEM_NAME === ''" style="display:block; margin: 0 auto;">Save</button>
             </div>
             <div class="col s10">
               <p class="alert alert-success" ng-show="saved && !saving">Summary data has been updated.</p>
@@ -130,7 +130,7 @@
         </div>
 
         <div class="card-action">
-          <a href="#" class="activator">Thumbnails of <b class="activator">{{design.DESIGN_SUM_TBL.DesignName}}</b></a>
+          <a href="#" class="activator">Thumbnails of <b class="activator">{{design.DESIGN_SUM_TBL.ITEM_NAME}}</b></a>
         </div>
         <div class="card-reveal">
           <span class="card-title">
@@ -139,26 +139,26 @@
             <i class="mdi-navigation-close f-right" style="float:right;"></i>
           </span>
           <div class="card-image" style="min-height:700px;">
-            <img style="width:800px!important;" ng-src="{{design.DESIGN_SUM_TBL.FullImage|resUrlParser}}">
+            <img style="width:800px!important;" ng-src="{{design.DESIGN_SUM_TBL.FULL_IMAGE|resUrlParser}}">
 
             <div class="col-md-6 col m1 s12">
               75
-              <img style="width: 75px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_75|resUrlParser}}">
+              <img style="width: 75px!important" ng-src="{{design.DESIGN_SUM_TBL.THUMBNAIL_75|resUrlParser}}">
             </div>
 
             <div class="col-md-6 col m2 s12">
               100
-              <img style="width: 100px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_100|resUrlParser}}">
+              <img style="width: 100px!important" ng-src="{{design.DESIGN_SUM_TBL.THUMBNAIL_100|resUrlParser}}">
             </div>
 
             <div class="col-md-6 col m4 s12">
               200
-              <img style="width: 200px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_200|resUrlParser}}">
+              <img style="width: 200px!important" ng-src="{{design.DESIGN_SUM_TBL.THUMBNAIL_200|resUrlParser}}">
             </div>
 
             <div class="col-md-6 col m4 s12">
               300
-              <img style="width: 300px!important" ng-src="{{design.DESIGN_SUM_TBL.Thumbnail_300|resUrlParser}}">
+              <img style="width: 300px!important" ng-src="{{design.DESIGN_SUM_TBL.THUMBNAIL_300|resUrlParser}}">
             </div>
           </div>
         </div>
@@ -167,39 +167,77 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 col m12 s12">
+    <div class="col-md-6 col m12 s12 portlets ui-sortable">
       <div class="card" style="background-color: #F5F5F5;">
+        <div class="panel-header panel-controls">
+          <h3></h3>
+          <div class="control-btn">
+            <a href="#" class="panel-close">
+              <i class="icon-trash"></i>
+            </a>
+          </div>
+        </div>
         <div class="card-content">
           DESIGN_POS_TBL
           <table class="table table-dynamic" id="tblPosition">
             <thead>
                 <tr>
-                    <th width=10>#</th>
-                    <th width=20>ColorCode</th>
-                    <th width=100>ColorName</th>
-                    <th width=20>CutOrLoop</th>
+                    <th width=20 title="Position">#</th>
+                    <th width=40 title="Index / MergeIndex">Index</th>
+                    <th width=120 title="">RGB</th>
+                    <th width=60>POM BOX</th>
+                    <th width=20>Number</th>
+                    <th width=100>Name</th>
+                    <th width=100>Label</th>
                     <th>Description</th>
-                    <th width=20>HiOrLo</th>
+                    <th width=20>CutOrLoop</th>
+                    <th width=20>Complexity</th>
+                    <th width=20>BackingType</th>
+                    <th width=20>HiOrLow</th>
+                    <th width=20>PrecentArea</th>
+                    <th width=20>TUFT Method</th>
+                    <th width=20>Loom Width</th>
+                    <th width=20>Light Match</th>
+                    <th width=20>Color Match</th>
                     <th width=20>Pile(D)</th>
                     <th width=20>Pile(H)</th>
                     <th width=20>Pile(W)</th>
-                    <th width=30>Twod%</th>
+                    <th width=30>2nd%</th>
                     <th width=30>YarnType</th>
+                    <th width=30>YarnCount</th>
+                    <th width=30>Visible</th>
+                    <th width=30>Parked</th>
+                    <th width=30>Protected</th>
                 </tr>
             </thead>
             <tbody ng-show=isPosLoaded>
                 <tr ng-repeat="data in design.DESIGN_POS_TBL">
-                    <td>{{data.PositionNumber}}</td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.ColorCode" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.ColorName" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.CutOrLoop" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Description" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.HiOrLo" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PileDensity" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PileHeight" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PileWeight" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TwodPercentage" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.YarnType" ng-disabled="saving"></td>
+                    <td>{{data.POSITION_NUMBER}}</td>
+                    <td>{{data.INDEX}} / {{data.MERGE_INDEX}}</td>
+                    <td>{{data.RGB_R_VALUE}} / {{data.RGB_G_VALUE}} / {{data.RGB_B_VALUE}}</td>
+                    <td>{{data.POM_BOX_CODE}} / {{data.POM_BOX_DESC}}</td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COLOR_NUMBER" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COLOR_NAME" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COLOR_LABEL" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COLOR_DESC" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.CUT_LOOP_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COMPLEXITY_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.BACKING_TYPE_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.HI_LOW_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PRECENT_AREA" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TUFT_METHOD_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.LOOM_WIDTH_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.LIGHT_MATCH_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COLOR_MATCH_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PILE_DENSITY_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PILE_HEIGHT_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PILE_WEIGHT_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TWOD_PRECENTAGE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.YARN_TYPE_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.YARN_COUNT_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.VISIBLE_FLAG" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PARKED_FLAG" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PROTECTED_FLAG" ng-disabled="saving"></td>
                 </tr>
             </tbody>
           </table>
@@ -209,7 +247,7 @@
 
           <div class="row">
             <div class="col s2">
-              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
+              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.ITEM_NAME === ''" style="display:block; margin: 0 auto;">Save</button>
             </div>
             <div class="col s10">
               <p class="alert alert-success" ng-show="saved && !saving">Position data has been updated.</p>
@@ -234,14 +272,36 @@
                     <th width=200>Name</th>
                     <th>Description</th>
                     <th>Instructions</th>
+                    <th>Code</th>
+                    <th>TypeCode</th>
+                    <th>UOMCode</th>
+                    <th>Quantity</th>
+                    <th>Opacity</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>DpuX</th>
+                    <th>DpuY</th>
+                    <th>Visible</th>
+                    <th>Locked</th>
                 </tr>
             </thead>
             <tbody ng-show=isPosLoaded>
                 <tr ng-repeat="data in design.DESIGN_TRT_TBL">
-                    <td>{{data.TreatmentNumber}}</td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Name" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Description" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Instructions" ng-disabled="saving"></td>
+                    <td>{{data.TREATMENT_NUMBER}}</td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TREATMENT_NAME" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TREATMENT_DESC" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TREATMENT_INST" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TREATMENT_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TREATMENT_TYPE_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.UOM_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.QUANTITY" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.OPACITY" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.WIDTH" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.HEIGHT" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.DPUX" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.DPUY" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.VISIBLE_FLAG" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.LOCKED_FLAG" ng-disabled="saving"></td>
                 </tr>
             </tbody>
           </table>
@@ -251,7 +311,7 @@
 
           <div class="row">
             <div class="col s2">
-              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
+              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.ITEM_NAME === ''" style="display:block; margin: 0 auto;">Save</button>
             </div>
             <div class="col s10">
               <p class="alert alert-success" ng-show="saved && !saving">Treatment data has been updated.</p>
@@ -273,16 +333,16 @@
                 <tr>
                     <th width=10>#</th>
                     <th width=100>Name</th>
-                    <th width=100>Type</th>
+                    <th width=100>TypeCode</th>
                     <th>Instruction</th>
                 </tr>
             </thead>
             <tbody ng-show=isPosLoaded>
                 <tr ng-repeat="data in design.DESIGN_INST_TBL">
-                    <td>{{data.InstructionNumber}}</td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Name" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Type" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.Instruction" ng-disabled="saving"></td>
+                    <td>{{data.INSTRUCTION_NUMBER}}</td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.INSTRUCTION_NAME" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.INSTRUCTION_TYPE_CODE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.INSTRUCTION_INST" ng-disabled="saving"></td>
                 </tr>
             </tbody>
           </table>
@@ -292,7 +352,7 @@
 
           <div class="row">
             <div class="col s2">
-              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.DesignName === ''" style="display:block; margin: 0 auto;">Save</button>
+              <button ng-click="saveSummary()" class="btn btn-primary" ng-disabled="saving || design.DESIGN_SUM_TBL.ITEM_NAME === ''" style="display:block; margin: 0 auto;">Save</button>
             </div>
             <div class="col s10">
               <p class="alert alert-success" ng-show="saved && !saving">Instruction data has been updated.</p>
