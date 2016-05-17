@@ -13,6 +13,7 @@ window.CareGiverEnv = {
     "api_design":{
       "LIST_ENDPOINT": '/design/List',
       "GDN_ENDPOINT": '/design/GDN?GDN=',
+      "ID_ENDPOINT": '/design/ID?ID=',
       "UPDATE_ENDPOINT": '/design/update',
       "REGISTER_ENDPOINT": '/design/ANNEXJ.REGISTER_DESIGN',
       "RAW_STRUCTURE_ENDPOINT": '/design/getstructure?SessionID='

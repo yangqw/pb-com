@@ -139,8 +139,8 @@ angular.module('caregiversComApp')
         $scope.creating = false;
 
         if (angular.isArray(response.DATA) && response.DATA.length > 0) response.DATA = response.DATA[0];
-        v.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
-        v.designName = response.DATA.DESIGN_SUM_TBL.DesignName;
+        v.designGdn = response.DATA.DESIGN_SUM_TBL.ID;
+        v.designName = response.DATA.DESIGN_SUM_TBL.ITEM_NAME;
         v.isSuccess = true;
 
         $timeout(function(){

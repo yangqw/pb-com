@@ -127,14 +127,14 @@ angular.module('caregiversComApp')
         $scope.creating = false;
 
         if (angular.isArray(response.DATA) && response.DATA.length > 0) response.DATA = response.DATA[0];
-        $scope.designGdn = response.DATA.DESIGN_SUM_TBL.GDN;
+        $scope.designGdn = response.DATA.DESIGN_SUM_TBL.ID;
         $rootScope.currentDesign = response.DATA;
 
         $timeout(function(){debugger;
             $scope.dataTable.row.add( [
               '<div class="ng-binding ng-hide" ng-hide="true">'+ response.DATA.DESIGN_SUM_TBL.CREATED_AT + '</div>' + $filter('date')(response.DATA.DESIGN_SUM_TBL.CREATED_AT * 1000, 'dd/MMM/yyyy hh:mm a'),
-              response.DATA.DESIGN_SUM_TBL.GDN,
-              '<a href="/design/' + response.DATA.DESIGN_SUM_TBL.GDN + '" class="ng-binding" ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">' + response.DATA.DESIGN_SUM_TBL.ITEM_NAME + '</a>',
+              response.DATA.DESIGN_SUM_TBL.ID,
+              '<a href="/design/' + response.DATA.DESIGN_SUM_TBL.ID + '" class="ng-binding" ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.ID})">' + response.DATA.DESIGN_SUM_TBL.ITEM_NAME + '</a>',
               '<img style="width: 25px!important; height: 25px!important;" src="' + $filter('resUrlParser')(response.DATA.DESIGN_SUM_TBL.THUMBNAIL_75) + '">']
             ).order( [ 0, 'desc' ] ).draw();
         },1000);
@@ -206,7 +206,7 @@ angular.module('caregiversComApp')
 
   .controller('DesignDetailCtrl', function ($rootScope, $scope, $stateParams, $http, $timeout) {
     $scope.design = $rootScope.currentDesign;
-    var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.GDN_ENDPOINT + $stateParams.gdn;
+    var url = CareGiverEnv.server.host_pb + CareGiverEnv.server.api_design.ID_ENDPOINT + $stateParams.gdn;
     $http.get(url).success(function(response){
       if (!response || response.RETCODE !== "S" || !response.DATA){
         $scope.error = response.ERRBUF || response.RETMSG || 'XHR Error';

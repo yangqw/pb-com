@@ -216,7 +216,7 @@
             <thead>
                 <tr role="row">
                     <th width=160>Created</th>
-                    <th width=300>GDN</th>
+                    <th width=300>ID</th>
                     <th width=300>Name</th>
                     <th width=100>Thumbnail</th>
                 </tr>
@@ -227,9 +227,8 @@
                     <div ng-hide=true>{{data.DESIGN_SUM_TBL.CREATED_AT}}</div>
                     {{data.DESIGN_SUM_TBL.CREATED_AT * 1000 | date: 'dd/MMM/yyyy hh:mm a'}}
                   </td>
-                  <!-- <td ng-show="{{data.isNew}}" style="color: red;">{{data.DESIGN_SUM_TBL.GDN}}</td> -->
-                  <td>{{data.DESIGN_SUM_TBL.GDN}}</td>
-                  <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.GDN})">{{data.DESIGN_SUM_TBL.ITEM_NAME}}</a></td>
+                  <td>{{data.DESIGN_SUM_TBL.ID}}</td>
+                  <td><a ui-sref="design.gdn({gdn: data.DESIGN_SUM_TBL.ID})">{{data.DESIGN_SUM_TBL.ITEM_NAME}}</a></td>
                   <td><img style="width: 25px!important; height: 25px!important;" ng-src="{{data.DESIGN_SUM_TBL.THUMBNAIL_75|resUrlParser}}"></td>
                 </tr>
             </tbody>
