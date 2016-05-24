@@ -11,6 +11,7 @@ window.CareGiverEnv = {
       "FORM_CONTENT_TYPE" : 'application/json',
     },
     "api_design":{
+      "CREATE_GDN_ENDPOINT": '/design/creategdn',
       "LIST_ENDPOINT": '/design/List',
       "GDN_ENDPOINT": '/design/GDN?GDN=',
       "ID_ENDPOINT": '/design/ID?ID=',

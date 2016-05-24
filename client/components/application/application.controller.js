@@ -75,6 +75,7 @@
         "register",
         "design",
         "file",
+        "gdn",
         "time-sheet",
         "headless",
         "main"

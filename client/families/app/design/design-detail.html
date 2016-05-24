@@ -33,15 +33,23 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12">
+            <div class="col s8">
               Description
               <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DESCRIPTION" placeholder="Please input description" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Enabled ?
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ENABLED_FLAG" placeholder="Enabled Flag" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Pubish ?
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.PUBLISH_FLAG" placeholder="Publish Flag" ng-disabled="saving">
             </div>
           </div>
           <div class="row">
             <div class="col s2">
               #
-              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEMM_NUMBER" placeholder="number" ng-disabled="saving">
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_NUMBER" placeholder="number" ng-disabled="saving">
             </div>
             <div class="col s2">
               Revision#
@@ -51,13 +59,17 @@
               UOMCode
               <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.UOM_CODE" placeholder="UOM" ng-disabled="saving">
             </div>
-            <div class="col s3">
+            <div class="col s2">
               ConfigureRepeat?
               <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.CONFIGURE_REPEAT" placeholder="Yes or no?" ng-disabled="saving">
             </div>
-            <div class="col s3">
+            <div class="col s2">
               Repeat
               <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.REPEAT" placeholder="Yes or no?" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Quantity
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.QUANTITY" placeholder="Quantity" ng-disabled="saving">
             </div>
           </div>
           <div class="row">
@@ -112,10 +124,33 @@
               Length
               <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.ITEM_LENGTH" placeholder="Length" ng-disabled="saving">
             </div>
-
           </div>
 
           <div class="row">
+            <div class="col s2">
+              Design Studio
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DESIGN_STUDIO" placeholder="Design Studio" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Designer ID
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.DESIGNER_ID" placeholder="Designer ID" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Sculpting File Name
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.SCULPTING_FILE_NAME" placeholder="Sculpting File Name" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Beveling File Name
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.BEVELING_FILE_NAME" placeholder="Beveling File Name" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Repeat X
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.REPEAT_X" placeholder="Repeat X" ng-disabled="saving">
+            </div>
+            <div class="col s2">
+              Repeat Y
+              <input class="form-control" type="text" ng-model="design.DESIGN_SUM_TBL.REPEAT_Y" placeholder="Repeat Y" ng-disabled="saving">
+            </div>
           </div>
 
           <div class="row">
@@ -194,7 +229,7 @@
                     <th width=20>Complexity</th>
                     <th width=20>BackingType</th>
                     <th width=20>HiOrLow</th>
-                    <th width=20>PrecentArea</th>
+                    <th width=20>PercentArea</th>
                     <th width=20>TUFT Method</th>
                     <th width=20>Loom Width</th>
                     <th width=20>Light Match</th>
@@ -224,7 +259,7 @@
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.COMPLEXITY_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.BACKING_TYPE_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.HI_LOW_CODE" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PRECENT_AREA" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PERCENT_AREA" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TUFT_METHOD_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.LOOM_WIDTH_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.LIGHT_MATCH_CODE" ng-disabled="saving"></td>
@@ -232,7 +267,7 @@
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PILE_DENSITY_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PILE_HEIGHT_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.PILE_WEIGHT_CODE" ng-disabled="saving"></td>
-                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TWOD_PRECENTAGE" ng-disabled="saving"></td>
+                    <td><input class="no-margin h-in-rem1" type="text" ng-model="data.TWOD_PERCENTAGE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.YARN_TYPE_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.YARN_COUNT_CODE" ng-disabled="saving"></td>
                     <td><input class="no-margin h-in-rem1" type="text" ng-model="data.VISIBLE_FLAG" ng-disabled="saving"></td>

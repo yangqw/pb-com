@@ -1,0 +1,81 @@
+<div class="container gdn list">
+  <div class="row">
+
+      <div class="col-md-6 col m12 s12">
+        <div class="card" style="background-color: #F5F5F5;">
+          <div class="card-content">
+              <h3 class="card-title center-align">Create GDN</h3>
+              <div class="row">
+                <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+                  <p class="alert alert-success" ng-show="created && !enabled">
+                    A new GDN : {{createdItem.itemNumber}} has been created.
+                    Click <a href="#" ng-click="back2Create()">here</a> to back.
+                    <json-formatter open=1 json="createdItem"></json-formatter>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+                  <p class="alert alert-danger" ng-show="error && creating" ng-bind=error></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-offset-1 col-xs-12">
+                  <form class="form-horizontal" ng-hide="created && !authenticating">
+                    <div class="row">
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">User Name</label>
+                        <input class="form-control" type="text" ng-model="createModel.username" placeholder="User Name" ng-disabled="creating">
+                      </div>
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Login Password</label>
+                        <input class="form-control" type="password" ng-model="createModel.password" placeholder="Login Password" ng-disabled="creating">
+                      </div>
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Item Type Code</label>
+                        <input class="form-control" type="text" ng-model="createModel.itemType" placeholder="Type Code" ng-disabled="creating">
+                      </div>
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Brand Code</label>
+                        <input class="form-control" type="text" ng-model="createModel.brandCode" placeholder="Brand Code" ng-disabled="creating">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Product Code</label>
+                        <input class="form-control" type="text" ng-model="createModel.productCode" placeholder="Product Code" ng-disabled="creating">
+                      </div>
+                      <div class="col s4 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Line of Business Code</label>
+                        <input class="form-control" type="text" ng-model="createModel.lineOfBusinessCode" placeholder="Line of business Code" ng-disabled="creating">
+                      </div>
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Indemnity Code</label>
+                        <input class="form-control" type="text" ng-model="createModel.indemnityCode" placeholder="Indemnity Code" ng-disabled="creating">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col s2 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Name</label>
+                        <input class="form-control" type="text" ng-model="createModel.itemName" placeholder="Product Code" ng-disabled="creating">
+                      </div>
+                      <div class="col s6 push-m2" input-field>
+                        <label class="col-xs-12 col-sm-2 control-label">Description</label>
+                        <input class="form-control" type="text" ng-model="createModel.description" placeholder="Line of business Code" ng-disabled="creating">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <button id="btnCreate" ng-click="create()" type="submit" class="btn btn-primary" ng-disabled="creating" style="display:block; margin: 0 auto;">Create</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
